@@ -1,0 +1,331 @@
+---
+title: "R과 Codex로 의학연구 시작하기"
+subtitle: "2026 여름 디지털 헬스케어 부트캠프"
+author: "김진섭"
+date: "2026.07.20"
+format:
+  revealjs:
+    theme: ../slides_assets/zarathu_theme.scss
+    css:
+      - ../slides_assets/custom-style.css
+      - ../slides_assets/custom-style-fullbg.css
+      - ../slides_assets/custom-xaringan-compat.css
+    title-slide-attributes:
+      data-background-image: ../slides_assets/bg.png
+      data-background-size: cover
+      data-background-opacity: "0.3"
+    footer: "Zarathu Co., Ltd."
+    self-contained: false
+    include-after-body: ../slides_assets/header-inject-fullbg.html
+    chalkboard:
+      buttons: false
+    preview-links: true
+    show-notes: false
+    slide-number: c/t
+    width: 1600
+    height: 900
+execute:
+  echo: false
+  warning: false
+  message: false
+  eval: false
+editor: visual
+---
+
+## 오늘의 목표
+
+::: {.large}
+
+- R 분석 환경을 확인한다.
+- Codex를 터미널에서 실행할 수 있게 준비한다.
+- Mac과 Windows에서 같은 실습 흐름을 맞춘다.
+- API key는 당일 안내에 따라 입력한다.
+- 예시 연구 폴더에서 Codex에게 R 분석 작업을 맡겨 본다.
+
+:::
+
+## AI 코딩 에이전트란?
+
+| 구분 | 일반 챗봇 | Codex |
+|---|---|---|
+| 작업 방식 | 답변을 보고 사람이 복사 | 파일을 읽고 직접 수정 |
+| 실행 위치 | 웹 브라우저 중심 | 터미널, 앱, IDE |
+| 코드 실행 | 사용자가 따로 실행 | 승인 후 명령 실행 |
+| 문맥 | 한 번의 질문 중심 | 프로젝트 전체 문맥 |
+
+::: {.highlight-box}
+핵심은 코드 제안이 아니라 연구 폴더 안에서 파일을 만들고, 실행하고, 고치는 작업 흐름입니다.
+:::
+
+## 의학연구에서 쓸 곳
+
+::: {.large}
+
+- 데이터 읽기와 변수 정리
+- 결측, 이상치, 범주형 변수 처리
+- Table 1, 회귀분석, 생존분석
+- 그림과 표를 논문용 파일로 저장
+- Statistical Analysis 문단 초안 작성
+- 결과 재현용 코드 정리
+
+:::
+
+## 수업에서 쓰는 방식
+
+::: {.highlight-box-blue}
+RStudio는 분석 결과를 확인하는 작업대입니다. Codex는 터미널에서 코드 작성, 실행, 수정, 정리를 맡깁니다.
+:::
+
+```         
+연구 폴더
+├── data/        # 원자료 또는 예시자료
+├── code/        # R 코드
+├── results/     # 표, 그림, 모델 결과
+├── docs/        # 보고서, 슬라이드
+└── AGENTS.md    # Codex에게 반복해서 지킬 규칙
+```
+
+## 설치 전 확인
+
+::: {.large}
+
+- Git이 설치되어 있어야 합니다.
+- R과 RStudio가 설치되어 있으면 좋습니다.
+- 터미널을 열 수 있어야 합니다.
+- 수업용 API key는 당일 안내에 따라 입력합니다.
+
+:::
+
+## Mac: 터미널 열기
+
+::: {.large}
+
+1. `Command + Space`를 누릅니다.
+2. `Terminal`을 검색해 실행합니다.
+3. 실습 폴더로 이동합니다.
+
+:::
+
+```bash
+mkdir -p ~/Documents/bootcamp-r
+cd ~/Documents/bootcamp-r
+```
+
+## Mac: Git과 R 확인
+
+```bash
+git --version
+Rscript --version
+```
+
+::: {.highlight-box-gray}
+`git` 명령이 없다고 나오면 macOS가 Xcode Command Line Tools 설치를 안내합니다. 설치 후 터미널을 다시 열면 됩니다.
+:::
+
+## Mac: Codex 설치
+
+```bash
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
+설치 후 터미널을 닫았다가 다시 열고 확인합니다.
+
+```bash
+codex
+```
+
+## Windows: 권장 경로
+
+::: {.large}
+
+Windows에서는 두 가지 경로가 있습니다.
+
+- Codex 앱: 화면 중심으로 쓰기 쉽습니다.
+- WSL2 터미널: R, Git, 패키지 설치가 수업 실습과 잘 맞습니다.
+
+:::
+
+::: {.highlight-box}
+이번 수업의 터미널 실습은 WSL2 기준으로 맞춥니다.
+:::
+
+## Windows: WSL2 설치
+
+PowerShell을 관리자 권한으로 열고 실행합니다.
+
+```powershell
+wsl --install
+```
+
+설치가 끝나면 재부팅하고 Ubuntu를 엽니다.
+
+```powershell
+wsl
+```
+
+## Windows: WSL2에서 기본 도구 설치
+
+Ubuntu 터미널에서 실행합니다.
+
+```bash
+sudo apt update
+sudo apt install -y git curl r-base
+git --version
+Rscript --version
+```
+
+## Windows: WSL2에서 Codex 설치
+
+```bash
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
+설치 후 Ubuntu 터미널을 다시 열고 실행합니다.
+
+```bash
+codex
+```
+
+## Windows: Codex 앱을 쓰는 경우
+
+PowerShell에서 앱 설치가 필요하면 다음 명령을 사용할 수 있습니다.
+
+```powershell
+winget install Codex -s msstore
+```
+
+::: {.highlight-box-gray}
+앱은 프로젝트를 살펴보고 병렬 작업을 관리하기 편합니다. 터미널 실습은 WSL2에서 맞춥니다.
+:::
+
+## 인증 방식
+
+Codex는 두 가지 방식으로 로그인할 수 있습니다.
+
+| 방식 | 쓰는 경우 |
+|---|---|
+| ChatGPT 로그인 | 개인 또는 기관 ChatGPT 계정으로 실습할 때 |
+| API key | 수업용 key나 OpenAI Platform 과금 계정을 쓸 때 |
+
+```bash
+codex login
+```
+
+## API key 입력
+
+::: {.highlight-box}
+API key는 수업 당일 안내합니다. 슬라이드와 저장소에는 실제 key를 적지 않습니다.
+:::
+
+```bash
+export OPENAI_API_KEY=""
+```
+
+Windows WSL2에서도 같은 방식으로 입력합니다.
+
+```bash
+export OPENAI_API_KEY=""
+```
+
+## R 패키지 설치
+
+R 콘솔이나 RStudio에서 실행합니다.
+
+```r
+install.packages(c(
+  "data.table", "magrittr", "survival", "jskm", "jstable",
+  "flextable", "officer", "rvg", "ggplot2", "openxlsx2"
+))
+```
+
+## 실습 폴더 만들기
+
+```bash
+mkdir -p bootcamp-r/{data,code,results,docs}
+cd bootcamp-r
+```
+
+::: {.highlight-box-blue}
+Codex는 현재 폴더를 기준으로 파일을 읽고 수정합니다. 실습 전에는 반드시 원하는 연구 폴더로 이동합니다.
+:::
+
+## AGENTS.md 만들기
+
+`AGENTS.md`는 Codex가 프로젝트 안에서 계속 참고할 규칙입니다.
+
+```markdown
+# 분석 규칙
+
+- R 코드는 code/ 폴더에 저장한다.
+- 결과물은 results/ 폴더에 저장한다.
+- 표는 xlsx, 그림은 pptx로 저장한다.
+- 분석 결과는 재현 가능하도록 주석을 남긴다.
+```
+
+## 첫 실행
+
+```bash
+codex
+```
+
+처음에는 작은 작업부터 시킵니다.
+
+```text
+이 폴더 구조를 확인하고, R 분석을 위한 기본 파일을 만들어줘.
+```
+
+## 좋은 지시 예시
+
+::: {.large}
+
+나쁜 지시
+
+> 이 데이터 분석해줘.
+
+좋은 지시
+
+> `data/example.csv`를 읽어서 성별, 나이, 치료군별 Table 1을 만들고 `results/table1.xlsx`로 저장해줘. 필요한 R 코드는 `code/table1.R`에 남겨줘.
+
+:::
+
+## 승인과 보안
+
+::: {.large}
+
+- Codex가 파일을 수정하거나 명령을 실행하기 전 내용을 확인합니다.
+- 네트워크 접근이나 폴더 밖 작업은 승인 요청이 뜰 수 있습니다.
+- API key, 개인정보, 원자료는 채팅에 그대로 붙여넣지 않습니다.
+- 결과가 맞는지는 사람이 최종 확인합니다.
+
+:::
+
+## 문제 해결
+
+| 증상 | 확인할 것 |
+|---|---|
+| `codex: command not found` | 터미널 재시작, 설치 경로 확인 |
+| 로그인 실패 | `codex login` 재실행, 브라우저 로그인 확인 |
+| R을 못 찾음 | `Rscript --version` 확인 |
+| Windows에서 느림 | WSL2 홈 폴더 아래에서 작업 |
+| 한글 경로 문제 | 영문 폴더명으로 실습 폴더 생성 |
+
+## 실습 시작
+
+::: {.highlight-box-teal}
+오늘 목표는 Codex가 대신 분석해 주는지 보는 것이 아닙니다. 연구자가 원하는 분석 결과를 정확히 지시하고, 생성된 코드를 확인하고, 재현 가능한 산출물로 남기는 흐름을 익히는 것입니다.
+:::
+
+```text
+colon 예시 데이터로 생존분석을 수행하고,
+Kaplan-Meier plot과 Cox regression table을 저장해줘.
+```
+
+## 참고
+
+::: {.large}
+
+- Codex CLI는 로컬 터미널에서 실행되는 OpenAI 코딩 에이전트입니다.
+- Codex는 ChatGPT 로그인 또는 API key 로그인을 지원합니다.
+- Windows에서는 네이티브 앱, PowerShell, WSL2 경로를 선택할 수 있습니다.
+
+:::

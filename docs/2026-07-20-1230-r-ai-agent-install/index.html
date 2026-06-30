@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.26">
+
+  <meta name="author" content="김진섭">
+  <meta name="dcterms.date" content="2026-07-20">
+  <title>R과 Codex로 의학연구 시작하기</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-1bd6f591a4abecf1a9363260c405cac5.css">
+  <link rel="stylesheet" href="../slides_assets/custom-style.css">
+  <link rel="stylesheet" href="../slides_assets/custom-style-fullbg.css">
+  <link rel="stylesheet" href="../slides_assets/custom-xaringan-compat.css">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="../slides_assets/bg.png" data-background-opacity="0.3" data-background-size="cover" class="quarto-title-block center">
+  <h1 class="title">R과 Codex로 의학연구 시작하기</h1>
+  <p class="subtitle">2026 여름 디지털 헬스케어 부트캠프</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+김진섭 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-07-20</p>
+</section>
+<section id="오늘의-목표" class="slide level2">
+<h2>오늘의 목표</h2>
+<div class="large">
+<ul>
+<li>R 분석 환경을 확인한다.</li>
+<li>Codex를 터미널에서 실행할 수 있게 준비한다.</li>
+<li>Mac과 Windows에서 같은 실습 흐름을 맞춘다.</li>
+<li>API key는 당일 안내에 따라 입력한다.</li>
+<li>예시 연구 폴더에서 Codex에게 R 분석 작업을 맡겨 본다.</li>
+</ul>
+</div>
+</section>
+<section id="ai-코딩-에이전트란" class="slide level2">
+<h2>AI 코딩 에이전트란?</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>구분</th>
+<th>일반 챗봇</th>
+<th>Codex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>작업 방식</td>
+<td>답변을 보고 사람이 복사</td>
+<td>파일을 읽고 직접 수정</td>
+</tr>
+<tr class="even">
+<td>실행 위치</td>
+<td>웹 브라우저 중심</td>
+<td>터미널, 앱, IDE</td>
+</tr>
+<tr class="odd">
+<td>코드 실행</td>
+<td>사용자가 따로 실행</td>
+<td>승인 후 명령 실행</td>
+</tr>
+<tr class="even">
+<td>문맥</td>
+<td>한 번의 질문 중심</td>
+<td>프로젝트 전체 문맥</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-box">
+<p>핵심은 코드 제안이 아니라 연구 폴더 안에서 파일을 만들고, 실행하고, 고치는 작업 흐름입니다.</p>
+</div>
+</section>
+<section id="의학연구에서-쓸-곳" class="slide level2">
+<h2>의학연구에서 쓸 곳</h2>
+<div class="large">
+<ul>
+<li>데이터 읽기와 변수 정리</li>
+<li>결측, 이상치, 범주형 변수 처리</li>
+<li>Table 1, 회귀분석, 생존분석</li>
+<li>그림과 표를 논문용 파일로 저장</li>
+<li>Statistical Analysis 문단 초안 작성</li>
+<li>결과 재현용 코드 정리</li>
+</ul>
+</div>
+</section>
+<section id="수업에서-쓰는-방식" class="slide level2">
+<h2>수업에서 쓰는 방식</h2>
+<div class="highlight-box-blue">
+<p>RStudio는 분석 결과를 확인하는 작업대입니다. Codex는 터미널에서 코드 작성, 실행, 수정, 정리를 맡깁니다.</p>
+</div>
+<pre><code>연구 폴더
+├── data/        # 원자료 또는 예시자료
+├── code/        # R 코드
+├── results/     # 표, 그림, 모델 결과
+├── docs/        # 보고서, 슬라이드
+└── AGENTS.md    # Codex에게 반복해서 지킬 규칙</code></pre>
+</section>
+<section id="설치-전-확인" class="slide level2">
+<h2>설치 전 확인</h2>
+<div class="large">
+<ul>
+<li>Git이 설치되어 있어야 합니다.</li>
+<li>R과 RStudio가 설치되어 있으면 좋습니다.</li>
+<li>터미널을 열 수 있어야 합니다.</li>
+<li>수업용 API key는 당일 안내에 따라 입력합니다.</li>
+</ul>
+</div>
+</section>
+<section id="mac-터미널-열기" class="slide level2">
+<h2>Mac: 터미널 열기</h2>
+<div class="large">
+<ol type="1">
+<li><code>Command + Space</code>를 누릅니다.</li>
+<li><code>Terminal</code>을 검색해 실행합니다.</li>
+<li>실습 폴더로 이동합니다.</li>
+</ol>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/Documents/bootcamp-r</span>
+<span id="cb2-2"><a href=""></a><span class="bu">cd</span> ~/Documents/bootcamp-r</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="mac-git과-r-확인" class="slide level2">
+<h2>Mac: Git과 R 확인</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="fu">git</span> <span class="at">--version</span></span>
+<span id="cb3-2"><a href=""></a><span class="ex">Rscript</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="highlight-box-gray">
+<p><code>git</code> 명령이 없다고 나오면 macOS가 Xcode Command Line Tools 설치를 안내합니다. 설치 후 터미널을 다시 열면 됩니다.</p>
+</div>
+</section>
+<section id="mac-codex-설치" class="slide level2">
+<h2>Mac: Codex 설치</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://chatgpt.com/codex/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>설치 후 터미널을 닫았다가 다시 열고 확인합니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="ex">codex</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="windows-권장-경로" class="slide level2">
+<h2>Windows: 권장 경로</h2>
+<div class="large">
+<p>Windows에서는 두 가지 경로가 있습니다.</p>
+<ul>
+<li>Codex 앱: 화면 중심으로 쓰기 쉽습니다.</li>
+<li>WSL2 터미널: R, Git, 패키지 설치가 수업 실습과 잘 맞습니다.</li>
+</ul>
+</div>
+<div class="highlight-box">
+<p>이번 수업의 터미널 실습은 WSL2 기준으로 맞춥니다.</p>
+</div>
+</section>
+<section id="windows-wsl2-설치" class="slide level2">
+<h2>Windows: WSL2 설치</h2>
+<p>PowerShell을 관리자 권한으로 열고 실행합니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb6-1"><a href=""></a>wsl <span class="op">--</span>install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>설치가 끝나면 재부팅하고 Ubuntu를 엽니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb7-1"><a href=""></a>wsl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="windows-wsl2에서-기본-도구-설치" class="slide level2">
+<h2>Windows: WSL2에서 기본 도구 설치</h2>
+<p>Ubuntu 터미널에서 실행합니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href=""></a><span class="fu">sudo</span> apt update</span>
+<span id="cb8-2"><a href=""></a><span class="fu">sudo</span> apt install <span class="at">-y</span> git curl r-base</span>
+<span id="cb8-3"><a href=""></a><span class="fu">git</span> <span class="at">--version</span></span>
+<span id="cb8-4"><a href=""></a><span class="ex">Rscript</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="windows-wsl2에서-codex-설치" class="slide level2">
+<h2>Windows: WSL2에서 Codex 설치</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href=""></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://chatgpt.com/codex/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>설치 후 Ubuntu 터미널을 다시 열고 실행합니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href=""></a><span class="ex">codex</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="windows-codex-앱을-쓰는-경우" class="slide level2">
+<h2>Windows: Codex 앱을 쓰는 경우</h2>
+<p>PowerShell에서 앱 설치가 필요하면 다음 명령을 사용할 수 있습니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb11-1"><a href=""></a>winget install Codex <span class="op">-</span>s msstore</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="highlight-box-gray">
+<p>앱은 프로젝트를 살펴보고 병렬 작업을 관리하기 편합니다. 터미널 실습은 WSL2에서 맞춥니다.</p>
+</div>
+</section>
+<section id="인증-방식" class="slide level2">
+<h2>인증 방식</h2>
+<p>Codex는 두 가지 방식으로 로그인할 수 있습니다.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>방식</th>
+<th>쓰는 경우</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ChatGPT 로그인</td>
+<td>개인 또는 기관 ChatGPT 계정으로 실습할 때</td>
+</tr>
+<tr class="even">
+<td>API key</td>
+<td>수업용 key나 OpenAI Platform 과금 계정을 쓸 때</td>
+</tr>
+</tbody>
+</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href=""></a><span class="ex">codex</span> login</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="api-key-입력" class="slide level2">
+<h2>API key 입력</h2>
+<div class="highlight-box">
+<p>API key는 수업 당일 안내합니다. 슬라이드와 저장소에는 실제 key를 적지 않습니다.</p>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href=""></a><span class="bu">export</span> <span class="va">OPENAI_API_KEY</span><span class="op">=</span><span class="st">""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Windows WSL2에서도 같은 방식으로 입력합니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href=""></a><span class="bu">export</span> <span class="va">OPENAI_API_KEY</span><span class="op">=</span><span class="st">""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="r-패키지-설치" class="slide level2">
+<h2>R 패키지 설치</h2>
+<p>R 콘솔이나 RStudio에서 실행합니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
+<span id="cb15-2"><a href=""></a>  <span class="st">"data.table"</span>, <span class="st">"magrittr"</span>, <span class="st">"survival"</span>, <span class="st">"jskm"</span>, <span class="st">"jstable"</span>,</span>
+<span id="cb15-3"><a href=""></a>  <span class="st">"flextable"</span>, <span class="st">"officer"</span>, <span class="st">"rvg"</span>, <span class="st">"ggplot2"</span>, <span class="st">"openxlsx2"</span></span>
+<span id="cb15-4"><a href=""></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="실습-폴더-만들기" class="slide level2">
+<h2>실습 폴더 만들기</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href=""></a><span class="fu">mkdir</span> <span class="at">-p</span> bootcamp-r/<span class="dt">{data</span><span class="op">,</span><span class="dt">code</span><span class="op">,</span><span class="dt">results</span><span class="op">,</span><span class="dt">docs}</span></span>
+<span id="cb16-2"><a href=""></a><span class="bu">cd</span> bootcamp-r</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="highlight-box-blue">
+<p>Codex는 현재 폴더를 기준으로 파일을 읽고 수정합니다. 실습 전에는 반드시 원하는 연구 폴더로 이동합니다.</p>
+</div>
+</section>
+<section id="agents.md-만들기" class="slide level2">
+<h2>AGENTS.md 만들기</h2>
+<p><code>AGENTS.md</code>는 Codex가 프로젝트 안에서 계속 참고할 규칙입니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href=""></a><span class="fu"># 분석 규칙</span></span>
+<span id="cb17-2"><a href=""></a></span>
+<span id="cb17-3"><a href=""></a><span class="ss">- </span>R 코드는 code/ 폴더에 저장한다.</span>
+<span id="cb17-4"><a href=""></a><span class="ss">- </span>결과물은 results/ 폴더에 저장한다.</span>
+<span id="cb17-5"><a href=""></a><span class="ss">- </span>표는 xlsx, 그림은 pptx로 저장한다.</span>
+<span id="cb17-6"><a href=""></a><span class="ss">- </span>분석 결과는 재현 가능하도록 주석을 남긴다.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="첫-실행" class="slide level2">
+<h2>첫 실행</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href=""></a><span class="ex">codex</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>처음에는 작은 작업부터 시킵니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb19-1"><a href=""></a>이 폴더 구조를 확인하고, R 분석을 위한 기본 파일을 만들어줘.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="좋은-지시-예시" class="slide level2">
+<h2>좋은 지시 예시</h2>
+<div class="large">
+<p>나쁜 지시</p>
+<blockquote>
+<p>이 데이터 분석해줘.</p>
+</blockquote>
+<p>좋은 지시</p>
+<blockquote>
+<p><code>data/example.csv</code>를 읽어서 성별, 나이, 치료군별 Table 1을 만들고 <code>results/table1.xlsx</code>로 저장해줘. 필요한 R 코드는 <code>code/table1.R</code>에 남겨줘.</p>
+</blockquote>
+</div>
+</section>
+<section id="승인과-보안" class="slide level2">
+<h2>승인과 보안</h2>
+<div class="large">
+<ul>
+<li>Codex가 파일을 수정하거나 명령을 실행하기 전 내용을 확인합니다.</li>
+<li>네트워크 접근이나 폴더 밖 작업은 승인 요청이 뜰 수 있습니다.</li>
+<li>API key, 개인정보, 원자료는 채팅에 그대로 붙여넣지 않습니다.</li>
+<li>결과가 맞는지는 사람이 최종 확인합니다.</li>
+</ul>
+</div>
+</section>
+<section id="문제-해결" class="slide level2">
+<h2>문제 해결</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>증상</th>
+<th>확인할 것</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>codex: command not found</code></td>
+<td>터미널 재시작, 설치 경로 확인</td>
+</tr>
+<tr class="even">
+<td>로그인 실패</td>
+<td><code>codex login</code> 재실행, 브라우저 로그인 확인</td>
+</tr>
+<tr class="odd">
+<td>R을 못 찾음</td>
+<td><code>Rscript --version</code> 확인</td>
+</tr>
+<tr class="even">
+<td>Windows에서 느림</td>
+<td>WSL2 홈 폴더 아래에서 작업</td>
+</tr>
+<tr class="odd">
+<td>한글 경로 문제</td>
+<td>영문 폴더명으로 실습 폴더 생성</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="실습-시작" class="slide level2">
+<h2>실습 시작</h2>
+<div class="highlight-box-teal">
+<p>오늘 목표는 Codex가 대신 분석해 주는지 보는 것이 아닙니다. 연구자가 원하는 분석 결과를 정확히 지시하고, 생성된 코드를 확인하고, 재현 가능한 산출물로 남기는 흐름을 익히는 것입니다.</p>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb20-1"><a href=""></a>colon 예시 데이터로 생존분석을 수행하고,</span>
+<span id="cb20-2"><a href=""></a>Kaplan-Meier plot과 Cox regression table을 저장해줘.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="참고" class="slide level2">
+<h2>참고</h2>
+<div class="large">
+<ul>
+<li>Codex CLI는 로컬 터미널에서 실행되는 OpenAI 코딩 에이전트입니다.</li>
+<li>Codex는 ChatGPT 로그인 또는 API key 로그인을 지원합니다.</li>
+<li>Windows에서는 네이티브 앱, PowerShell, WSL2 경로를 선택할 수 있습니다.</li>
+</ul>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>Zarathu Co., Ltd.</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <style>
+    .slide-master-header {
+      position: absolute;
+      top: 2px;
+      right: 0px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .smh-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72em;
+      font-weight: 800;
+      color: #2A3D21;
+      letter-spacing: 0.1em;
+    }
+    .smh-logo-row img {
+      height: 40px;
+      width: auto;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 999px;
+    }
+    .smh-global-footer {
+      display: block;
+      position: fixed;
+      bottom: 21px;
+      right: 91px;
+      z-index: 2;
+      pointer-events: none;
+      font-size: 0.45em;
+      font-weight: 500;
+      color: #999;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    </style>
+    <script>
+    window.__zarathu_fullbg__ = true;
+    Reveal.on('ready', function() {
+      var assetCss = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+        .map(function(link) { return link.getAttribute('href') || ''; })
+        .find(function(href) { return href.indexOf('slides_assets/custom-style.css') !== -1; });
+      var assetBase = assetCss ? assetCss.replace(/custom-style\.css.*$/, '') : 'slides_assets/';
+      var slides = document.querySelectorAll('.reveal .slides > section');
+      slides.forEach(function(slide, index) {
+        if (index === 0) return;
+        if (slide.getAttribute('data-background-color') === '#2A3D21') return;
+        var header = document.createElement('div');
+        header.className = 'slide-master-header';
+        header.innerHTML = '<div class="smh-logo-row"><img src="' + assetBase + 'Zarathu%20Circle%20Clipping%20Mask2.png" alt="">ZARATHU</div>';
+        slide.insertBefore(header, slide.firstChild);
+      });
+
+      var revealEl = document.querySelector('.reveal');
+      var globalFooter = document.createElement('div');
+      globalFooter.className = 'smh-global-footer';
+      globalFooter.textContent = 'Medical Research Supporters';
+      revealEl.appendChild(globalFooter);
+
+      function applyFullBg() {
+        var sections = Array.from(document.querySelectorAll('.reveal .slides > section'));
+        var backgrounds = Array.from(document.querySelectorAll('.reveal .backgrounds > .slide-background'));
+        sections.forEach(function(slide, index) {
+          var bg = backgrounds[index];
+          if (!bg) return;
+          if (index === 0) return;
+          if (slide.classList.contains('thankyou-slide')) return;
+          if (slide.getAttribute('data-background-color') === '#2A3D21') return;
+          bg.style.backgroundImage = "url('" + assetBase + "bg.png')";
+          bg.style.backgroundSize = 'cover';
+          bg.style.backgroundPosition = 'center';
+          bg.style.backgroundRepeat = 'no-repeat';
+          bg.style.opacity = '0.12';
+        });
+      }
+
+      var footerEl = document.querySelector('.reveal .footer');
+      var slideNumEl = document.querySelector('.reveal .slide-number');
+      function updateFooterVisibility() {
+        var indices = Reveal.getIndices();
+        var isFirst = (indices.h === 0 && (indices.v === 0 || indices.v === undefined));
+        var hide = isFirst;
+        if (footerEl) footerEl.style.display = hide ? 'none' : '';
+        if (slideNumEl) slideNumEl.style.display = hide ? 'none' : '';
+        globalFooter.style.display = hide ? 'none' : '';
+      }
+      applyFullBg();
+      updateFooterVisibility();
+      Reveal.on('slidechanged', updateFooterVisibility);
+    });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

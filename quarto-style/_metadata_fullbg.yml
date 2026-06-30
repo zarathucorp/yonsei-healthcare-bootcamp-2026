@@ -1,0 +1,21 @@
+format:
+  revealjs:
+    theme: slides_assets/zarathu_theme.scss
+    css:
+      - slides_assets/custom-style.css
+      - slides_assets/custom-style-fullbg.css
+    title-slide-attributes:
+      data-background-image: slides_assets/bg.png
+      data-background-size: cover
+      data-background-opacity: "0.3"
+    footer: "Zarathu Co., Ltd."
+    self-contained: false
+    include-after-body: slides_assets/header-inject-fullbg.html
+    chalkboard:
+      buttons: false
+    preview-links: true
+    show-notes: false
+    slide-number: c/t
+    width: 1600
+    height: 900
+editor: visual

@@ -1,0 +1,11 @@
+# Quarto render caches
+/.quarto/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.Rproj.user/
+*.Rproj
+
+# Logs
+*.log

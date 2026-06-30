@@ -1,0 +1,153 @@
+---
+title: "보고서 제목"
+subtitle: "부제"
+author: "Zarathu Co., Ltd."
+date: today
+date-format: "YYYY.MM.DD"
+format:
+  revealjs:
+    theme: slides_assets/zarathu_theme.scss
+    css:
+      - slides_assets/custom-style.css
+      - slides_assets/custom-style-fullbg.css
+    title-slide-attributes:
+      data-background-image: slides_assets/bg.png
+      data-background-size: cover
+      data-background-opacity: "0.3"
+    footer: "Zarathu Co., Ltd."
+    self-contained: false
+    include-after-body: slides_assets/header-inject-fullbg.html
+    chalkboard:
+      buttons: false
+    preview-links: true
+    show-notes: false
+    slide-number: c/t
+    width: 1600
+    height: 900
+editor: visual
+---
+
+## 목차
+
+::: {style="padding: 10px 40px;"}
+
+::: {.highlight-box}
+**01. 연구 배경** — 배경과 문제 정의
+:::
+
+::: {.highlight-box-blue}
+**02. 핵심 분석 구조** — 설계 논리와 방법
+:::
+
+::: {.highlight-box-teal}
+**03. 주요 결과** — 표, 수치, 비교
+:::
+
+::: {.highlight-box-purple}
+**04. 결론** — 최종안과 운영 원칙
+:::
+
+:::
+
+## 연구 배경 {.intro-slide}
+
+::: spacer-xs
+:::
+
+::: accent-box
+이 슬라이드는 공용 템플릿의 full-background 예시입니다.  
+슬라이드 1의 배경 이미지를 모든 슬라이드에 은은하게 깔고, 기존 box/header/footer 구조는 그대로 유지합니다.
+:::
+
+::: columns
+::: {.column width="58%"}
+[**핵심 설명**]{.section-title}
+
+-   이 영역에는 배경 설명이나 문제 정의를 넣습니다.
+-   일반 텍스트, 목록, 간단한 논리 전개를 가장 자주 사용합니다.
+-   full-background 버전은 `slides_assets/custom-style-fullbg.css`가 추가로 적용됩니다.
+:::
+
+::: {.column width="42%"}
+::: highlight-box-gray
+**참고**
+
+표지 배경, 전체 배경 이미지, 상단 로고, 하단 고정 문구는 템플릿 자산에서 공통 제어됩니다.
+:::
+:::
+:::
+
+## 핵심 구조
+
+::: columns
+::: {.column width="50%"}
+::: {.summary-grid-4}
+::: {.summary-item .si-green}
+**단계 1**
+
+배경 정리
+:::
+
+::: {.summary-item .si-blue}
+**단계 2**
+
+설계 정의
+:::
+
+::: {.summary-item .si-teal}
+**단계 3**
+
+표본수 산정
+:::
+
+::: {.summary-item .si-purple}
+**단계 4**
+
+최종안 도출
+:::
+:::
+:::
+
+::: {.column width="50%"}
+::: key-message-bar
+**핵심 메시지**
+
+이 템플릿은 슬라이드 1의 배경 이미지를 전체 슬라이드에 얇게 적용한 variant입니다.
+:::
+:::
+:::
+
+## 최종 결론 {.conclusion-slide}
+
+::: spacer-xs
+:::
+
+::: {.conclusion-layout}
+::: {.conclusion-hero}
+<div class="conclusion-kicker">최종안</div>
+<div class="conclusion-big">핵심 수치</div>
+<div class="conclusion-formula">필요 시 식이나 구조를 한 줄로 표시</div>
+
+결론 슬라이드는 왼쪽 큰 선언부와 오른쪽 근거 카드 구조를 기본 예시로 제공합니다.
+:::
+
+::: {.conclusion-sidegrid}
+::: {.conclusion-card .cc-gray}
+**근거 1**
+
+핵심 배경 또는 최소 기준
+:::
+
+::: {.conclusion-card .cc-purple}
+**근거 2**
+
+해석상 보존해야 하는 요소
+:::
+
+::: {.conclusion-card .cc-green}
+**근거 3**
+
+운영 또는 적용 원칙
+:::
+:::
+:::

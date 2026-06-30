@@ -1,0 +1,172 @@
+---
+title: "실습: 예시데이터 및 R/AI agent 이용하여 데이터 정리, 분석, 테이블/그림, Statistical Analysis, docx 문서 만들기"
+subtitle: "2026 여름 디지털 헬스케어 부트캠프"
+author: "김진섭"
+date: "2026.07.20"
+format:
+  revealjs:
+    theme: ../slides_assets/zarathu_theme.scss
+    css:
+      - ../slides_assets/custom-style.css
+      - ../slides_assets/custom-style-fullbg.css
+      - ../slides_assets/custom-xaringan-compat.css
+    title-slide-attributes:
+      data-background-image: ../slides_assets/bg.png
+      data-background-size: cover
+      data-background-opacity: "0.3"
+    footer: "Zarathu Co., Ltd."
+    self-contained: false
+    include-after-body: ../slides_assets/header-inject-fullbg.html
+    chalkboard:
+      buttons: false
+    preview-links: true
+    show-notes: false
+    slide-number: c/t
+    width: 1600
+    height: 900
+execute:
+  echo: false
+  warning: false
+  message: false
+  eval: false
+editor: visual
+---
+
+## 오늘의 목표
+
+::: {.large}
+- 이 차시에서 다룰 핵심 질문을 정리합니다.
+- 필요한 개념과 실습 흐름을 한눈에 잡습니다.
+- 수업 후 다시 실행할 수 있도록 코드와 결과물을 남깁니다.
+:::
+
+::: {.highlight-box}
+이 파일은 `실습: 예시데이터 및 R/AI agent 이용하여 데이터 정리, 분석, 테이블/그림, Statistical Analysis, docx 문서 만들기` 강의의 시작 템플릿입니다. 실제 강의 내용에 맞춰 슬라이드 제목, 표, 그림, 코드를 채워 넣으면 됩니다.
+:::
+
+## 강의 흐름
+
+::: {style="padding: 10px 40px;"}
+
+::: {.highlight-box}
+**01. 배경** — 왜 이 주제가 필요한지 정리
+:::
+
+::: {.highlight-box-blue}
+**02. 핵심 개념** — 수업에서 꼭 잡아야 할 용어와 구조
+:::
+
+::: {.highlight-box-teal}
+**03. 실습** — 예시 데이터, 코드, 결과 확인
+:::
+
+::: {.highlight-box-purple}
+**04. 정리** — 수업 후 남겨야 할 파일과 다음 단계
+:::
+
+:::
+
+## 핵심 개념 {.intro-slide}
+
+::: spacer-xs
+:::
+
+::: accent-box
+이곳에 차시의 핵심 메시지를 한 문장으로 적습니다.
+:::
+
+::: columns
+::: {.column width="58%"}
+[**내용 메모**]{.section-title}
+
+- 배경 설명이나 문제 정의를 넣습니다.
+- 수업 중 강조할 개념을 짧은 문장으로 정리합니다.
+- 표나 그림이 필요하면 다음 슬라이드로 분리합니다.
+:::
+
+::: {.column width="42%"}
+::: highlight-box-gray
+**수업 정보**
+
+- 날짜: 2026.07.20
+- 시간: 15:30 ~ 16:00
+- 주제: 실습: 예시데이터 및 R/AI agent 이용하여 데이터 정리, 분석, 테이블/그림, Statistical Analysis, docx 문서 만들기
+- 강사: 김진섭
+:::
+:::
+:::
+
+## 실습 자리
+
+::: columns
+::: {.column width="50%"}
+::: {.summary-grid-4}
+::: {.summary-item .si-green}
+**자료**
+
+데이터 위치와 파일명
+:::
+
+::: {.summary-item .si-blue}
+**코드**
+
+실행할 R 스크립트
+:::
+
+::: {.summary-item .si-teal}
+**결과**
+
+표, 그림, 모델 결과
+:::
+
+::: {.summary-item .si-purple}
+**문서**
+
+슬라이드, 보고서, 제출물
+:::
+:::
+:::
+
+::: {.column width="50%"}
+::: key-message-bar
+**실습 메모**
+
+수업 중 실행한 코드는 `code/` 폴더에 남깁니다. 결과 파일은 재현할 수 있게 파일명과 생성 과정을 함께 기록합니다.
+:::
+:::
+:::
+
+## 정리 {.conclusion-slide}
+
+::: spacer-xs
+:::
+
+::: {.conclusion-layout}
+::: {.conclusion-hero}
+<div class="conclusion-kicker">마무리</div>
+<div class="conclusion-big">핵심 한 줄</div>
+<div class="conclusion-formula">수업이 끝난 뒤 남겨야 할 결과물을 적습니다.</div>
+
+다음 차시로 넘어가기 전에 코드, 결과 파일, 슬라이드 링크가 모두 열리는지 확인합니다.
+:::
+
+::: {.conclusion-sidegrid}
+::: {.conclusion-card .cc-gray}
+**확인 1**
+
+실습 코드가 위에서 아래로 실행되는가
+:::
+
+::: {.conclusion-card .cc-purple}
+**확인 2**
+
+표와 그림 파일이 저장되어 있는가
+:::
+
+::: {.conclusion-card .cc-green}
+**확인 3**
+
+README와 수강생용 목차 링크가 맞는가
+:::
+:::
+:::
