@@ -1,17 +1,14 @@
 # 2026 여름 디지털 헬스케어 부트캠프
-# 차시: 가능도(likelihood), 정규분포, RCT에 필요한 샘플수 계산, 생존분석심화(비례위험, 층화/혼합, Landmark) -> 심화는 뺌
+# 차시: 가능도와 정규분포
 # 날짜: 2026.07.21 10:30 ~ 11:30
 # 강사: 김진섭
 
-# 이 파일은 수업 중 실행할 R 코드를 모아 두는 시작 템플릿입니다.
-# 필요한 패키지와 데이터 경로는 차시 내용에 맞춰 바꿉니다.
+# 이 파일은 수업 중 가능도와 정규분포 예제를 실행할 때 쓰는 시작 템플릿입니다.
 
 packages <- c(
   "tidyverse",
-  "readxl",
-  "janitor",
-  "gtsummary",
-  "writexl"
+  "ggplot2",
+  "gridExtra"
 )
 
 missing_packages <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
@@ -22,17 +19,46 @@ if (length(missing_packages) > 0) {
 
 invisible(lapply(packages, library, character.only = TRUE))
 
-dir.create("results", showWarnings = FALSE)
 dir.create("figures", showWarnings = FALSE)
 
-# 1. 데이터 불러오기 ---------------------------------------------------------
-# data <- readr::read_csv("data/example.csv")
+# 1. 이산사건: 동전 10번 던지기 ---------------------------------------------
+# n <- 0:10
+# coin_prob <- tibble(
+#   heads = n,
+#   probability = dbinom(n, size = 10, prob = 0.5)
+# )
 
-# 2. 데이터 정리 -------------------------------------------------------------
-# analysis_data <- data |> janitor::clean_names()
+# ggplot(coin_prob, aes(heads, probability)) +
+#   geom_col(width = 0.7) +
+#   scale_x_continuous(breaks = 0:10) +
+#   labs(x = "앞면 횟수", y = "확률")
 
-# 3. 분석 -------------------------------------------------------------------
-# result <- analysis_data |> dplyr::count()
+# 2. 연속사건: 표준정규분포 PDF ---------------------------------------------
+# z <- seq(-4, 4, length.out = 200)
+# normal_density <- tibble(z = z, density = dnorm(z))
 
-# 4. 결과 저장 ---------------------------------------------------------------
-# writexl::write_xlsx(list(result = result), "results/2026-07-21-1030-likelihood-normal-survival-result.xlsx")
+# ggplot(normal_density, aes(z, density)) +
+#   geom_line() +
+#   labs(x = "z", y = "Density")
+
+# 3. MLE 예시: 일그러진 동전 -------------------------------------------------
+# p <- seq(0.2, 0.6, by = 0.001)
+# likelihood <- choose(1000, 400) * p^400 * (1 - p)^600
+# mle_coin <- tibble(p = p, likelihood = likelihood)
+
+# ggplot(mle_coin, aes(p, likelihood)) +
+#   geom_line() +
+#   labs(x = "p", y = "L")
+
+# 4. 중심극한정리 예시 --------------------------------------------------------
+# sample_mean <- function(n = 30) {
+#   mean(rbinom(n, size = 1, prob = 0.4))
+# }
+
+# set.seed(20260721)
+# means <- tibble(mean_value = replicate(10000, sample_mean(30)))
+
+# ggplot(means, aes(mean_value)) +
+#   geom_histogram(aes(y = after_stat(density)), bins = 40) +
+#   geom_density() +
+#   labs(x = "표본평균", y = "Density")

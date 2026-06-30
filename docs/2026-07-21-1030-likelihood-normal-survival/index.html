@@ -11,7 +11,7 @@
 
   <meta name="author" content="김진섭">
   <meta name="dcterms.date" content="2026-07-21">
-  <title>가능도(likelihood), 정규분포, RCT에 필요한 샘플수 계산, 생존분석심화(비례위험, 층화/혼합, Landmark) -&gt; 심화는 뺌</title>
+  <title>가능도와 정규분포</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -133,8 +133,8 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../slides_assets/bg.png" data-background-opacity="0.3" data-background-size="cover" class="quarto-title-block center">
-  <h1 class="title">가능도(likelihood), 정규분포, RCT에 필요한 샘플수 계산, 생존분석심화(비례위험, 층화/혼합, Landmark) -&gt; 심화는 뺌</h1>
-  <p class="subtitle">2026 여름 디지털 헬스케어 부트캠프</p>
+  <h1 class="title">가능도와 정규분포</h1>
+  <p class="subtitle">기본반 2일차 2교시 | 통계이론2</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -150,87 +150,563 @@
 <h2>오늘의 목표</h2>
 <div class="large">
 <ul>
-<li>이 차시에서 다룰 핵심 질문을 정리합니다.</li>
-<li>필요한 개념과 실습 흐름을 한눈에 잡습니다.</li>
-<li>수업 후 다시 실행할 수 있도록 코드와 결과물을 남깁니다.</li>
+<li><strong>가능도(Likelihood)</strong>를 확률(Probability)과 비교해 직관적으로 이해합니다.</li>
+<li><strong>최대가능도 추정량(Maximum Likelihood Estimator, MLE)</strong>이 왜 자연스러운 추정 방법인지 봅니다.</li>
+<li><strong>정규분포(Normal distribution)</strong>가 왜 통계에서 기본 분포처럼 쓰이는지 세 가지 관점으로 정리합니다.</li>
+<li>시행 횟수와 표본 개수가 커질수록 표본평균이 어떻게 움직이는지 확인합니다.</li>
 </ul>
 </div>
-<div class="highlight-box">
-<p>이 파일은 <code>가능도(likelihood), 정규분포, RCT에 필요한 샘플수 계산, 생존분석심화(비례위험, 층화/혼합, Landmark) -&gt; 심화는 뺌</code> 강의의 시작 템플릿입니다. 실제 강의 내용에 맞춰 슬라이드 제목, 표, 그림, 코드를 채워 넣으면 됩니다.</p>
+<div class="highlight-box-gray">
+<p>이 자료는 이번 차시의 앞부분인 <strong>가능도</strong>와 <strong>정규분포</strong>를 다룹니다. 샘플수 계산과 생존분석 심화는 별도 자료에서 이어집니다.</p>
 </div>
 </section>
 <section id="강의-흐름" class="slide level2">
 <h2>강의 흐름</h2>
 <div style="padding: 10px 40px;">
 <div class="highlight-box">
-<p><strong>01. 배경</strong> — 왜 이 주제가 필요한지 정리</p>
+<p><strong>01. 가능도</strong> — 이산사건과 연속사건에서 확률과 가능도의 차이</p>
 </div>
 <div class="highlight-box-blue">
-<p><strong>02. 핵심 개념</strong> — 수업에서 꼭 잡아야 할 용어와 구조</p>
+<p><strong>02. 최대가능도 추정</strong> — 관찰된 자료를 가장 그럴듯하게 만드는 값 찾기</p>
 </div>
 <div class="highlight-box-teal">
-<p><strong>03. 실습</strong> — 예시 데이터, 코드, 결과 확인</p>
+<p><strong>03. 정규분포</strong> — 이항분포 근사, 오차의 법칙, 중심극한정리</p>
 </div>
 <div class="highlight-box-purple">
-<p><strong>04. 정리</strong> — 수업 후 남겨야 할 파일과 다음 단계</p>
+<p><strong>04. 정리</strong> — PDF, MLE, 표본평균 분포를 한 줄로 연결</p>
 </div>
 </div>
 </section>
-<section id="핵심-개념" class="slide level2 intro-slide">
-<h2>핵심 개념</h2>
+<section id="핵심-메시지" class="slide level2 intro-slide">
+<h2>핵심 메시지</h2>
 <div class="spacer-xs">
 
 </div>
 <div class="accent-box">
-<p>이곳에 차시의 핵심 메시지를 한 문장으로 적습니다.</p>
+<p>셀 수 있는 사건에서는 <strong>확률 = 가능도</strong>로 보아도 충분합니다. 셀 수 없는 연속사건에서는 특정 값이 나올 확률은 0이므로, <strong>PDF값</strong>으로 가능성을 비교합니다.</p>
 </div>
-<div class="columns">
-<div class="column" style="width:58%;">
-<p><span class="section-title"><strong>내용 메모</strong></span></p>
-<ul>
-<li>배경 설명이나 문제 정의를 넣습니다.</li>
-<li>수업 중 강조할 개념을 짧은 문장으로 정리합니다.</li>
-<li>표나 그림이 필요하면 다음 슬라이드로 분리합니다.</li>
-</ul>
-</div><div class="column" style="width:42%;">
-<div class="highlight-box-gray">
-<p><strong>수업 정보</strong></p>
-<ul>
-<li>날짜: 2026.07.21</li>
-<li>시간: 10:30 ~ 11:30</li>
-<li>주제: 통계이론2</li>
-<li>강사: 김진섭</li>
-</ul>
-</div>
-</div></div>
-</section>
-<section id="실습-자리" class="slide level2">
-<h2>실습 자리</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="summary-grid-4">
+<p><span class="section-title"><strong>가능도</strong></span></p>
+<ul>
+<li>관찰된 자료가 주어졌을 때, 어떤 모수가 더 그럴듯한지 비교합니다.</li>
+<li>가능도를 최대로 만드는 모수가 <strong>MLE</strong>입니다.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="section-title"><strong>정규분포</strong></span></p>
+<ul>
+<li>많은 이산분포를 큰 표본에서 정규분포로 근사할 수 있습니다.</li>
+<li>표본평균은 표본 수가 커질수록 <span class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>에 가까워집니다.</li>
+</ul>
+</div></div>
+</section>
+<section id="가능도-한-줄-요약" class="slide level2">
+<h2>가능도 한 줄 요약</h2>
+<div class="center">
+<p><strong>기억해 둡시다.</strong></p>
+<blockquote>
+<p>셀 수 있는 사건: <strong>확률 = 가능도</strong></p>
+</blockquote>
+<blockquote>
+<p>셀 수 없는 사건 중 특정 사건이 일어날 확률: <strong>0</strong></p>
+</blockquote>
+<blockquote>
+<p>셀 수 없는 사건: <strong>PDF값 = 가능도</strong></p>
+</blockquote>
+<blockquote>
+<p>진실을 찾는 방법: <strong>최대가능도 추정량(Maximum Likelihood Estimator, MLE)</strong></p>
+</blockquote>
+</div>
+</section>
+<section id="이산사건의-확률-주사위" class="slide level2">
+<h2>이산사건의 확률: 주사위</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<div class="large">
+<ul>
+<li>가능한 숫자는 1, 2, 3, 4, 5, 6입니다.</li>
+<li>각 숫자가 나올 확률은 <span class="math inline">\(\frac{1}{6}\)</span>로 같습니다.</li>
+<li>가능한 사건의 개수를 셀 수 있으므로 각 사건의 확률을 바로 계산할 수 있습니다.</li>
+</ul>
+</div>
+</div><div class="column" style="width:58%;">
+<p><img data-src="figures/likelihood-01-dice.png" style="width:100.0%" alt="주사위 눈별 확률 막대그래프"></p>
+</div></div>
+</section>
+<section id="이산사건의-확률-동전" class="slide level2">
+<h2>이산사건의 확률: 동전</h2>
+<div class="columns">
+<div class="column" style="width:44%;">
+<div class="large">
+<ul>
+<li>동전을 10번 던질 때 앞면이 나오는 횟수를 <span class="math inline">\(n\)</span>이라고 둡니다.</li>
+<li>확률은 다음과 같습니다.</li>
+</ul>
+<p><span class="math display">\[
+P(n)=\binom{10}{n}\left(\frac{1}{2}\right)^n\left(\frac{1}{2}\right)^{10-n}
+=\frac{\binom{10}{n}}{1024}
+\]</span></p>
+</div>
+</div><div class="column" style="width:56%;">
+<p><img data-src="figures/likelihood-02-coin.png" style="width:100.0%" alt="동전 10번 던지기에서 앞면 횟수별 확률 막대그래프"></p>
+</div></div>
+</section>
+<section id="이산사건에서는-확률-가능도" class="slide level2">
+<h2>이산사건에서는 확률 = 가능도</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<div class="large">
+<ul>
+<li>사건의 전체 개수를 셀 수 있습니다.</li>
+<li>각 사건의 확률을 계산할 수 있고, 전체 확률의 합은 1입니다.</li>
+<li>이런 상황에서는 <strong>확률을 가능도처럼</strong> 해석해도 직관에 어긋나지 않습니다.</li>
+</ul>
+</div>
+</div><div class="column" style="width:58%;">
+<p><img data-src="figures/likelihood-03-discrete.png" style="width:100.0%" alt="주사위 던지기와 동전 10번 던지기의 이산 확률분포 비교"></p>
+</div></div>
+</section>
+<section id="연속사건의-확률-실수-뽑기" class="slide level2">
+<h2>연속사건의 확률: 실수 뽑기</h2>
+<div class="large">
+<ul>
+<li>1부터 6 사이의 실수를 무작위로 하나 뽑는다고 생각합니다.</li>
+<li>1과 6 사이에는 무한히 많은 실수가 있습니다.</li>
+<li>정확히 5가 뽑힐 확률은 <span class="math inline">\(\frac{1}{\infty}=0\)</span>입니다.</li>
+<li>정확히 4가 뽑힐 확률도 0입니다.</li>
+<li>연속사건에서는 <strong>특정 값 하나의 확률이 모두 0</strong>입니다.</li>
+</ul>
+</div>
+<div class="highlight-box">
+<p>그래서 연속사건은 특정 값이 아니라 <strong>구간에 속할 확률</strong>을 봅니다.</p>
+</div>
+</section>
+<section id="연속사건의-확률-특정-구간" class="slide level2">
+<h2>연속사건의 확률: 특정 구간</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="large">
+<ul>
+<li>5가 정확히 뽑힐 확률은 0입니다.</li>
+<li>하지만 4부터 5 사이 값이 뽑힐 확률은 <span class="math inline">\(\frac{5-4}{6-1}=0.2\)</span>입니다.</li>
+<li>연속사건에서는 <strong>확률밀도함수(Probability Density Function, PDF)</strong>를 씁니다.</li>
+<li>PDF 그래프의 특정 구간 넓이가 그 구간에 속할 확률입니다.</li>
+</ul>
+</div>
+</div><div class="column" style="width:52%;">
+<p><img data-src="figures/likelihood-04-uniform-pdf.png" style="width:100.0%" alt="1부터 6 사이 균등분포에서 2부터 4 사이 구간의 확률"></p>
+</div></div>
+</section>
+<section id="pdf-예시-표준정규분포" class="slide level2">
+<h2>PDF 예시: 표준정규분포</h2>
+<div class="columns">
+<div class="column" style="width:43%;">
+<div class="large">
+<ul>
+<li>평균 0, 분산 1인 정규분포를 <strong>표준정규분포</strong>라고 합니다.</li>
+<li>PDF는 다음과 같습니다.</li>
+</ul>
+<p><span class="math display">\[
+f(z)=\frac{1}{\sqrt{2\pi}}e^{-z^2/2}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(z\)</span>가 특정 값일 확률은 모두 0입니다.</li>
+<li><span class="math inline">\(-1.96\)</span>부터 <span class="math inline">\(1.96\)</span> 사이일 확률은 약 0.95입니다.</li>
+</ul>
+</div>
+</div><div class="column" style="width:57%;">
+<p><img data-src="figures/likelihood-05-standard-normal-95.png" style="width:100.0%" alt="표준정규분포에서 -1.96부터 1.96까지 95퍼센트 영역"></p>
+</div></div>
+</section>
+<section id="특정-사건의-가능성은-어떻게-비교할까" class="slide level2">
+<h2>특정 사건의 가능성은 어떻게 비교할까</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="large">
+<ul>
+<li><span class="math inline">\(z\)</span>가 -2, 0, 999처럼 특정 숫자일 확률은 모두 0입니다.</li>
+<li>그렇다고 모든 값이 똑같이 그럴듯한 것은 아닙니다.</li>
+<li>표준정규분포에서는 0 근처가 가장 그럴듯하고, 0에서 멀어질수록 가능성이 낮아집니다.</li>
+</ul>
+</div>
+<div class="highlight-box-blue">
+<p>연속사건에서 확률만으로는 특정 값들의 가능성 차이를 표현할 수 없습니다.</p>
+</div>
+</div><div class="column" style="width:55%;">
+<p><img data-src="figures/likelihood-06-standard-normal-density.png" style="width:100.0%" alt="표준정규분포의 밀도함수와 0 위치"></p>
+</div></div>
+</section>
+<section id="연속사건에서-가능도" class="slide level2">
+<h2>연속사건에서 가능도</h2>
+<div class="large">
+<p>연속사건에서는 PDF의 <span class="math inline">\(y\)</span>값을 가능도로 봅니다.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="highlight-box">
+<p><strong>이산사건</strong></p>
+<p>확률 = 가능도</p>
+</div>
+<p><img data-src="figures/likelihood-07-discrete-comparison.png" style="width:100.0%" alt="이산사건에서 확률과 가능도 비교"></p>
+</div><div class="column" style="width:50%;">
+<div class="highlight-box-blue">
+<p><strong>연속사건</strong></p>
+<p>확률 <span class="math inline">\(\neq\)</span> 가능도, PDF값 = 가능도</p>
+</div>
+<p><img data-src="figures/likelihood-08-continuous-comparison.png" style="width:100.0%" alt="연속사건에서 구간 확률과 PDF값 비교"></p>
+</div></div>
+</section>
+<section id="사건이-여러-번-일어난다면" class="slide level2">
+<h2>사건이 여러 번 일어난다면</h2>
+<div class="large">
+<ul>
+<li>주사위를 3번 던져 1, 3, 6이 나올 확률은 다음과 같습니다.</li>
+</ul>
+<p><span class="math display">\[
+\frac{1}{6}\times\frac{1}{6}\times\frac{1}{6}=\frac{1}{216}
+\]</span></p>
+<ul>
+<li>동전을 10번 던져 앞면 개수를 세는 일을 3회 시행해 앞면이 2, 5, 7번 나올 확률은 다음과 같습니다.</li>
+</ul>
+<p><span class="math display">\[
+0.044 \times 0.246 \times 0.117 \approx 0.001
+\]</span></p>
+<ul>
+<li>이산사건에서는 확률과 가능도를 같은 방식으로 곱해 비교할 수 있습니다.</li>
+</ul>
+</div>
+</section>
+<section id="연속사건이-여러-번-일어난다면" class="slide level2">
+<h2>연속사건이 여러 번 일어난다면</h2>
+<div class="large">
+<ul>
+<li>표준정규분포에서 3번 뽑을 때 -1, 0, 1이 나올 확률은 0입니다.</li>
+<li>각 특정 값이 정확히 나올 확률이 0이기 때문입니다.</li>
+<li>하지만 가능도는 PDF값으로 비교할 수 있습니다.</li>
+</ul>
+<p><span class="math display">\[
+f(-1)\times f(0)\times f(1) \approx 0.24 \times 0.40 \times 0.24 \approx 0.02
+\]</span></p>
+<ul>
+<li>연속사건에서 가능도와 확률은 다릅니다.</li>
+</ul>
+</div>
+</section>
+<section>
+<section id="최대가능도-추정량mle" class="title-slide slide level1 center">
+<h1>최대가능도 추정량(MLE)</h1>
+
+</section>
+<section id="이산사건-모양이-일그러진-동전" class="slide level2">
+<h2>이산사건: 모양이 일그러진 동전</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="large">
+<ul>
+<li>앞면이 나올 확률이 <span class="math inline">\(p \neq 0.5\)</span>인 동전이 있다고 합시다.</li>
+<li>1000번 던졌더니 앞면이 400번 나왔습니다.</li>
+<li>이 사건의 가능도는 다음과 같습니다.</li>
+</ul>
+<p><span class="math display">\[
+L=\binom{1000}{400}p^{400}(1-p)^{600}
+\]</span></p>
+<ul>
+<li>이 가능도 <span class="math inline">\(L\)</span>을 최대로 만드는 값은 <span class="math inline">\(p=0.4\)</span>입니다.</li>
+</ul>
+</div>
+</div><div class="column" style="width:55%;">
+<p><img data-src="figures/likelihood-09-coin-mle.png" style="width:100.0%" alt="동전 앞면 확률 p에 따른 가능도 곡선"></p>
+</div></div>
+</section>
+<section id="연속사건-키" class="slide level2">
+<h2>연속사건: 키</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="large">
+<ul>
+<li>키를 5번 측정했더니 178, 179, 180, 181, 182cm가 나왔습니다.</li>
+<li>실제 키 <span class="math inline">\(\mu\)</span>를 어떻게 추정할까요?</li>
+<li>키 측정값이 평균 <span class="math inline">\(\mu\)</span>, 분산 <span class="math inline">\(\sigma^2\)</span>인 정규분포를 따른다고 가정합니다.</li>
+<li>관찰된 5개 값의 가능도 <span class="math inline">\(L\)</span>을 최대로 만들려면 다음 값이 최소가 되어야 합니다.</li>
+</ul>
+<p><span class="math display">\[
+\sum (x_i-\mu)^2
+\]</span></p>
+<ul>
+<li>이 값은 <span class="math inline">\(\mu=180\)</span>일 때 최소입니다.</li>
+</ul>
+</div>
+</div><div class="column" style="width:52%;">
+<p><img data-src="figures/likelihood-10-height-mle.png" style="width:100.0%" alt="실제 키 후보 mu에 따른 가능도 곡선"></p>
+</div></div>
+</section>
+<section id="정규분포-한-줄-요약" class="slide level2">
+<h2>정규분포 한 줄 요약</h2>
+<div class="center">
+<p><strong>정규분포의 위대함</strong></p>
+<blockquote>
+<p>by <strong>이항분포</strong></p>
+</blockquote>
+<blockquote>
+<p>by <strong>오차의 법칙</strong></p>
+</blockquote>
+<blockquote>
+<p>by <strong>중심극한정리</strong></p>
+</blockquote>
+<blockquote>
+<p>시행 횟수와 표본 개수 <span class="math inline">\(n\)</span>이 커질수록 <strong>표본평균</strong> <span class="math inline">\(\bar{X}\)</span>는 <span class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>을 따릅니다.</p>
+</blockquote>
+</div>
+</section>
+<section id="정규분포를-왜-자주-쓸까" class="slide level2">
+<h2>정규분포를 왜 자주 쓸까</h2>
+<div class="large">
+<ul>
+<li>연속변수는 대부분 정규분포를 가정하고 분석을 시작합니다.</li>
+<li>실제로 키, 몸무게, 시험 점수 같은 측정값은 정규분포와 비슷한 모양을 보이는 경우가 많습니다.</li>
+<li>중요한 이유는 세 가지입니다.</li>
+</ul>
+</div>
+<div class="summary-grid">
 <div class="summary-item si-green">
-<p><strong>자료</strong></p>
-<p>데이터 위치와 파일명</p>
+<p><strong>이항분포의 근사</strong></p>
+<p>시행 횟수가 커지면 이항분포가 정규분포 모양에 가까워집니다.</p>
 </div>
 <div class="summary-item si-blue">
-<p><strong>코드</strong></p>
-<p>실행할 R 스크립트</p>
+<p><strong>오차의 법칙</strong></p>
+<p>작은 오차가 흔하고 큰 오차가 드문 구조는 정규분포와 잘 맞습니다.</p>
 </div>
 <div class="summary-item si-teal">
-<p><strong>결과</strong></p>
-<p>표, 그림, 모델 결과</p>
-</div>
-<div class="summary-item si-purple">
-<p><strong>문서</strong></p>
-<p>슬라이드, 보고서, 제출물</p>
+<p><strong>중심극한정리</strong></p>
+<p>모집단 모양과 무관하게 표본평균은 정규분포에 가까워집니다.</p>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
-<div class="key-message-bar">
-<p><strong>실습 메모</strong></p>
-<p>수업 중 실행한 코드는 <code>code/</code> 폴더에 남깁니다. 결과 파일은 재현할 수 있게 파일명과 생성 과정을 함께 기록합니다.</p>
+</section>
+<section id="이항분포" class="slide level2">
+<h2>이항분포</h2>
+<div class="large">
+<ul>
+<li><strong>이항분포</strong> <span class="math inline">\(B(n,p)\)</span>는 확률 <span class="math inline">\(p\)</span>인 사건을 <span class="math inline">\(n\)</span>번 시행할 때 성공 횟수의 확률분포입니다.</li>
+<li>평균은 <span class="math inline">\(np\)</span>, 분산은 <span class="math inline">\(np(1-p)\)</span>입니다.</li>
+<li>선거, 타율, 객관식 시험처럼 삶의 많은 문제가 이항분포로 표현됩니다.</li>
+<li>정규분포가 이항분포의 근사라면 정규분포의 쓰임은 매우 넓어집니다.</li>
+</ul>
 </div>
+</section>
+<section id="이항분포-근사-동전을-많이-던지면" class="slide level2">
+<h2>이항분포 근사: 동전을 많이 던지면</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<div class="large">
+<ul>
+<li>공정한 동전을 많이 던지면 앞면 횟수의 분포가 점점 종 모양에 가까워집니다.</li>
+<li>예를 들어 <span class="math inline">\(B(1000,\frac{1}{2})\)</span>는 다음 정규분포로 근사할 수 있습니다.</li>
+</ul>
+<p><span class="math display">\[
+B(1000,\frac{1}{2}) \simeq N(500,250)
+\]</span></p>
+</div>
+</div><div class="column" style="width:58%;">
+<p><img data-src="figures/normal-01-binomial-coin.png" style="width:100.0%" alt="동전 던지기 횟수가 커질수록 이항분포가 정규분포에 가까워지는 그림"></p>
+</div></div>
+</section>
+<section id="이항분포-근사-주사위를-많이-던지면" class="slide level2">
+<h2>이항분포 근사: 주사위를 많이 던지면</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<div class="large">
+<ul>
+<li>주사위에서 1이 나온 횟수도 이항분포로 볼 수 있습니다.</li>
+<li>시행 횟수가 커지면 역시 정규분포 모양에 가까워집니다.</li>
+</ul>
+<p><span class="math display">\[
+B(600,\frac{1}{6}) \simeq
+N(600\times\frac{1}{6}, 600\times\frac{1}{6}\times\frac{5}{6})
+\]</span></p>
+</div>
+</div><div class="column" style="width:58%;">
+<p><img data-src="figures/normal-02-binomial-dice.png" style="width:100.0%" alt="주사위 던지기 횟수가 커질수록 이항분포가 정규분포에 가까워지는 그림"></p>
+</div></div>
+</section>
+<section id="이항분포-근사-일반화" class="slide level2">
+<h2>이항분포 근사: 일반화</h2>
+<div class="large">
+<p>동전과 주사위 예시를 일반화하면, 시행 횟수 <span class="math inline">\(n\)</span>이 커질수록 다음 관계가 성립합니다.</p>
+</div>
+<div class="accent-box">
+<p><span class="math display">\[
+B(n,p) \simeq N(np, np(1-p))
+\]</span></p>
+</div>
+<div class="large">
+<p>정규분포는 이항분포의 큰 표본 근사로 설명됩니다. 그래서 셀 수 있는 성공 횟수 문제에서도 정규분포가 자주 등장합니다.</p>
+</div>
+</section>
+<section id="오차의-법칙" class="slide level2">
+<h2>오차의 법칙</h2>
+<div class="large">
+<p>수학자 Gauss는 오차에 대한 고찰만으로 정규분포를 유도했습니다. 오차라면 다음 조건을 만족해야 자연스럽습니다.</p>
+</div>
+<div class="highlight-box">
+<ol type="1">
+<li>양의 오차와 음의 오차가 나올 가능성은 같습니다. 즉, <span class="math inline">\(f(-\epsilon)=f(\epsilon)\)</span>인 좌우대칭 함수입니다.</li>
+</ol>
+</div>
+<div class="highlight-box-blue">
+<ol start="2" type="1">
+<li>작은 오차는 흔하고 큰 오차는 드뭅니다. 즉, <span class="math inline">\(f(\epsilon)\)</span>은 가운데가 높고 양끝으로 갈수록 낮아집니다.</li>
+</ol>
+</div>
+<div class="highlight-box-teal">
+<ol start="3" type="1">
+<li><span class="math inline">\(f(\epsilon)\)</span>은 부드러운 모양이고 확률의 합은 1입니다. 즉, <span class="math inline">\(\int_{-\infty}^{\infty} f(\epsilon)d\epsilon=1\)</span>입니다.</li>
+</ol>
+</div>
+<div class="highlight-box-purple">
+<ol start="4" type="1">
+<li>관찰된 오차들의 평균이 가능도를 최대로 만드는 값입니다.</li>
+</ol>
+</div>
+</section>
+<section id="오차의-법칙과-mle" class="slide level2">
+<h2>오차의 법칙과 MLE</h2>
+<div class="large">
+<p>측정값이 <span class="math inline">\(\epsilon_1, \epsilon_2, \cdots, \epsilon_n\)</span>일 때 가능도는 다음과 같습니다.</p>
+<p><span class="math display">\[
+L=f(\epsilon_1-\epsilon)f(\epsilon_2-\epsilon)\cdots f(\epsilon_n-\epsilon)
+\]</span></p>
+<p>이 가능도는 다음 값에서 최대가 됩니다.</p>
+<p><span class="math display">\[
+\epsilon=\frac{\epsilon_1+\epsilon_2+\cdots+\epsilon_n}{n}
+\]</span></p>
+</div>
+<div class="highlight-box">
+<p>간단한 조건만으로 정규분포 PDF를 수학적으로 유도할 수 있다는 점이 정규분포의 강점입니다.</p>
+</div>
+</section>
+<section id="중심극한정리-왜-표본평균을-믿을까" class="slide level2">
+<h2>중심극한정리: 왜 표본평균을 믿을까</h2>
+<div class="large">
+<ul>
+<li>평균은 가장 흔히 쓰이는 지표입니다.</li>
+<li>표본을 뽑아 <strong>표본평균(Sample mean)</strong>을 구하고 전체 평균으로 간주합니다.</li>
+<li>표본평균의 불확실성은 <strong>표준오차(Standard error)</strong>로 표현합니다.</li>
+<li>수백, 수천 명의 여론조사를 민심의 척도로 쓰는 이유도 여기에 있습니다.</li>
+</ul>
+</div>
+<div class="accent-box">
+<p>표본 개수 <span class="math inline">\(n\)</span>이 커지면 표본평균 <span class="math inline">\(\bar{X}\)</span>는 <span class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>에 가까워집니다.</p>
+</div>
+</section>
+<section id="중심극한정리-일그러진-동전" class="slide level2">
+<h2>중심극한정리: 일그러진 동전</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<div class="large">
+<ul>
+<li>앞면 확률이 <span class="math inline">\(p=0.4\)</span>인 동전을 생각합니다.</li>
+<li>10번, 30번, 100번 던져 앞면 비율 <span class="math inline">\(\hat{p}\)</span>을 계산합니다.</li>
+<li>이 실험을 10000번 반복하면 <span class="math inline">\(\hat{p}\)</span>의 분포를 볼 수 있습니다.</li>
+</ul>
+</div>
+<div class="highlight-box">
+<p>표본 수가 커질수록 <span class="math inline">\(\hat{p}\)</span>는 <span class="math inline">\(N(p,\frac{p(1-p)}{n})\)</span>에 가까워집니다.</p>
+</div>
+</div><div class="column" style="width:58%;">
+<p><img data-src="figures/normal-03-clt-coin.png" style="width:100.0%" alt="일그러진 동전에서 시행 횟수가 커질수록 표본평균 분포가 정규분포에 가까워지는 그림"></p>
+</div></div>
+</section>
+<section id="중심극한정리-주사위-평균" class="slide level2">
+<h2>중심극한정리: 주사위 평균</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<div class="large">
+<ul>
+<li>주사위 눈의 평균은 <span class="math inline">\(\mu=3.5\)</span>입니다.</li>
+<li>분산은 약 <span class="math inline">\(\sigma^2=2.92\)</span>입니다.</li>
+<li>10번, 30번, 100번 던진 평균을 반복해서 계산하면 표본평균의 분포가 보입니다.</li>
+</ul>
+</div>
+<div class="highlight-box-blue">
+<p><span class="math inline">\(n\)</span>이 커지면 <span class="math inline">\(\bar{X}\)</span>는 <span class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>을 따릅니다.</p>
+</div>
+</div><div class="column" style="width:58%;">
+<p><img data-src="figures/normal-04-clt-dice.png" style="width:100.0%" alt="주사위 평균에서 시행 횟수가 커질수록 표본평균 분포가 정규분포에 가까워지는 그림"></p>
+</div></div>
+</section>
+<section id="중심극한정리-표준정규분포" class="slide level2">
+<h2>중심극한정리: 표준정규분포</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<div class="large">
+<ul>
+<li>표준정규분포는 평균 0, 분산 1입니다.</li>
+<li>표준정규분포에서 표본을 뽑아 평균을 내도 표본평균의 분산은 줄어듭니다.</li>
+<li><span class="math inline">\(n\)</span>이 커지면 표본평균의 분산은 <span class="math inline">\(\frac{1}{n}\)</span>에 가까워집니다.</li>
+</ul>
+</div>
+<div class="highlight-box-teal">
+<p>연속확률의 경우에도 <span class="math inline">\(n\)</span>이 커지면 <span class="math inline">\(\bar{X}\)</span>는 <span class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>을 따릅니다.</p>
+</div>
+</div><div class="column" style="width:58%;">
+<p><img data-src="figures/normal-05-clt-standard-normal.png" style="width:100.0%" alt="표준정규분포에서 표본 수가 커질수록 표본평균 분포의 분산이 줄어드는 그림"></p>
+</div></div>
+</section>
+<section id="중심극한정리-카이제곱분포" class="slide level2">
+<h2>중심극한정리: 카이제곱분포</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<div class="large">
+<ul>
+<li>자유도 1인 카이제곱분포는 왼쪽으로 치우친 분포입니다.</li>
+<li>모집단 분포가 정규분포처럼 보이지 않아도 표본평균은 다르게 움직입니다.</li>
+<li><span class="math inline">\(n\)</span>이 커질수록 <span class="math inline">\(\bar{X}\)</span>의 분포는 정규분포에 가까워집니다.</li>
+</ul>
+</div>
+<div class="highlight-box-purple">
+<p>표본평균의 평균은 <span class="math inline">\(\mu=1\)</span>, 분산은 <span class="math inline">\(\frac{2}{n}\)</span>에 가까워집니다.</p>
+</div>
+</div><div class="column" style="width:58%;">
+<p><img data-src="figures/normal-06-clt-chisq.png" style="width:100.0%" alt="카이제곱분포에서 표본 수가 커질수록 표본평균 분포가 정규분포에 가까워지는 그림"></p>
+</div></div>
+</section>
+<section id="중심극한정리-고찰" class="slide level2">
+<h2>중심극한정리 고찰</h2>
+<div class="large">
+<p><span class="math inline">\(n\)</span>이 커질수록 두 가지 일이 일어납니다.</p>
+</div>
+<div class="summary-grid">
+<div class="summary-item si-green">
+<p><strong>평균</strong></p>
+<p>표본평균의 평균이 모집단 평균에 가까워집니다.</p>
+</div>
+<div class="summary-item si-blue">
+<p><strong>분산</strong></p>
+<p>표본평균의 분산 <span class="math inline">\(\frac{\sigma^2}{n}\)</span>이 0에 가까워집니다.</p>
+</div>
+<div class="summary-item si-teal">
+<p><strong>해석</strong></p>
+<p>표본평균을 실제 평균의 근사값으로 볼 근거가 생깁니다.</p>
+</div>
+</div>
+</section>
+<section id="p-value-의심의-정도를-숫자로-표현" class="slide level2">
+<h2>p-value: 의심의 정도를 숫자로 표현</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="large">
+<p>예를 들어 <span class="math inline">\(p=0.4\)</span>인 일그러진 동전을 던졌는데, 앞면 비율이 <span class="math inline">\(\hat{p}=0.6\)</span>으로 나왔다고 합시다.</p>
+<ul>
+<li>10번 던져 앞면 6번: 그럴 수 있습니다.</li>
+<li>30번 던져 앞면 18번: 이상하다고 볼 수 있습니다.</li>
+<li>100번 던져 앞면 60번: 동전이 조작되었다고 의심할 만합니다.</li>
+</ul>
+</div>
+<div class="highlight-box-gray">
+<p>같은 <span class="math inline">\(\hat{p}=0.6\)</span>이라도 표본 수가 커지면 표준오차가 작아져 더 강한 근거가 됩니다.</p>
+</div>
+</div><div class="column" style="width:55%;">
+<p><img data-src="figures/normal-07-pvalue.png" style="width:100.0%" alt="시행 횟수에 따라 앞면 비율 0.6의 p-value가 달라지는 정규근사 그림"></p>
 </div></div>
 </section>
 <section id="정리" class="slide level2 conclusion-slide">
@@ -244,30 +720,30 @@
 마무리
 </div>
 <div class="conclusion-big">
-핵심 한 줄
+가능도와 정규분포
 </div>
 <div class="conclusion-formula">
-수업이 끝난 뒤 남겨야 할 결과물을 적습니다.
+관찰된 자료를 설명하는 모수를 찾고, 표본평균의 불확실성을 정규분포로 다룹니다.
 </div>
-<p>다음 차시로 넘어가기 전에 코드, 결과 파일, 슬라이드 링크가 모두 열리는지 확인합니다.</p>
+<p>이산사건에서는 확률을 가능도로 볼 수 있습니다. 연속사건에서는 PDF값으로 가능성을 비교합니다. MLE는 관찰된 자료의 가능도를 가장 크게 만드는 값을 찾는 방법입니다.</p>
 </div>
 <div class="conclusion-sidegrid">
 <div class="conclusion-card cc-gray">
-<p><strong>확인 1</strong></p>
-<p>실습 코드가 위에서 아래로 실행되는가</p>
+<p><strong>가능도</strong></p>
+<p>연속사건에서 특정 값의 확률은 0이지만 PDF값으로 가능성을 비교할 수 있습니다.</p>
 </div>
 <div class="conclusion-card cc-purple">
-<p><strong>확인 2</strong></p>
-<p>표와 그림 파일이 저장되어 있는가</p>
+<p><strong>MLE</strong></p>
+<p>관찰된 자료가 가장 그럴듯해지는 모수값을 선택합니다.</p>
 </div>
 <div class="conclusion-card cc-green">
-<p><strong>확인 3</strong></p>
-<p>README와 수강생용 목차 링크가 맞는가</p>
+<p><strong>정규분포</strong></p>
+<p><span class="math inline">\(n\)</span>이 커질수록 표본평균은 <span class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>에 가까워집니다.</p>
 </div>
 </div>
 </div>
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

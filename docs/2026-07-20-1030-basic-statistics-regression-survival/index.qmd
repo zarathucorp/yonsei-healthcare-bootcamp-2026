@@ -1,8 +1,9 @@
 ---
 title: "의학연구 위한 기초통계(Table 1), 회귀/생존분석"
-subtitle: "2026 여름 디지털 헬스케어 부트캠프"
+subtitle: "기본반 1일차 2교시 | 통계이론"
 author: "김진섭"
 date: "2026.07.20"
+lang: ko
 format:
   revealjs:
     theme: ../slides_assets/zarathu_theme.scss
@@ -35,13 +36,14 @@ editor: visual
 ## 오늘의 목표
 
 ::: {.large}
-- 이 차시에서 다룰 핵심 질문을 정리합니다.
-- 필요한 개념과 실습 흐름을 한눈에 잡습니다.
-- 수업 후 다시 실행할 수 있도록 코드와 결과물을 남깁니다.
+- 의학논문 **Table 1**에 들어가는 기본 비교 검정을 고릅니다.
+- 연속형, 범주형, 짝지은 자료에서 어떤 검정을 쓰는지 정리합니다.
+- 선형회귀, 로지스틱 회귀, Cox 생존분석의 결과를 해석합니다.
+- 기술통계에서 단변량 분석, 다변량 분석으로 이어지는 흐름을 봅니다.
 :::
 
 ::: {.highlight-box}
-이 파일은 `의학연구 위한 기초통계(Table 1), 회귀/생존분석` 강의의 시작 템플릿입니다. 실제 강의 내용에 맞춰 슬라이드 제목, 표, 그림, 코드를 채워 넣으면 됩니다.
+Table 1은 단순 요약표가 아니라 연구대상자의 차이를 보여주는 첫 분석입니다. 그다음 회귀분석과 생존분석으로 보정 전후 결과를 확인합니다.
 :::
 
 ## 강의 흐름
@@ -49,89 +51,700 @@ editor: visual
 ::: {style="padding: 10px 40px;"}
 
 ::: {.highlight-box}
-**01. 배경** — 왜 이 주제가 필요한지 정리
+**01. Table 1** — 기술통계와 그룹 비교 검정
 :::
 
 ::: {.highlight-box-blue}
-**02. 핵심 개념** — 수업에서 꼭 잡아야 할 용어와 구조
+**02. 짝지은 자료** — 전후 비교와 paired test
 :::
 
 ::: {.highlight-box-teal}
-**03. 실습** — 예시 데이터, 코드, 결과 확인
+**03. 회귀분석** — 연속형, 이분형 outcome의 모델
 :::
 
 ::: {.highlight-box-purple}
-**04. 정리** — 수업 후 남겨야 할 파일과 다음 단계
+**04. 생존분석** — Kaplan-Meier, log-rank test, Cox model
 :::
 
 :::
 
-## 핵심 개념 {.intro-slide}
+## 한 장 요약
 
-::: spacer-xs
+::: {.large}
+| 자료와 비교 | 기본 선택 |
+|---|---|
+| 연속변수, 2그룹 | 정규분포를 인정하면 **t-test**, 아니면 **Wilcoxon test** |
+| 연속변수, 3그룹 이상 | 정규분포를 인정하면 **one-way ANOVA**, 아니면 **Kruskal-Wallis ANOVA** |
+| 범주형 변수 | 샘플 수가 충분하면 **Chi-square test**, 아니면 **Fisher's exact test** |
+| 연속형 outcome 보정분석 | **Linear regression** |
+| 이분형 outcome 보정분석 | **Logistic regression** |
+| 시간과 사건 outcome | **Kaplan-Meier / Cox proportional hazards model** |
 :::
 
-::: accent-box
-이곳에 차시의 핵심 메시지를 한 문장으로 적습니다.
-:::
+## 기술통계란?
 
 ::: columns
-::: {.column width="58%"}
-[**내용 메모**]{.section-title}
-
-- 배경 설명이나 문제 정의를 넣습니다.
-- 수업 중 강조할 개념을 짧은 문장으로 정리합니다.
-- 표나 그림이 필요하면 다음 슬라이드로 분리합니다.
-:::
-
-::: {.column width="42%"}
-::: highlight-box-gray
-**수업 정보**
-
-- 날짜: 2026.07.20
-- 시간: 10:30 ~ 11:30
-- 주제: 통계이론
-- 강사: 김진섭
-:::
+::: {.column width="54%"}
+::: {.large}
+- 평균, 중위수, 분산, 빈도표처럼 데이터를 설명하는 숫자입니다.
+- 히스토그램, 상자그림 같은 그래프도 기술통계에 포함됩니다.
+- 의학연구에서는 보통 연구대상자를 그룹별로 나누어 **Table 1**에 제시합니다.
 :::
 :::
 
-## 실습 자리
+::: {.column width="46%"}
+![](https://blog.zarathu.com/posts/2018-11-24-basic-biostatistics/table1.jpg){fig-alt="의학논문 Table 1 예시" width="100%"}
+:::
+:::
+
+## 연구의 흐름
+
+::: {.large}
+1. **기술통계**로 연구대상자를 보여줍니다.
+2. **단변량(univariate) 분석**으로 그룹 차이를 확인합니다.
+3. **다변량(multivariate) 분석**이나 **소그룹(subgroup) 분석**으로 다른 변수의 영향을 보정합니다.
+:::
+
+::: {.highlight-box-blue}
+간단한 연구는 단변량 분석에서 끝나기도 합니다. Table 1에 필요한 통계를 이해하면 기본적인 의학연구의 출발선을 잡을 수 있습니다.
+:::
+
+# 연속변수의 그룹 비교
+
+## 2그룹: t-test
+
+::: {.large}
+2개 그룹의 **평균**을 비교합니다.
+
+- 각 그룹의 평균과 표준편차가 필요합니다.
+- 정규분포를 인정할 수 있을 때 사용합니다.
+- 등분산을 가정하지 않는 **Welch t-test**를 기본으로 생각하면 안전합니다.
+:::
+
+::: {.highlight-box-gray}
+등분산 가정은 두 그룹의 분산이 같다고 보는 가정입니다. 특별한 근거가 없다면 굳이 등분산을 가정할 필요가 없습니다.
+:::
+
+## t-test 예시
+
+::: columns
+::: {.column width="48%"}
+::: {.large}
+성별에 따라 총콜레스테롤(`tChol`) 평균이 다른지 비교합니다.
+
+R의 `t.test()`는 기본적으로 Welch t-test를 수행합니다.
+:::
+:::
+
+::: {.column width="52%"}
+```{r}
+#| echo: true
+data_t <- data.frame(
+  sex = sample(c("Male", "Female"), 30, replace = TRUE),
+  tChol = round(rnorm(30, mean = 150, sd = 30))
+)
+
+t.test(tChol ~ sex, data = data_t, var.equal = FALSE)
+t.test(tChol ~ sex, data = data_t, var.equal = TRUE)
+```
+:::
+:::
+
+## t-test와 그래프
 
 ::: columns
 ::: {.column width="50%"}
-::: {.summary-grid-4}
-::: {.summary-item .si-green}
-**자료**
+```{r}
+#| echo: true
+library(ggpubr)
 
-데이터 위치와 파일명
+ggboxplot(data_t, "sex", "tChol", fill = "sex") +
+  stat_compare_means(
+    method = "t.test",
+    method.args = list(var.equal = FALSE)
+  )
+```
 :::
 
-::: {.summary-item .si-blue}
-**코드**
-
-실행할 R 스크립트
+::: {.column width="50%"}
+::: {.highlight-box-blue}
+상자그림은 평균 검정의 결과와 별도로 분포의 모양을 보여줍니다. 평균 차이가 작아도 이상치, 왜도, 분산 차이를 함께 확인해야 합니다.
+:::
+:::
 :::
 
-::: {.summary-item .si-teal}
-**결과**
+## 2그룹: Wilcoxon test
 
-표, 그림, 모델 결과
+::: {.large}
+정규분포를 믿기 어려울 때 2개 그룹의 **중위값**을 비교합니다.
+
+- 값 자체가 아니라 순위 정보를 이용합니다.
+- 비모수검정입니다.
+- 결과는 보통 **Median [IQR]** 형식으로 제시합니다.
 :::
 
-::: {.summary-item .si-purple}
-**문서**
-
-슬라이드, 보고서, 제출물
+::: {.highlight-box}
+정규성검정을 기계적으로 먼저 하는 방식보다 임상적 판단이 더 중요합니다. 키와 몸무게는 정규분포에 가까운 경우가 많고, CRP나 자녀 수는 그렇지 않은 경우가 많습니다.
 :::
+
+## Wilcoxon test 예시
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+wilcox.test(tChol ~ sex, data = data_t)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+ggboxplot(data_t, "sex", "tChol", fill = "sex") +
+  stat_compare_means(method = "wilcox.test")
+```
+:::
+:::
+
+## 3그룹 이상: One-way ANOVA
+
+::: {.large}
+3개 이상 그룹의 **평균**을 비교합니다.
+
+- Table 1에서는 보통 하나의 p-value를 제시합니다.
+- ANOVA는 전체적으로 **튀는 그룹이 하나라도 있는지**를 봅니다.
+- 어떤 그룹끼리 다른지는 사후분석으로 따로 확인합니다.
+:::
+
+::: {.highlight-box-gray}
+2그룹에서 등분산을 가정한 t-test와 ANOVA는 같은 결과를 냅니다. 등분산을 가정하지 않는 ANOVA도 사용할 수 있습니다.
+:::
+
+## ANOVA 예시
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+data_aov <- data.frame(
+  group = sample(c("A", "B", "C"), 30, replace = TRUE),
+  tChol = round(rnorm(30, mean = 150, sd = 30))
+)
+
+oneway.test(tChol ~ group, data = data_aov, var.equal = FALSE)
+oneway.test(tChol ~ group, data = data_aov, var.equal = TRUE)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+ggboxplot(data_aov, "group", "tChol", fill = "group") +
+  stat_compare_means(method = "anova")
+```
+:::
+:::
+
+## 3그룹 이상: Kruskal-Wallis ANOVA
+
+::: {.large}
+정규분포를 믿기 어려울 때 3개 이상 그룹의 **중위값**을 비교합니다.
+
+- 값 자체가 아니라 순위 정보를 이용합니다.
+- 2그룹 Wilcoxon test의 확장으로 이해하면 됩니다.
+- Table 1에서는 연속변수의 비모수 비교에 자주 등장합니다.
+:::
+
+```{r}
+#| echo: true
+kruskal.test(tChol ~ group, data = data_aov)
+```
+
+# 범주형 변수의 그룹 비교
+
+## Chi-square test
+
+::: {.large}
+두 범주형 변수가 서로 관계가 있는지 확인합니다.
+
+- 예: 혈압약 복용 여부와 당뇨약 복용 여부
+- 표본 수가 충분할 때 사용합니다.
+- 범주가 2개보다 많아도 사용할 수 있지만, 기본 원리는 같습니다.
+:::
+
+```{r}
+#| echo: true
+set.seed(222)
+data_chi <- data.frame(
+  HTN_medi = round(rbinom(50, 1, 0.4)),
+  DM_medi = round(rbinom(50, 1, 0.4))
+)
+
+table_chi <- table(data_chi)
+chisq.test(table_chi)
+```
+
+## Fisher's exact test
+
+::: {.large}
+분석 테이블에서 작은 셀이 있으면 Chi-square test가 부정확해질 수 있습니다. 이때 **Fisher's exact test**를 씁니다.
+:::
+
+```{r}
+#| echo: true
+set.seed(222)
+data_fisher <- data.frame(
+  HTN_medi = round(rbinom(50, 1, 0.2)),
+  DM_medi = round(rbinom(50, 1, 0.2))
+)
+
+table_fisher <- table(data_fisher)
+chisq.test(table_fisher)
+fisher.test(table_fisher)
+```
+
+::: {.highlight-box-gray}
+Fisher's exact test만 쓰면 간단해 보이지만, 샘플 수나 그룹 수가 늘면 계산량이 커집니다. 작은 셀이 있는지 확인한 뒤 선택합니다.
+:::
+
+# 짝지은 자료의 비교
+
+## Paired t-test
+
+::: {.large}
+같은 사람에게서 두 번 측정한 연속변수를 비교할 때 사용합니다.
+
+- 예: 수동 혈압계와 자동 혈압계로 같은 사람의 혈압을 측정
+- 일반 t-test는 짝 정보를 쓰지 못합니다.
+- 각 사람의 **차이값**을 먼저 구하고 그 평균이 0인지 봅니다.
+:::
+
+```{r}
+#| echo: true
+data_pt <- data.frame(
+  SBP_hand = round(rnorm(30, mean = 125, sd = 5)),
+  SBP_machine = round(rnorm(30, mean = 125, sd = 5))
+)
+
+t.test(data_pt$SBP_hand, data_pt$SBP_machine)
+t.test(data_pt$SBP_hand, data_pt$SBP_machine, paired = TRUE)
+wilcox.test(data_pt$SBP_hand, data_pt$SBP_machine, paired = TRUE)
+```
+
+## McNemar test
+
+::: {.large}
+짝지은 범주형 자료에서 2개 상태의 전후 변화를 비교합니다.
+
+- 예: 약 복용 전후 복통 증상 발생 여부
+- Chi-square test는 전후 짝 정보를 쓰지 않습니다.
+- McNemar test는 변화가 있는 쌍, 즉 discordant pair를 이용합니다.
+:::
+
+```{r}
+#| echo: true
+data_mc <- data.frame(
+  Pain_before = round(rbinom(30, 1, 0.5)),
+  Pain_after = round(rbinom(30, 1, 0.5))
+)
+
+table_mc <- table(data_mc)
+chisq.test(table_mc)
+mcnemar.test(table_mc)
+```
+
+## 3그룹 이상: symmetry test
+
+::: {.large}
+짝지은 범주형 자료가 3그룹 이상이면 McNemar test의 일반화인 symmetry test를 사용할 수 있습니다.
+:::
+
+```{r}
+#| echo: true
+library(rcompanion)
+data(AndersonRainGarden)
+
+nominalSymmetryTest(AndersonRainGarden)
+```
+
+::: {.highlight-box-gray}
+오늘은 2그룹 전후 비교의 원리를 먼저 잡습니다. 3그룹 이상 paired contingency table은 필요할 때 symmetry test를 확인합니다.
+:::
+
+## 실습 도구
+
+::: {.large}
+- 웹 애플리케이션: [app.zarathu.com/basic](https://app.zarathu.com/basic)
+- 5MB 이하의 Excel, CSV, SAS, SPSS 데이터로 Table 1과 회귀분석 결과를 만들 수 있습니다.
+- 더 큰 데이터는 `jsmodule` R 패키지를 설치해 RStudio Addins에서 실행할 수 있습니다.
+:::
+
+```{r}
+#| echo: true
+install.packages("jsmodule")
+```
+
+::: {.highlight-box-blue}
+수업에서는 원리를 먼저 이해하고, 반복 작업은 웹 앱이나 R 패키지로 재현 가능하게 정리합니다.
+:::
+
+## Table 1에서 회귀분석으로
+
+::: columns
+::: {.column width="50%"}
+::: {.large}
+Table 1과 단변량 분석은 그룹 차이를 빠르게 보여줍니다.
+
+하지만 의학연구에서는 나이, 성별, 치료군, 기저질환처럼 함께 고려해야 할 변수가 많습니다.
 :::
 :::
 
 ::: {.column width="50%"}
-::: key-message-bar
-**실습 메모**
+::: {.highlight-box-blue}
+다변량 회귀분석은 한 변수의 효과를 해석할 때 다른 변수들을 함께 보정합니다.
+:::
+:::
+:::
 
-수업 중 실행한 코드는 `code/` 폴더에 남깁니다. 결과 파일은 재현할 수 있게 파일명과 생성 과정을 함께 기록합니다.
+# 회귀분석
+
+## Outcome에 따른 기본 모델
+
+::: {.large}
+| Outcome | 기본 자료 | 대표 모델 |
+|---|---|---|
+| 연속형 | 혈압, 검사값, 점수 | Linear regression |
+| 사건 여부 | 사망 여부, 재입원 여부 | Logistic regression |
+| 시간과 사건 | 생존기간, 추적기간과 사건 | Cox model |
+| 드문 사건 수 | 발생 횟수 | Poisson regression |
+:::
+
+::: {.highlight-box-gray}
+반복측정 자료나 설문 가중치가 있는 자료는 GEE, marginal Cox, survey GLM처럼 설계에 맞는 모델이 필요합니다.
+:::
+
+## 실습 데이터
+
+::: columns
+::: {.column width="50%"}
+::: {.large}
+회귀와 생존분석 예시는 `survival` 패키지의 `colon` 데이터를 사용합니다.
+:::
+
+```{r}
+#| echo: true
+library(survival)
+data(colon)
+colon <- na.omit(colon)
+
+str(colon)
+```
+:::
+
+::: {.column width="50%"}
+::: {.highlight-box}
+`time`은 추적기간, `status`는 사건 발생 여부, `rx`는 치료군입니다. 이 세 변수는 생존분석 예시에도 사용합니다.
+:::
+:::
+:::
+
+## Linear regression
+
+::: {.large}
+연속형 outcome을 설명할 때 사용합니다.
+
+$$
+Y = \beta_0 + \beta_1 X + \epsilon
+$$
+
+- 오차제곱합을 최소로 하는 $\beta_0$, $\beta_1$을 구합니다.
+- $Y$는 연속형 변수입니다.
+- $X$는 연속형, 범주형 모두 가능합니다.
+:::
+
+## 단순 선형회귀와 상관분석
+
+::: {.large}
+$X$가 연속형이면 단순 선형회귀는 상관분석과 연결됩니다.
+:::
+
+```{r}
+#| echo: true
+cor.test(colon$age, colon$nodes)
+summary(lm(nodes ~ age, data = colon))$coefficients
+```
+
+::: {.highlight-box-gray}
+회귀식의 방향을 바꾸면 계수의 의미가 달라집니다. 상관계수는 대칭적이지만 회귀계수는 outcome을 무엇으로 두는지에 따라 달라집니다.
+:::
+
+## 2그룹 비교와 선형회귀
+
+::: {.large}
+$X$가 2개 범주의 변수이면 선형회귀는 평균 비교와 연결됩니다.
+:::
+
+```{r}
+#| echo: true
+t.test(time ~ sex, data = colon, var.equal = TRUE)
+summary(lm(time ~ sex, data = colon))$coefficients
+```
+
+::: {.highlight-box-blue}
+2그룹 평균 비교를 회귀식으로 쓰면, 계수는 기준 그룹과 비교 그룹의 평균 차이로 해석됩니다.
+:::
+
+## 3그룹 이상과 더미변수
+
+::: columns
+::: {.column width="52%"}
+::: {.large}
+범주가 3개 이상이면 기준범주를 하나 두고 나머지를 더미변수로 표현합니다.
+
+`rx`가 `Obs`, `Lev`, `Lev+5FU` 세 치료군이면 실제 회귀식에는 더미변수 2개가 들어갑니다.
+:::
+:::
+
+::: {.column width="48%"}
+```{r}
+#| echo: true
+levels(colon$rx)
+tail(model.matrix(time ~ rx, data = colon))
+summary(lm(time ~ rx, data = colon))$coefficients
+anova(lm(time ~ rx, data = colon))
+```
+:::
+:::
+
+## Multiple regression
+
+::: {.large}
+여러 변수를 함께 포함합니다.
+
+$$
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \epsilon
+$$
+
+$\beta_1$은 $X_2$, $X_3$ 등을 보정했을 때, $X_1$이 1 증가하면 $Y$가 얼마나 변하는지를 뜻합니다.
+:::
+
+```{r}
+#| echo: true
+summary(lm(time ~ sex + age + rx, data = colon))$coefficients
+```
+
+## 논문용 결과 제시
+
+::: {.large}
+논문에서는 보정 전후 결과를 함께 보여주는 경우가 많습니다.
+
+- **Unadjusted**: 변수 하나씩 분석합니다.
+- **Adjusted**: 나이, 성별, 치료군 등 주요 공변량을 함께 넣습니다.
+- 같은 변수라도 보정 후 계수와 p-value가 달라질 수 있습니다.
+:::
+
+::: {.highlight-box}
+Table 1은 연구대상자의 차이를 보여주고, 회귀분석은 그 차이를 고려한 뒤 관심 변수의 효과를 해석합니다.
+:::
+
+# Logistic regression
+
+## 이분형 outcome
+
+::: columns
+::: {.column width="50%"}
+::: {.large}
+Outcome이 0/1일 때 사용합니다.
+
+예:
+
+- 사망 여부
+- 합병증 발생 여부
+- 치료 성공 여부
+:::
+:::
+
+::: {.column width="50%"}
+![](figures/logistic.png){fig-alt="로지스틱 함수" width="90%"}
+:::
+:::
+
+## Odds Ratio
+
+::: {.large}
+$$
+\begin{aligned}
+P(Y = 1) &= \frac{\exp(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots)}{1 + \exp(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots)} \\\\
+\ln\left(\frac{p}{1-p}\right) &= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots
+\end{aligned}
+$$
+
+$X_1$이 1 증가할 때 odds는 $\exp(\beta_1)$배가 됩니다. 이것이 **Odds Ratio(OR)**입니다.
+:::
+
+## Logistic regression 예시
+
+```{r}
+#| echo: true
+fit_logistic <- glm(
+  status ~ sex + age + rx,
+  data = colon,
+  family = binomial
+)
+
+summary(fit_logistic)
+exp(coef(fit_logistic))
+```
+
+::: {.highlight-box-gray}
+로지스틱 회귀의 계수는 log-odds 단위입니다. 논문에서는 보통 계수를 그대로 쓰기보다 OR과 95% 신뢰구간으로 제시합니다.
+:::
+
+# 생존분석
+
+## Time-to-event data
+
+::: {.large}
+생존분석은 **시간**과 **사건 발생 여부**를 함께 다룹니다.
+
+- 예: 수술 후 사망까지의 시간
+- 예: 치료 후 재발까지의 시간
+- 추적 종료 시점까지 사건이 없으면 중도절단(censoring)으로 기록합니다.
+:::
+
+```{r}
+#| echo: true
+with(colon, head(Surv(time, status)))
+```
+
+## Kaplan-Meier plot
+
+::: {.large}
+Kaplan-Meier 곡선은 시간에 따른 생존확률을 보여줍니다.
+
+Table 1 또는 결과표에서는 그룹별 생존곡선과 함께 **log-rank test p-value**를 제시하는 경우가 많습니다.
+:::
+
+```{r}
+#| echo: true
+fit_km <- survfit(Surv(time, status) ~ rx, data = colon)
+plot(fit_km, col = 1:3, lty = 1:3)
+legend("bottomleft", legend = levels(colon$rx), col = 1:3, lty = 1:3)
+```
+
+## 생존확률 계산
+
+::: columns
+::: {.column width="50%"}
+::: {.large}
+$$
+\begin{aligned}
+P(t) &= \frac{t \text{ 구간 생존수}}{t \text{ 시점 관찰대상 수}} \\\\
+S(t) &= S(t-1) \times P(t)
+\end{aligned}
+$$
+:::
+:::
+
+::: {.column width="50%"}
+![](figures/LOGRANK.png){fig-alt="Kaplan-Meier와 log-rank 계산 개념" width="100%"}
+:::
+:::
+
+## Log-rank test
+
+::: {.large}
+Log-rank test는 구간별 기대 사건 수와 관찰 사건 수를 비교한 뒤 합쳐서 검정합니다.
+:::
+
+```{r}
+#| echo: true
+survdiff(Surv(time, status) ~ rx, data = colon)
+```
+
+::: {.highlight-box-gray}
+구간별 발생 양상이 비슷하다는 가정이 깔려 있습니다. 이 흐름은 Cox model의 비례위험 가정과 연결됩니다.
+:::
+
+## Cox proportional hazards model
+
+::: {.large}
+Cox model은 **Hazard Ratio(HR)**를 평가합니다.
+
+$$
+\begin{aligned}
+h(t) &= h_0(t)\exp(\beta_1 X_1 + \beta_2 X_2 + \cdots)
+\end{aligned}
+$$
+
+$X_1$이 1 증가할 때 hazard는 $\exp(\beta_1)$배가 됩니다. 이것이 **HR**입니다.
+:::
+
+## Cox model 예시
+
+```{r}
+#| echo: true
+fit_cox <- coxph(Surv(time, status) ~ sex + age + rx, data = colon)
+summary(fit_cox)
+exp(coef(fit_cox))
+```
+
+::: {.highlight-box-blue}
+HR이 1보다 크면 사건 발생 위험이 높고, 1보다 작으면 낮다고 해석합니다. 단, 연구 설계와 변수 정의를 먼저 확인해야 합니다.
+:::
+
+## 생존분석에서 주의할 점
+
+::: {.large}
+- Cox model은 시간 구간별 위험비가 크게 달라지지 않는다는 **비례위험 가정**을 둡니다.
+- 생존곡선이 심하게 교차하면 HR 하나로 요약하기 어렵습니다.
+- Index date 이후에 측정된 검사값이나 약물 사용은 일반 공변량처럼 넣으면 안 됩니다.
+- 추적 중 변하는 변수는 time-dependent covariate로 다뤄야 합니다.
+:::
+
+## Landmark analysis
+
+::: columns
+::: {.column width="48%"}
+::: {.large}
+Landmark analysis는 특정 시점을 기준으로 대상을 다시 정의한 뒤 그 이후의 사건을 분석합니다.
+
+- 추적 중 상태가 바뀌는 상황에서 사용할 수 있습니다.
+- 기준 시점 이전 정보와 이후 사건을 섞어 해석하지 않도록 돕습니다.
+:::
+:::
+
+::: {.column width="52%"}
+![](https://blog.zarathu.com/posts/2020-10-29-survivalpractice/index_files/figure-html/unnamed-chunk-6-1.png){fig-alt="Landmark analysis 예시 생존곡선" width="100%"}
+:::
+:::
+
+## Time-dependent Cox 예시
+
+::: columns
+::: {.column width="50%"}
+::: {.large}
+시간 구간을 나누어 분석해야 할 때는 자료 구조를 바꿉니다.
+:::
+
+```{r}
+#| echo: true
+data(veteran)
+vet2 <- survSplit(
+  Surv(time, status) ~ .,
+  data = veteran,
+  cut = c(90, 180),
+  episode = "tgroup",
+  id = "id"
+)
+
+coxph(Surv(tstart, time, status) ~ trt + prior + karno:strata(tgroup), data = vet2)
+```
+:::
+
+::: {.column width="50%"}
+::: {.highlight-box-gray}
+이 부분은 생존분석 심화 주제입니다. 오늘은 생존자료에서 시간과 사건을 함께 다룬다는 점, Cox model 결과는 HR로 읽는다는 점을 먼저 잡습니다.
 :::
 :::
 :::
@@ -144,29 +757,29 @@ editor: visual
 ::: {.conclusion-layout}
 ::: {.conclusion-hero}
 <div class="conclusion-kicker">마무리</div>
-<div class="conclusion-big">핵심 한 줄</div>
-<div class="conclusion-formula">수업이 끝난 뒤 남겨야 할 결과물을 적습니다.</div>
+<div class="conclusion-big">Table 1에서 모델까지</div>
+<div class="conclusion-formula">자료형 → 비교 검정 → 보정 모델</div>
 
-다음 차시로 넘어가기 전에 코드, 결과 파일, 슬라이드 링크가 모두 열리는지 확인합니다.
+연속형, 범주형, 시간-사건 자료는 각각 다른 통계방법을 요구합니다. 먼저 outcome의 형태를 정하고, 그다음 비교 구조와 보정 변수를 결정합니다.
 :::
 
 ::: {.conclusion-sidegrid}
 ::: {.conclusion-card .cc-gray}
-**확인 1**
+**Table 1**
 
-실습 코드가 위에서 아래로 실행되는가
+연구대상자를 그룹별로 요약하고 기본 차이를 확인합니다.
 :::
 
 ::: {.conclusion-card .cc-purple}
-**확인 2**
+**Regression**
 
-표와 그림 파일이 저장되어 있는가
+다른 변수를 보정한 뒤 관심 변수의 효과를 해석합니다.
 :::
 
 ::: {.conclusion-card .cc-green}
-**확인 3**
+**Survival**
 
-README와 수강생용 목차 링크가 맞는가
+시간과 사건을 함께 보며 KM, log-rank, Cox model을 사용합니다.
 :::
 :::
 :::
