@@ -1,31 +1,5 @@
-# 2026 여름 디지털 헬스케어 부트캠프
-# 차시: RCT 재현 프로젝트
-# 날짜: 2026.07.21 13:30 ~ 14:30
-# 강사: 김진섭
-
-packages <- c(
-  "dplyr",
-  "ggplot2",
-  "survival",
-  "tableone",
-  "writexl"
-)
-
-missing_packages <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
-if (length(missing_packages) > 0) {
-  message("설치가 필요한 패키지: ", paste(missing_packages, collapse = ", "))
-  # install.packages(missing_packages)
-}
-
-invisible(lapply(packages, library, character.only = TRUE))
-
-dir.create("results", showWarnings = FALSE)
-dir.create("figures", showWarnings = FALSE)
-
-# 1. Synthetic RCT 데이터 생성 ----------------------------------------------
 set.seed(2026)
 n <- 600
-
 rct <- data.frame(
   id = 1:n,
   trt = factor(sample(c("Control", "Treatment"), n, replace = TRUE)),
@@ -41,38 +15,32 @@ rct$time <- pmin(rct$time, 730)
 rct$status <- ifelse(rct$time < 730 & rct$event == 1, 1, 0)
 
 head(rct)
-
-# 2. CONSORT 흐름 확인 -------------------------------------------------------
 table(rct$trt)
-
-# 3. Baseline Table 1 --------------------------------------------------------
+library(tableone)
 vars <- c("age", "sex", "diabetes")
 tb1 <- CreateTableOne(vars = vars, strata = "trt", data = rct)
 print(tb1, showAllLevels = TRUE)
-
-# 4. Primary outcome ---------------------------------------------------------
 event_table <- with(rct, table(trt, event))
 event_table
 prop.table(event_table, margin = 1)
-
 risk_by_group <- aggregate(event ~ trt, data = rct, mean)
 risk_by_group
 
 rd <- diff(risk_by_group$event)
 rr <- risk_by_group$event[2] / risk_by_group$event[1]
 c(risk_difference = rd, risk_ratio = rr)
-
 fit_logit <- glm(event ~ trt + age + sex + diabetes, data = rct, family = binomial)
 round(exp(cbind(OR = coef(fit_logit), confint.default(fit_logit))), 2)
-
-# 5. Survival endpoint -------------------------------------------------------
+library(survival)
 km <- survfit(Surv(time, status) ~ trt, data = rct)
 summary(km, times = c(180, 365, 730), extend = TRUE)
-
 fit_cox <- coxph(Surv(time, status) ~ trt + age + sex + diabetes, data = rct)
 summary(fit_cox)$coefficients[, c("exp(coef)", "Pr(>|z|)")]
+library(ggplot2)
 
-# 6. 결과 그림과 파일 저장 ---------------------------------------------------
+dir.create("results", showWarnings = FALSE)
+dir.create("figures", showWarnings = FALSE)
+
 event_plot <- ggplot(risk_by_group, aes(x = trt, y = event, fill = trt)) +
   geom_col(width = 0.5) +
   scale_y_continuous(labels = function(x) paste0(round(x * 100), "%")) +

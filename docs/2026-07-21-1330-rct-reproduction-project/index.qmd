@@ -2,7 +2,6 @@
 title: "RCT 재현 프로젝트"
 subtitle: "Synthetic data로 논문 분석 흐름 재현하기"
 author: "김진섭"
-date: "2026.07.21"
 format:
   revealjs:
     theme: ../slides_assets/zarathu_theme.scss
@@ -32,19 +31,15 @@ execute:
 editor: visual
 ---
 
-## 프로젝트 목표 {.intro-slide}
+## 프로젝트 목표
 
-::: {.large}
 마지막 실습에서는 논문 한 편을 흉내 내는 작은 프로젝트를 진행합니다. 실제 환자 데이터는 쓰지 않고, 재현 가능한 synthetic data로 RCT 분석 흐름을 익힙니다.
-:::
 
-::: {.highlight-box-blue}
-- RCT 형태의 데이터를 만듭니다.
-- baseline balance를 확인합니다.
-- primary outcome을 분석합니다.
-- survival endpoint를 분석합니다.
-- 결과표와 그림을 발표자료 구조로 정리합니다.
-:::
+- RCT 형태의 데이터를 만든다.
+- baseline balance를 확인한다.
+- primary outcome을 분석한다.
+- survival endpoint를 분석한다.
+- 결과표와 그림을 발표자료 구조로 정리한다.
 
 ## Synthetic RCT 데이터 생성
 
@@ -70,13 +65,11 @@ head(rct)
 
 ## CONSORT 흐름으로 보기
 
-::: {.large}
 - assessed for eligibility
 - randomized
 - allocated to treatment/control
 - followed up
 - analyzed
-:::
 
 ```{r}
 table(rct$trt)
@@ -149,30 +142,24 @@ ggplot(risk_by_group, aes(x = trt, y = event, fill = trt)) +
 
 분석이 끝나면 바로 발표자료로 옮길 수 있도록 결과를 아래 순서로 정리합니다.
 
-::: {.highlight-box}
 1. 연구질문
 2. 대상자와 무작위 배정
 3. Baseline Table 1
 4. Primary outcome
 5. Survival endpoint
 6. 결론과 한계
-:::
 
 ## Shiny 앱 구조
 
-::: {.large}
 - 입력: outcome, subgroup, follow-up time
 - 출력: Table 1, event rate, Kaplan-Meier curve, model result
 - 다운로드: xlsx table, pptx figure
-:::
 
-## 프로젝트 제출물 {.conclusion-slide}
+## 프로젝트 제출물
 
-::: {.large}
 - 분석 QMD
 - Table 1
 - Primary outcome table
 - Survival plot 또는 event plot
 - 발표자료 초안
 - 결과 해석 한 문단
-:::

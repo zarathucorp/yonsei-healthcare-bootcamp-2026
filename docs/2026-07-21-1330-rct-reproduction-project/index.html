@@ -10,7 +10,6 @@
   <meta name="generator" content="quarto-1.8.26">
 
   <meta name="author" content="김진섭">
-  <meta name="dcterms.date" content="2026-07-21">
   <title>RCT 재현 프로젝트</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -210,22 +209,17 @@
 </div>
 </div>
 
-  <p class="date">2026-07-21</p>
 </section>
-<section id="프로젝트-목표" class="slide level2 intro-slide">
+<section id="프로젝트-목표" class="slide level2">
 <h2>프로젝트 목표</h2>
-<div class="large">
 <p>마지막 실습에서는 논문 한 편을 흉내 내는 작은 프로젝트를 진행합니다. 실제 환자 데이터는 쓰지 않고, 재현 가능한 synthetic data로 RCT 분석 흐름을 익힙니다.</p>
-</div>
-<div class="highlight-box-blue">
 <ul>
-<li>RCT 형태의 데이터를 만듭니다.</li>
-<li>baseline balance를 확인합니다.</li>
-<li>primary outcome을 분석합니다.</li>
-<li>survival endpoint를 분석합니다.</li>
-<li>결과표와 그림을 발표자료 구조로 정리합니다.</li>
+<li>RCT 형태의 데이터를 만든다.</li>
+<li>baseline balance를 확인한다.</li>
+<li>primary outcome을 분석한다.</li>
+<li>survival endpoint를 분석한다.</li>
+<li>결과표와 그림을 발표자료 구조로 정리한다.</li>
 </ul>
-</div>
 </section>
 <section id="synthetic-rct-데이터-생성" class="slide level2">
 <h2>Synthetic RCT 데이터 생성</h2>
@@ -251,7 +245,6 @@
 </section>
 <section id="consort-흐름으로-보기" class="slide level2">
 <h2>CONSORT 흐름으로 보기</h2>
-<div class="large">
 <ul>
 <li>assessed for eligibility</li>
 <li>randomized</li>
@@ -259,7 +252,6 @@
 <li>followed up</li>
 <li>analyzed</li>
 </ul>
-</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">table</span>(rct<span class="sc">$</span>trt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -330,7 +322,6 @@
 <section id="발표-슬라이드-구조" class="slide level2">
 <h2>발표 슬라이드 구조</h2>
 <p>분석이 끝나면 바로 발표자료로 옮길 수 있도록 결과를 아래 순서로 정리합니다.</p>
-<div class="highlight-box">
 <ol type="1">
 <li>연구질문</li>
 <li>대상자와 무작위 배정</li>
@@ -339,21 +330,17 @@
 <li>Survival endpoint</li>
 <li>결론과 한계</li>
 </ol>
-</div>
 </section>
 <section id="shiny-앱-구조" class="slide level2">
 <h2>Shiny 앱 구조</h2>
-<div class="large">
 <ul>
 <li>입력: outcome, subgroup, follow-up time</li>
 <li>출력: Table 1, event rate, Kaplan-Meier curve, model result</li>
 <li>다운로드: xlsx table, pptx figure</li>
 </ul>
-</div>
 </section>
-<section id="프로젝트-제출물" class="slide level2 conclusion-slide">
+<section id="프로젝트-제출물" class="slide level2">
 <h2>프로젝트 제출물</h2>
-<div class="large">
 <ul>
 <li>분석 QMD</li>
 <li>Table 1</li>
@@ -362,7 +349,6 @@
 <li>발표자료 초안</li>
 <li>결과 해석 한 문단</li>
 </ul>
-</div>
 
 </section>
     </div>
