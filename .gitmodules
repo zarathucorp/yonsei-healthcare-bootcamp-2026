@@ -4,3 +4,6 @@
 [submodule "lecture-general"]
 	path = lecture-general
 	url = https://github.com/jinseob2kim/lecture-general
+[submodile "lecture-smc-psychiatry"]
+	path = lecture-smc-psychiatry
+	url = https://github.com/jinseob2kim/lecture-smc-psychiatry
