@@ -1,0 +1,6 @@
+[submodule "R-skku-biohrs"]
+	path = R-skku-biohrs
+	url = https://github.com/jinseob2kim/R-skku-biohrs
+[submodule "lecture-general"]
+	path = lecture-general
+	url = https://github.com/jinseob2kim/lecture-general
