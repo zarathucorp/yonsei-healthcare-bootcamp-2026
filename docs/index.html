@@ -77,6 +77,42 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<style>
+#quarto-document-content table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+#quarto-document-content table th,
+#quarto-document-content table td {
+  vertical-align: top;
+  padding: 0.75rem 0.85rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+#quarto-document-content table th:nth-child(1),
+#quarto-document-content table td:nth-child(1) {
+  width: 14%;
+}
+
+#quarto-document-content table th:nth-child(2),
+#quarto-document-content table td:nth-child(2) {
+  width: 28%;
+}
+
+#quarto-document-content table th:nth-child(3),
+#quarto-document-content table td:nth-child(3) {
+  width: 44%;
+}
+
+#quarto-document-content table th:nth-child(4),
+#quarto-document-content table td:nth-child(4) {
+  width: 14%;
+}
+</style>
 <p>연세의료원 2026 여름 디지털 헬스케어 부트캠프 강의자료 페이지입니다. 수업 중에는 이 페이지에서 일정과 강의자료를 확인하면 됩니다. 링크가 있는 항목을 누르면 해당 강의자료로 이동합니다.</p>
 <section id="수업-전-준비" class="level2">
 <h2 class="anchored" data-anchor-id="수업-전-준비">수업 전 준비</h2>
@@ -214,15 +250,15 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td>09:30 ~ 10:30</td>
-<td>CDW(Common Data Warehouse) 소개</td>
-<td>연세의료원 CDW 소개</td>
-<td>의생명연구실 강사</td>
+<td>SCRAP 설명 및 시연</td>
+<td>CDW 소개, EMR 원자료와 CDW 차이, CDW 데이터 구조, 검색 조건, JOIN 개념</td>
+<td>박이주</td>
 </tr>
 <tr class="even">
 <td>10:30 ~ 11:30</td>
-<td>CDW(Common Data Warehouse) 시연</td>
-<td>연세의료원 CDW 시연</td>
-<td>의생명연구실 강사</td>
+<td>SCRAP 실습</td>
+<td>SCRAP 화면과 기능 소개, 조건 검색 및 코호트 추출 실습</td>
+<td>박이주</td>
 </tr>
 <tr class="odd">
 <td>11:30 ~ 12:30</td>
@@ -276,16 +312,28 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>09:30 ~ 10:30</td>
-<td>CDM(Common Data Model) 심화</td>
-<td>MIMIC 및 MIMIC CDM 소개</td>
-<td>의생명연구실 강사</td>
+<td>09:30 ~ 10:00</td>
+<td>OMOP CDM 의료영상 확장(MI-CDM)</td>
+<td>정형 데이터와 영상 데이터의 연계와 활용, DICOM 이해, OMOP CDM 연결 구조와 사용 가이드</td>
+<td>전규리</td>
 </tr>
 <tr class="even">
-<td>10:30 ~ 11:30</td>
-<td>CDM(Common Data Model) 심화</td>
-<td>MIMIC EKG, CXR 소개</td>
-<td>의생명연구실 강사</td>
+<td>10:00 ~ 10:30</td>
+<td>ECG 데이터 특성, 전처리 및 MIMIC-IV-ECG 소개</td>
+<td>ECG 데이터 이해, 전처리, AFib 라벨링, 1D-CNN 모델과 주요 평가지표</td>
+<td>김민성</td>
+</tr>
+<tr class="odd">
+<td>10:30 ~ 11:00</td>
+<td>DICOM 및 MIMIC-CXR 소개</td>
+<td>DICOM 구조, 영상 데이터 전처리, MIMIC-CXR 구조와 라벨링 확인</td>
+<td>김규섭</td>
+</tr>
+<tr class="even">
+<td>11:00 ~ 11:30</td>
+<td>의료 데이터 전처리부터 머신러닝/딥러닝 모델 개발-검증까지</td>
+<td>머신러닝/딥러닝 모델과 문제정의, 모델 학습의 패러다임과 데이터 전처리, 모델 평가 및 검증</td>
+<td>기연우</td>
 </tr>
 <tr class="odd">
 <td>11:30 ~ 12:30</td>
@@ -294,28 +342,28 @@ ul.task-list li input[type="checkbox"] {
 <td></td>
 </tr>
 <tr class="even">
-<td>12:30 ~ 13:30</td>
-<td>CDM 심화 실습(1)</td>
-<td>MIMIC EKG, CXR 실습(1)</td>
-<td>의생명연구실 강사</td>
+<td>12:30 ~ 13:00</td>
+<td>RStudio 환경에서 CDM 연결 후 이미지 경로 추출하기</td>
+<td>CDM 연결, 환자 코호트 구성, Jupyter 환경에서 이미지 로드</td>
+<td>김민성</td>
 </tr>
 <tr class="odd">
-<td>13:30 ~ 14:30</td>
-<td>CDM 심화 실습(2)</td>
-<td>MIMIC EKG, CXR 실습(2)</td>
-<td>의생명연구실 강사</td>
+<td>13:00 ~ 14:30</td>
+<td>MIMIC-IV-ECG로 AFib 탐지 모델 개발 및 평가</td>
+<td>ECG 데이터 로드·시각화, 코호트 구성, 1D-CNN AFib 예측 모델 학습과 성능 해석</td>
+<td>김민성</td>
 </tr>
 <tr class="even">
-<td>14:30 ~ 15:00</td>
-<td>CDM 심화 실습(3)</td>
-<td>MIMIC EKG, CXR 실습(3)</td>
-<td>의생명연구실 강사</td>
+<td>14:30 ~ 16:00</td>
+<td>MIMIC-CXR로 이미지 분류 모델 개발 및 평가</td>
+<td>DICOM 파일과 메타데이터, 흉부 X-ray 전처리, DataLoader 구성, 분류 모델 학습과 결과 확인</td>
+<td>김규섭</td>
 </tr>
 <tr class="odd">
-<td>15:00 ~ 16:00</td>
-<td>연사 특강</td>
-<td>의학연구자의 삶</td>
-<td>유승찬교수</td>
+<td>시간 협의 중</td>
+<td>프로젝트 작업</td>
+<td>프로젝트 멘토링</td>
+<td>김민성, 김규섭, 기연우</td>
 </tr>
 </tbody>
 </table>
@@ -341,7 +389,7 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td>09:30 ~ 10:30</td>
 <td>프로젝트 작업</td>
-<td>팀별 Mimic CDM 프로젝트 수행</td>
+<td>팀별 Mimic CDM 프로젝트 수행 및 분석 방향 멘토링</td>
 <td>김진섭</td>
 </tr>
 <tr class="even">

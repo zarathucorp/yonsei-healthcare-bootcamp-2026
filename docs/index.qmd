@@ -8,6 +8,43 @@ format:
     lang: ko
 ---
 
+<style>
+#quarto-document-content table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+#quarto-document-content table th,
+#quarto-document-content table td {
+  vertical-align: top;
+  padding: 0.75rem 0.85rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+#quarto-document-content table th:nth-child(1),
+#quarto-document-content table td:nth-child(1) {
+  width: 14%;
+}
+
+#quarto-document-content table th:nth-child(2),
+#quarto-document-content table td:nth-child(2) {
+  width: 28%;
+}
+
+#quarto-document-content table th:nth-child(3),
+#quarto-document-content table td:nth-child(3) {
+  width: 44%;
+}
+
+#quarto-document-content table th:nth-child(4),
+#quarto-document-content table td:nth-child(4) {
+  width: 14%;
+}
+</style>
+
 연세의료원 2026 여름 디지털 헬스케어 부트캠프 강의자료 페이지입니다. 수업 중에는 이 페이지에서 일정과 강의자료를 확인하면 됩니다. 링크가 있는 항목을 누르면 해당 강의자료로 이동합니다.
 
 ## 수업 전 준비
@@ -44,8 +81,8 @@ format:
 
 | 시간 | 교육주제 | 교육세부내용 | 강사 |
 |---|---|---|---|
-| 09:30 ~ 10:30 | CDW(Common Data Warehouse) 소개 | 연세의료원 CDW 소개 | 의생명연구실 강사 |
-| 10:30 ~ 11:30 | CDW(Common Data Warehouse) 시연 | 연세의료원 CDW 시연 | 의생명연구실 강사 |
+| 09:30 ~ 10:30 | SCRAP 설명 및 시연 | CDW 소개, EMR 원자료와 CDW 차이, CDW 데이터 구조, 검색 조건, JOIN 개념 | 박이주 |
+| 10:30 ~ 11:30 | SCRAP 실습 | SCRAP 화면과 기능 소개, 조건 검색 및 코호트 추출 실습 | 박이주 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
 | 12:30 ~ 13:30 | CDM(Common Data Model) 이해 | [CDM의 개념, Database 형태, 대표연구 소개](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1230-cdm-intro/index.html) | 김진섭 |
 | 13:30 ~ 14:30 | CDM(Common Data Model) 이해 | [CDM estimation 소개](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1330-cdm-practice/index.html) | 김진섭 |
@@ -56,19 +93,21 @@ format:
 
 | 시간 | 교육주제 | 교육세부내용 | 강사 |
 |---|---|---|---|
-| 09:30 ~ 10:30 | CDM(Common Data Model) 심화 | MIMIC 및 MIMIC CDM 소개 | 의생명연구실 강사 |
-| 10:30 ~ 11:30 | CDM(Common Data Model) 심화 | MIMIC EKG, CXR 소개 | 의생명연구실 강사 |
+| 09:30 ~ 10:00 | OMOP CDM 의료영상 확장(MI-CDM) | 정형 데이터와 영상 데이터의 연계와 활용, DICOM 이해, OMOP CDM 연결 구조와 사용 가이드 | 전규리 |
+| 10:00 ~ 10:30 | ECG 데이터 특성, 전처리 및 MIMIC-IV-ECG 소개 | ECG 데이터 이해, 전처리, AFib 라벨링, 1D-CNN 모델과 주요 평가지표 | 김민성 |
+| 10:30 ~ 11:00 | DICOM 및 MIMIC-CXR 소개 | DICOM 구조, 영상 데이터 전처리, MIMIC-CXR 구조와 라벨링 확인 | 김규섭 |
+| 11:00 ~ 11:30 | 의료 데이터 전처리부터 머신러닝/딥러닝 모델 개발-검증까지 | 머신러닝/딥러닝 모델과 문제정의, 모델 학습의 패러다임과 데이터 전처리, 모델 평가 및 검증 | 기연우 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
-| 12:30 ~ 13:30 | CDM 심화 실습(1) | MIMIC EKG, CXR 실습(1) | 의생명연구실 강사 |
-| 13:30 ~ 14:30 | CDM 심화 실습(2) | MIMIC EKG, CXR 실습(2) | 의생명연구실 강사 |
-| 14:30 ~ 15:00 | CDM 심화 실습(3) | MIMIC EKG, CXR 실습(3) | 의생명연구실 강사 |
-| 15:00 ~ 16:00 | 연사 특강 | 의학연구자의 삶 | 유승찬교수 |
+| 12:30 ~ 13:00 | RStudio 환경에서 CDM 연결 후 이미지 경로 추출하기 | CDM 연결, 환자 코호트 구성, Jupyter 환경에서 이미지 로드 | 김민성 |
+| 13:00 ~ 14:30 | MIMIC-IV-ECG로 AFib 탐지 모델 개발 및 평가 | ECG 데이터 로드·시각화, 코호트 구성, 1D-CNN AFib 예측 모델 학습과 성능 해석 | 김민성 |
+| 14:30 ~ 16:00 | MIMIC-CXR로 이미지 분류 모델 개발 및 평가 | DICOM 파일과 메타데이터, 흉부 X-ray 전처리, DataLoader 구성, 분류 모델 학습과 결과 확인 | 김규섭 |
+| 시간 협의 중 | 프로젝트 작업 | 프로젝트 멘토링 | 김민성, 김규섭, 기연우 |
 
 ## 심화반 3일차: 7/24
 
 | 시간 | 교육주제 | 교육세부내용 | 강사 |
 |---|---|---|---|
-| 09:30 ~ 10:30 | 프로젝트 작업 | 팀별 Mimic CDM 프로젝트 수행 | 김진섭 |
+| 09:30 ~ 10:30 | 프로젝트 작업 | 팀별 Mimic CDM 프로젝트 수행 및 분석 방향 멘토링 | 김진섭 |
 | 10:30 ~ 11:30 | 프로젝트 작업 | 분석 결과 정리 및 발표 자료 제작 | 김진섭 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
 | 12:30 ~ 13:30 | 발표회 | 발표회 | 김진섭 |
