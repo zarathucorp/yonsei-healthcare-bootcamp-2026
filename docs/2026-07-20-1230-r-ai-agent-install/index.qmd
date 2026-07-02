@@ -1,283 +1,353 @@
 ---
-title: "Codex로 R 데이터분석"
+title: "Codex 설치와 R 데이터분석"
+subtitle: "AI agent로 분석 환경 만들기"
 author: "김진섭"
+lang: ko
 format:
   revealjs:
-    theme: zarathu_theme.scss
+    theme: ../slides_assets/zarathu_theme.scss
+    css:
+      - ../slides_assets/custom-style.css
+      - ../slides_assets/custom-style-fullbg.css
+      - ../slides_assets/custom-xaringan-compat.css
+      - codex-readable.css
     title-slide-attributes:
-      data-background-image: bg.png
+      data-background-image: ../slides_assets/bg.png
       data-background-size: cover
       data-background-opacity: "0.3"
-    logo: Zarathu Circle Clipping Mask2.png
+    logo: ../slides_assets/Zarathu Circle Clipping Mask2.png
     footer: "openstat.ai"
     self-contained: false
+    include-after-body: ../slides_assets/header-inject-fullbg.html
     chalkboard:
       buttons: false
     preview-links: true
     show-notes: false
-    slide-number: false
+    slide-number: c/t
     width: 1600
     height: 900
+execute:
+  eval: false
 editor: visual
-subtitle: "Zarathu Co., Ltd"
 ---
 
-## Executive summary
+## 오늘 할 일
 
-**AI 코딩 에이전트를 활용하여 R 데이터분석을 수행한다**
+::: {.summary-grid-4}
+::: {.summary-item .si-green}
+**1. 설치**
 
-- Codex Code: OpenAI 공식, CLI 기반 AI 코딩 에이전트
+Mac과 Windows에서 Codex CLI를 설치한다.
+:::
 
-- 터미널에서 자연어로 지시하면 코드를 작성/실행/수정
+::: {.summary-item .si-blue}
+**2. 설정**
 
-- **R 분석 전 과정**을 지원: 데이터 전처리, 통계분석, 시각화, 논문 테이블
+수업용 API 키와 `config.toml`을 연결한다.
+:::
 
-<br>
+::: {.summary-item .si-teal}
+**3. 실행**
 
-**Windows에서 바로 사용 가능**
+작업 폴더에서 `codex`를 실행한다.
+:::
 
-- Git Bash만 있으면 됨
-- 기존 R, RStudio 환경과 함께 사용
+::: {.summary-item .si-purple}
+**4. 실습**
 
-## AI 코딩 에이전트란?
+R 분석 파일과 결과물을 Codex로 만든다.
+:::
+:::
 
-**기존 ChatGPT/Copilot과의 차이**
+## Codex는 터미널에서 일하는 코딩 에이전트
 
-| 구분     | ChatGPT / Copilot     | Codex                    |
-|----------|-----------------------|--------------------------|
-| **방식** | 코드 제안/복붙        | 직접 파일 읽기/수정/실행 |
-| **환경** | 웹 브라우저 / IDE     | 터미널 (내 컴퓨터)       |
-| **범위** | 한 번에 한 질문       | 프로젝트 전체 이해       |
-| **실행** | 사용자가 복붙 후 실행 | 에이전트가 직접 실행     |
+| 구분 | 일반 챗봇 | Codex |
+|---|---|---|
+| 작업 방식 | 답변을 읽고 사람이 복사 | 파일을 읽고 수정하며 명령을 실행 |
+| 실행 위치 | 웹 브라우저 중심 | 내 컴퓨터의 터미널과 작업 폴더 |
+| 맥락 | 한 번의 질문 중심 | 프로젝트 파일과 이전 작업을 함께 반영 |
+| 결과물 | 코드 조각 | `.R`, `.qmd`, 표, 그림, 보고서 파일 |
 
-<br>
+::: {.highlight-box}
+Codex는 "R 코드를 알려주는 도구"가 아니라, 작업 폴더 안에서 코드를 만들고 실행하며 고치는 도구다.
+:::
 
-> "코드를 알려주는 AI"에서 **"코드를 대신 짜고 실행하는 AI"**로
+## 수업에서 사용할 흐름
 
-## Claude Code 데모 영상
+::: columns
+::: {.column width="48%"}
+::: {.large}
+- Codex CLI 설치
+- 수업용 API 키 설정
+- `config.toml` 저장
+- 작업 폴더에서 `codex` 실행
+:::
+:::
 
-**실제 동작 모습**
-
+::: {.column width="75%"}
 ```         
-$ codex
-
-> colon 데이터로 sex별 생존분석 해줘.
-  Kaplan-Meier plot이랑 Cox regression table 만들어서
-  ppt로 저장해.
-
-✓ R 코드 작성 중...
-✓ survival, jskm, jstable 패키지 로드
-✓ survfit, coxph 모델 적합
-✓ KM plot 생성 → results/km_plot.pptx
-✓ Cox table 생성 → results/cox_table.xlsx
-
-완료! results/ 폴더를 확인하세요.
+설치 -> 설정 -> 실행 -> 요청 -> 검토
+                 |
+                 v
+        R 코드, 표, 그림, 결과 파일
 ```
-
-- 자연어 지시 → 코드 작성 → 실행 → 결과 저장까지 **자동**
-
-## 왜 Claude Code인가?
-
-**의학연구자에게 특히 유용한 이유**
-
-1.  **R 생태계 이해도 높음**: `survival`, `jskm`, `jstable`, `meta` 등 의학통계 패키지 지원
-
-2.  **CLAUDE.md로 분석 스타일 고정**: 한 번 설정하면 매번 동일한 코딩 컨벤션 유지
-
-3.  **반복 작업 자동화**: Table 1, regression table, forest plot 등 패턴화된 작업
-
-4.  **논문 수준 출력**: flextable, officer 패키지로 바로 논문에 쓸 수 있는 결과물
-
-<br>
-
-::: callout-tip
-**핵심**: 통계를 모르는 게 아니라, **코딩에 시간을 쓰기 싫은** 교수님들을 위한 도구
+:::
 :::
 
-# 설치: Windows 환경
+# 설치: Mac
 
-## 설치 순서
+## Mac 1 - 터미널에서 설치
 
-**총 3단계**
-
-```         
-1. Git for Windows 설치   ← Claude Code가 내부적으로 Git Bash 사용
-    ↓
-2. Claude Code 설치       ← PowerShell 한 줄로 끝
-    ↓
-3. R 설치 확인            ← 이미 있으면 skip
-```
-
-<br>
-
-- **소요시간**: 약 5분
-- **Windows 10** 이상 또는 **Windows 11**
-
-## Step 1 - Git for Windows
-
-**이미 Git이 설치되어 있으면 건너뛰기**
-
-<br>
-
-1.  [git-scm.com/downloads/win](https://git-scm.com/downloads/win) 에서 다운로드
-
-2.  설치 시 **기본 옵션 그대로** 진행 (Next만 계속 클릭)
-
-3.  확인:
-
-``` powershell
-git --version
-# git version 2.47.x.windows.x
-```
-
-<br>
-
-::: callout-note
-Git for Windows에 **Git Bash**가 포함됨 → Claude Code가 이걸 사용
+::: columns
+::: {.column width="45%"}
+::: {.large}
+- `Command + Space`로 Spotlight를 연다.
+- `터미널.app`을 검색해서 실행한다.
+- 설치 명령을 붙여넣고 실행한다.
 :::
 
-## Step 2 - Claude Code 설치
-
-**CMD** 열고 한 줄 실행:
-
-``` cmd
-curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+``` bash
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
 ```
-
-- Node.js **별도 설치 불필요** (자체 포함)
-- `~/.local/bin`에 설치됨
-- **설치 후 터미널을 닫았다 다시 열기** (PATH 적용)
-- PATH 적용 안된다면, **시스템 환경변수 편집 → 환경변수 → Path 편집 → 새로만들기** 에 추가
-
-<br>
-
-**설치 확인**:
-
-``` powershell
-claude --version
-```
-
-<br>
-
-::: callout-warning
-`claude is not recognized` 에러 시 → 터미널 재시작, 또는 PATH에 `%USERPROFILE%\.local\bin` 추가
+:::
 :::
 
-## Step 3 - 최초 실행 & 인증
-
-**PowerShell 또는 Git Bash**에서:
-
-``` powershell
-cd C:\Users\본인이름\Documents\my_research
-claude
-```
-
-<br>
-
-- **최초 실행 시** 브라우저가 열리며 Anthropic 계정 로그인
-- Claude Pro, Max, Teams, Enterprise 또는 API key로 인증
-
-<br>
-
-| 인증 방법         | 가격     | 특징                  |
-|-------------------|----------|-----------------------|
-| **Claude Max**    | \$100/월 | Code 무제한, 추천     |
-| **Claude Max 5x** | \$200/월 | 더 많은 사용량        |
-| **API key**       | 종량제   | 분석 1건당 약 \$0.5-2 |
-
-## Step 4 - R 환경 확인
-
-**이미 Windows에 R이 설치되어 있으면 그대로 사용!**
-
-``` powershell
-Rscript --version
-# R scripting front-end version 4.x.x
-```
-
-<br>
-
-R이 없다면: [cran.r-project.org](https://cran.r-project.org/) 에서 다운로드
-
-<br>
-
-**R 패키지 설치** (R 콘솔 또는 RStudio에서):
-
-``` r
-install.packages(c("data.table", "magrittr", "survival",
-                    "jskm", "jstable", "flextable",
-                    "officer", "rvg", "ggplot2", "openxlsx2"))
-```
-
-::: callout-tip
-기존 RStudio에서 설치한 패키지를 Claude Code가 **그대로 사용**합니다
+::: {.highlight-box-blue}
+설치 마지막에 `Start Codex now? [y/N]`가 나오면 수업에서는 `N`을 입력한다. 설정 파일을 먼저 만든 뒤 실행한다.
 :::
 
-## 문제 해결
+## Mac 2 - 설치 결과 확인
+
+![](codex-mac-install-result.png){fig-alt="Mac에서 Codex CLI 설치가 완료된 터미널 화면" width="82%"}
+
+::: {.highlight-box-gray}
+`Codex CLI installed successfully`가 보이면 설치가 끝난 것이다.
+:::
+
+## Mac 3 - API 키 설정
+
+::: columns
+::: {.column width="45%"}
+
+터미널에서 이어서 실행한다.
+
+``` bash
+export LITELLM_API_KEY="전달받은 개별 API KEY"
+```
+:::
+:::
+
+::: {.highlight-box-gray}
+이 명령은 화면에 특별한 결과가 나오지 않는 것이 정상이다. 터미널을 닫으면 다시 설정해야 하므로, 실습 중에는 같은 터미널을 유지한다.
+:::
+
+## Mac 4 - config.toml 저장 위치
+
+`~/.codex` 폴더를 열고 `config.toml` 파일을 만든다.
+
+::: columns
+::: {.column width="43%"}
+::: {.large}
+- Finder를 연다.
+- `Command + Shift + G`를 누른다.
+- `~/.codex`를 입력한다.
+- `config.toml` 파일을 저장한다.
+:::
+:::
+
+::: {.column width="57%"}
+![](codex-mac-finder-go.png){fig-alt="Mac Finder에서 ~/.codex 경로로 이동하는 화면" width="100%"}
+:::
+:::
+
+## Mac 5 - config.toml 배치
+
+![](codex-mac-config-location.png){fig-alt="Mac Finder의 .codex 폴더 안에 config.toml 파일이 있는 화면" width="78%"}
+
+::: {.highlight-box}
+파일 이름은 반드시 `config.toml`이어야 한다.
+:::
+
+## Mac 6 - config.toml 내용
+
+::: columns
+::: {.column width="46%"}
+
+``` toml
+model = "gpt-5.5"
+model_provider = "litellm"
+model_reasoning_effort = "high"
+
+[model_providers.litellm]
+name = "LiteLLM"
+base_url = "https://litellm.zarathu.com/v1"
+env_key = "LITELLM_API_KEY"
+wire_api = "responses"
+```
+:::
+:::
+
+::: {.highlight-box}
+`env_key`에는 API 키 값이 아니라 환경변수 이름인 `LITELLM_API_KEY`를 적는다.
+:::
+
+## Mac 7 - Codex 실행
+
+작업할 폴더로 이동한 뒤 실행한다.
+
+``` bash
+cd ~/Documents/my_research
+codex
+```
+
+::: {.highlight-box-blue}
+처음 실행할 때 권한, 작업 폴더 신뢰 여부, 로그인 방식 등을 묻는 화면이 나올 수 있다. 수업에서는 강사 안내에 맞춰 진행한다.
+:::
+
+# 설치: Windows
+
+## Windows 1 - PowerShell에서 설치
+
+::: columns
+::: {.column width="100%"}
+::: {.large}
+- `Windows + R`을 누른다.
+- 실행 창에 `powershell`을 입력한다.
+- 설치 명령을 붙여넣고 실행한다.
+:::
 
 ``` powershell
-# 설치 상태 자동 진단
-claude doctor
+powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
 ```
+:::
+:::
 
-<br>
+## Windows 2 - 설치 결과 확인
 
-**자주 발생하는 문제와 해결**
+![](codex-windows-install-result.png){fig-alt="Windows에서 Codex CLI 설치가 완료된 PowerShell 화면" width="82%"}
 
-| 문제                       | 해결                          |
-|----------------------------|-------------------------------|
-| `claude is not recognized` | 터미널 재시작 또는 PATH 추가  |
-| Git 없다는 에러            | Git for Windows 설치          |
-| 인증 실패                  | `claude doctor`로 진단        |
-| R 못 찾음                  | Rscript이 PATH에 있는지 확인  |
-| 한글 깨짐                  | 시스템 UTF-8 설정 (아래 참고) |
+::: {.highlight-box-gray}
+`Codex CLI installed successfully`가 보이면 설치가 끝난 것이다.
+:::
 
-<br>
+## Windows 3 - API 키 설정
 
-**한글 깨짐 해결**: 설정 → 시간 및 언어 → 언어 및 지역 → 관리 언어 설정 → 시스템 로캘 변경 → **Beta: 세계 언어 지원을 위해 Unicode UTF-8 사용** 체크 → 재부팅
+::: columns
+::: {.column width="45%"}
 
-## 폴더 구조 세팅
-
-**프로젝트 구조**
-
-```         
-my_research/
-├── CLAUDE.md          ← 분석 스타일 지시
-├── data/              ← 원본 데이터 (xlsx, csv 등)
-├── global.R           ← 데이터 전처리
-├── analysis.R         ← 분석 코드
-└── results/           ← 결과물 (pptx, xlsx)
-```
-
-<br>
+PowerShell에서 이어서 실행한다.
 
 ``` powershell
-cd C:\Users\본인이름\Documents\my_research
-claude
+$env:LITELLM_API_KEY="전달받은 개별 API KEY"
+```
+:::
+:::
+
+::: {.highlight-box-gray}
+이 명령도 실행 결과가 없는 것이 정상이다. 실습 중에는 같은 PowerShell 창을 유지한다.
+:::
+
+## Windows 4 - config.toml 저장
+
+메모장에서 텍스트 파일을 만들고 아래 위치에 저장한다.
+
+``` powershell
+%USERPROFILE%\.codex
 ```
 
-# CLAUDE.md: 분석 스타일 설정
+저장할 때 확인할 것:
 
-## CLAUDE.md란?
+::: {.large}
+- 파일 이름: `config.toml`
+- 파일 형식: 모든 파일
+- 인코딩: UTF-8
+:::
+
+::: {.highlight-box-blue}
+확장자가 `config.toml.txt`가 되면 Codex가 읽지 못한다. 파일 이름을 다시 확인한다.
+:::
+
+## Windows 5 - 저장 화면 확인
+
+::: columns
+::: {.column width="70%"}
+![](codex-windows-save-config.png){fig-alt="Windows에서 config.toml을 .codex 폴더에 저장하는 화면" width="100%"}
+:::
+
+::: {.column width="30%"}
+![](codex-windows-overwrite-confirm.png){fig-alt="Windows에서 config.toml 덮어쓰기를 확인하는 대화상자" width="100%"}
+:::
+:::
+
+::: {.highlight-box-gray}
+이미 `config.toml`이 있으면 덮어쓸지 묻는 창이 나올 수 있다.
+:::
+
+## Windows 6 - config.toml 내용
+
+::: columns
+::: {.column width="46%"}
+
+``` toml
+model = "gpt-5.5"
+model_provider = "litellm"
+model_reasoning_effort = "high"
+
+[model_providers.litellm]
+name = "LiteLLM"
+base_url = "https://litellm.zarathu.com/v1"
+env_key = "LITELLM_API_KEY"
+wire_api = "responses"
+```
+:::
+
+::: {.column width="54%"}
+![](codex-config-toml.png){fig-alt="Codex config.toml에 LiteLLM 설정을 입력한 화면" width="88%"}
+:::
+:::
+
+::: {.highlight-box-gray}
+수업용 LiteLLM 주소와 API 키는 강의 운영 환경에 맞춘 설정이다. 개인 환경에서는 ChatGPT 로그인이나 OpenAI API key 로그인 방식도 사용할 수 있다.
+:::
+
+## Windows 7 - Codex 실행
+
+작업할 폴더로 이동한 뒤 실행한다.
+
+``` powershell
+Set-Location "$env:USERPROFILE\Documents\my_research"
+codex
+```
+
+문제가 있으면 먼저 진단한다.
+
+``` powershell
+codex doctor
+```
+
+# AGENTS.md: 분석 스타일 설정
+
+## AGENTS.md란?
 
 **프로젝트 루트에 두는 AI 지시 파일**
 
-- Claude Code가 매 대화 시작할 때 자동으로 읽음
+::: {.large}
+- Codex가 작업 시작 때 자동으로 읽는 규칙 파일
 - 코딩 스타일, 사용 패키지, 분석 컨벤션 등을 고정
 - **한 번 작성하면 매번 동일한 스타일로 분석**
-
-<br>
+:::
 
 ``` bash
 # 프로젝트 루트에 생성
 my_research/
-├── CLAUDE.md          ← 분석 스타일 지시
-├── data/              ← 원본 데이터
-├── global.R           ← 데이터 전처리
-├── analysis.R         ← 분석 코드
-└── results/           ← 결과물 (pptx, xlsx)
+├── AGENTS.md         ← 분석 스타일 지시
+├── data/             ← 원본 데이터
+├── global.R          ← 데이터 전처리
+├── analysis.R        ← 분석 코드
+└── results/          ← 결과물 (pptx, xlsx)
 ```
 
-## CLAUDE.md 예시 (1/2)
+## AGENTS.md 예시 (1/2)
 
 ``` markdown
 # 분석 스타일
@@ -299,7 +369,7 @@ my_research/
 - flexlsx + openxlsx2로 Excel 여러 시트에 저장
 ```
 
-## CLAUDE.md 예시 (2/2)
+## AGENTS.md 예시 (2/2)
 
 ``` markdown
 ## 그림 저장
@@ -317,10 +387,8 @@ my_research/
 - Table 1 footer는 실제 사용된 검정과 일치시키기
 ```
 
-<br>
-
-::: callout-tip
-이 CLAUDE.md를 한 번 만들어두면, "Table 1 만들어줘"라고만 해도 **항상 같은 스타일**로 생성
+::: {.highlight-box}
+이 AGENTS.md를 한 번 만들어두면, "Table 1 만들어줘"라고만 해도 **항상 같은 스타일**로 생성할 수 있다.
 :::
 
 # 실전: R 데이터분석
@@ -329,15 +397,13 @@ my_research/
 
 **자연어로 지시**:
 
-```         
-> data 폴더의 엑셀 파일 읽어서 global.R 만들어줘.
-  성별은 factor, 나이/BMI는 numeric으로.
-  DM은 0/1 코딩이고 label은 No/Yes로.
-```
+::: {.prompt-box}
+data 폴더의 엑셀 파일 읽어서 global.R 만들어줘.  
+성별은 factor, 나이/BMI는 numeric으로.  
+DM은 0/1 코딩이고 label은 No/Yes로.
+:::
 
-<br>
-
-**Claude Code가 생성하는 코드**:
+**Codex가 생성하는 코드**:
 
 ``` r
 library(data.table);library(magrittr);library(jstable)
@@ -362,15 +428,13 @@ out.label <- jstable::mk.lev(out)
 
 **자연어로 지시**:
 
-```         
-> DM 기준으로 Table 1 만들어줘.
-  nonnormal 변수는 Age, BMI로.
-  Excel로 저장.
-```
+::: {.prompt-box}
+DM 기준으로 Table 1 만들어줘.  
+nonnormal 변수는 Age, BMI로.  
+Excel로 저장.
+:::
 
-<br>
-
-**Claude Code가 실행하는 코드**:
+**Codex가 실행하는 코드**:
 
 ``` r
 source("global.R")
@@ -395,15 +459,13 @@ ft <- tb1$table %>%
 
 **자연어로 지시**:
 
-```         
-> DM 여부에 따른 Kaplan-Meier plot 그려줘.
-  p-value 표시하고, JAMA 스타일로.
-  ppt로 저장.
-```
+::: {.prompt-box}
+DM 여부에 따른 Kaplan-Meier plot 그려줘.  
+p-value 표시하고, JAMA 스타일로.  
+ppt로 저장.
+:::
 
-<br>
-
-**Claude Code가 실행하는 코드**:
+**Codex가 실행하는 코드**:
 
 ``` r
 library(survival);library(jskm);library(officer);library(rvg)
@@ -428,14 +490,12 @@ print(doc, target = "results/km_plot.pptx")
 
 **자연어로 지시**:
 
-```         
-> DM의 사망 위험을 Cox regression으로 분석해줘.
-  Age, Sex, BMI 보정하고, label 적용해서 Excel로 저장.
-```
+::: {.prompt-box}
+DM의 사망 위험을 Cox regression으로 분석해줘.  
+Age, Sex, BMI 보정하고, label 적용해서 Excel로 저장.
+:::
 
-<br>
-
-**Claude Code가 실행하는 코드**:
+**Codex가 실행하는 코드**:
 
 ``` r
 fmla <- Surv(time, event) ~ DM + Age + Sex + BMI
@@ -459,9 +519,9 @@ wb$save("results/Tables.xlsx")
 
 ## 대화 이어가기
 
-**Claude Code의 강점: 맥락을 기억**
+**Codex의 강점: 맥락을 기억**
 
-```         
+``` {.prompt-box}
 > 위의 Cox 모델에서 DM 유의하면,
   subgroup 분석도 해줘. Sex, Age 65세 기준으로.
   forestploter로 그려서 ppt에 추가.
@@ -473,8 +533,6 @@ wb$save("results/Tables.xlsx")
   Statistical Analysis는 영어로.
 ```
 
-<br>
-
 - 이전 대화에서 만든 코드/결과를 **기억하고 이어서** 작업
 - 추가 지시만 하면 기존 코드를 수정하거나 확장
 
@@ -484,40 +542,36 @@ wb$save("results/Tables.xlsx")
 
 **구체적일수록 좋다**
 
-| 나쁜 예       | 좋은 예                                     |
-|---------------|---------------------------------------------|
-| "분석해줘"    | "DM 기준 Table 1 만들어줘, nonnormal은 Age" |
+| 나쁜 예 | 좋은 예 |
+|---|---|
+| "분석해줘" | "DM 기준 Table 1 만들어줘, nonnormal은 Age" |
 | "그래프 그려" | "KM plot 그려줘, JAMA 스타일, p-value 표시" |
-| "저장해"      | "ppt로 저장, fullsize, 벡터그래픽"          |
-
-<br>
+| "저장해" | "ppt로 저장, fullsize, 벡터그래픽" |
 
 **단계별 지시가 안전**
 
-1.  먼저: "data 폴더의 엑셀 읽어서 구조 보여줘"
-2.  다음: "global.R 만들어줘"
-3.  그 다음: "Table 1 만들어줘"
-4.  마지막: "결과 Excel로 저장"
+1. 먼저: "data 폴더의 엑셀 읽어서 구조 보여줘"
+2. 다음: "global.R 만들어줘"
+3. 그 다음: "Table 1 만들어줘"
+4. 마지막: "결과 Excel로 저장"
 
 ## 자주 쓰는 명령어
 
-**Claude Code 기본 명령**
+**Codex 기본 명령**
 
 ``` bash
-# Claude Code 시작
-claude
+# Codex 시작
+codex
 
 # 대화 내 명령어
 /help              # 도움말
 /clear             # 대화 초기화
-/compact           # 대화 요약 (토큰 절약)
+/compact           # 대화 요약
 ```
-
-<br>
 
 **유용한 자연어 패턴**
 
-```         
+``` bash  
 > global.R 읽어보고 어떤 변수가 있는지 알려줘
 > analysis.R의 에러 고쳐줘
 > 이 코드 리뷰해줘
@@ -526,100 +580,81 @@ claude
 
 ## 비용과 구독
 
-**Claude Code 사용 비용**
+**Codex 사용 방식**
 
-| 플랜                | 가격        | 특징                  |
-|---------------------|-------------|-----------------------|
-| **API (종량제)**    | 사용량 기반 | 분석 1건당 약 \$0.5-2 |
-| **Claude Pro**      | \$20/월     | 웹 + 제한적 Code 사용 |
-| **Claude Max**      | \$100/월    | Code 무제한 사용      |
-| **Claude Max (5x)** | \$200/월    | 더 많은 사용량        |
+| 방식 | 비용 | 특징 |
+|---|---|---|
+| **수업용 LiteLLM** | 강의 안내 기준 | 수업 중 동일한 설정으로 사용 |
+| **ChatGPT 계정 로그인** | 플랜에 따라 다름 | 개인 실습과 일반 사용에 적합 |
+| **OpenAI API key** | 사용량 기반 | 호출량에 따라 과금 |
 
-<br>
-
-::: callout-tip
-**추천**: 처음엔 API key로 시작 → 자주 쓰면 Max로 전환
-
-의학연구 분석 기준, 월 \$100이면 **RA 인건비 대비 압도적**
+::: {.highlight-box-blue}
+수업에서는 안내받은 LiteLLM 설정을 사용한다. 개인 계정이나 API key를 쓸 때는 각 서비스의 과금 기준을 확인한다.
 :::
 
 ## 주의사항
 
 **반드시 확인할 것**
 
-1.  **코드 리뷰**: AI가 만든 코드를 반드시 확인
+1. **코드 리뷰**: AI가 만든 코드를 반드시 확인
 
     - 특히 통계 방법이 맞는지, 변수 코딩이 맞는지
 
-2.  **환자 데이터 보안**: Claude Code는 **로컬에서 실행**
+2. **환자 데이터 보안**: Codex는 **로컬에서 실행**
 
-    - 코드만 API로 전송, 데이터 파일은 전송되지 않음
-    - 단, 프롬프트에 환자 정보를 직접 입력하지 말 것
+    - 분석 파일과 명령을 읽고 처리할 수 있으므로 민감정보를 넣지 않는다.
+    - 프롬프트에 환자 정보를 직접 입력하지 않는다.
 
-3.  **재현성**: global.R + analysis.R + CLAUDE.md를 함께 보관
+3. **재현성**: global.R + analysis.R + AGENTS.md를 함께 보관
 
-    - 동일한 지시로 동일한 결과 재현 가능
+    - 동일한 지시로 동일한 결과를 다시 확인할 수 있다.
 
-<br>
-
-::: callout-warning
-**AI는 도구일 뿐**: 통계적 판단과 결과 해석은 **연구자의 몫**
+::: {.highlight-box-gray}
+AI는 도구일 뿐이다. 통계적 판단과 결과 해석은 **연구자의 몫**이다.
 :::
 
-## 설치 후 확인: claude doctor
+## 설치 후 확인: codex doctor
 
 **설치가 잘 됐는지 한 번에 진단**
 
 ``` powershell
-claude doctor
+codex doctor
 ```
 
 - 설치 방식, 버전, PATH, Git 상태 등 자동 체크
 - 문제 발견 시 해결 방법 안내
 
-<br>
-
 **그래도 안 되면?**
 
-| 상황                | 해결                          |
-|---------------------|-------------------------------|
-| claude 명령어 안 됨 | PATH에 `~/.local/bin` 추가    |
-| R 못 찾음           | Rscript PATH 확인             |
-| 한글 깨짐           | Windows 설정에서 UTF-8 활성화 |
-| 패키지 설치 에러    | Rtools 설치                   |
+| 상황 | 해결 |
+|---|---|
+| codex 명령어 안 됨 | PATH에 `~/.local/bin` 추가 |
+| R 못 찾음 | Rscript PATH 확인 |
+| 한글 깨짐 | Windows 설정에서 UTF-8 활성화 |
+| 패키지 설치 에러 | Rtools 설치 |
 
 ## 정리
 
-**Claude Code + R 데이터분석 워크플로우**
+**Codex + R 데이터분석 워크플로우**
 
-```         
-1. CLAUDE.md 작성 (분석 스타일 고정)
+``` bash
+1. AGENTS.md 작성 (분석 스타일 고정)
     ↓
 2. 데이터를 프로젝트 폴더에 준비
     ↓
-3. claude 실행 → 자연어로 지시
+3. codex 실행 → 자연어로 지시
     ↓
 4. global.R → analysis.R → 결과물 자동 생성
     ↓
 5. 코드 리뷰 후 최종 확인
 ```
 
-<br>
-
 **기대 효과**
 
 - 반복적인 코딩 작업 시간 **대폭 단축**
-- 일관된 분석 스타일 유지 (CLAUDE.md)
+- 일관된 분석 스타일 유지 (AGENTS.md)
 - 논문 수준 테이블/그림 **즉시 생성**
 
-# 감사합니다 {background-color="#2A3D21"}
+## 감사합니다
 
 **실습 및 질문**
-
-<br>
-
-jinseob2kim\@gmail.com
-
-github.com/jinseob2kim
-
-openstat.ai
