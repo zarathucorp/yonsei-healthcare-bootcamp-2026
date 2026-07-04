@@ -26,7 +26,7 @@
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
       width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
   </style>
@@ -65,12 +65,12 @@
     }
     .reveal .footnotes ol {
       counter-reset: ol;
-      list-style-type: none;
+      list-style-type: none; 
       margin-left: 0;
     }
     .reveal .footnotes ol li:before {
       counter-increment: ol;
-      content: counter(ol) ". ";
+      content: counter(ol) ". "; 
     }
     .reveal .footnotes ol li > p:first-child {
       display: inline-block;
@@ -112,19 +112,19 @@
     .reveal .slide > img.r-stretch.quarto-figure-center {
       display: block;
       margin-left: auto;
-      margin-right: auto;
+      margin-right: auto; 
     }
     .reveal .slide > img.stretch.quarto-figure-left,
     .reveal .slide > img.r-stretch.quarto-figure-left  {
       display: block;
       margin-left: 0;
-      margin-right: auto;
+      margin-right: auto; 
     }
     .reveal .slide > img.stretch.quarto-figure-right,
     .reveal .slide > img.r-stretch.quarto-figure-right  {
       display: block;
       margin-left: auto;
-      margin-right: 0;
+      margin-right: 0; 
     }
   </style>
 </head>
@@ -139,7 +139,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-김진섭
+김진섭 
 </div>
 </div>
 </div>
@@ -150,167 +150,10 @@
 <h2>Executive summary</h2>
 <div class="large">
 <ul>
-<li><p>연구지원법인 차라투 운영하면서 CDM 공동연구 진행</p></li>
 <li><p>CDM은 병원들의 데이터를 똑같은 형태로 만든다.</p></li>
 <li><p>하나의 분석코드로 다기관메타분석 가능</p></li>
 <li><p>분석 전과정에 R을 이용하나, <a href="https://feedernet.com/">Feedernet</a> 에서 R없이 기본분석 가능.</p></li>
 </ul>
-</div>
-</section>
-<section id="하는일" class="slide level2 center middle">
-<h2>하는일</h2>
-</section>
-<section id="맞춤형-통계웹" class="slide level2">
-<h2>맞춤형 통계웹</h2>
-
-<img data-src="ss.png" class="r-stretch"></section>
-<section id="공개-통계웹" class="slide level2">
-<h2><a href="https://openstat.ai">공개 통계웹</a></h2>
-
-<img data-src="https://blog.zarathu.com/posts/2018-11-24-basic-biostatistics/app.gif" class="r-stretch"></section>
-<section id="주요-계약" class="slide level2">
-<h2>주요 계약</h2>
-<ul>
-<li><p>대한심혈관중재학회 <a href="https://clinicaltrials.gov/ct2/show/NCT03068494">COBIS III 레지스트리</a> 분석: <a href="http://pf.kakao.com/_XsuxgC/48388190">추가계약</a></p></li>
-<li><p>서울성모병원 <a href="https://clinicaltrials.gov/ct2/show/NCT02806102">COREA-AMI II 레지스트리</a> 분석: <a href="http://pf.kakao.com/_XsuxgC/48043955">10개 연구 계약</a></p></li>
-<li><p>삼성서울병원 <a href="http://www.feedernet.org/html/?pmode=cdmdrn">공통데이터모델(CDM)</a> 분석: <a href="https://hira-covid19.net/">심평원 코로나데이터</a> 분석 중</p></li>
-<li><p>강동성심병원 CDM 분석지원: 공단표본데이터 분석 중</p></li>
-<li><p>경기도감염병관리지원단 코로나 대시보드 with Shinykorea: <a href="https://shinykorea.github.io/corona-activityrecord">최종보고</a></p></li>
-<li><p>삼성서울병원 이식외과 육종(sarcoma) 데이터 분석: <a href="http://pf.kakao.com/_XsuxgC/51701089">5개 연구 계약</a></p></li>
-<li><p>해운대백병원 정신질환 네트워크분석: <a href="http://pf.kakao.com/_XsuxgC/52664370">논문 5편</a> 게재</p></li>
-<li><p>성균관의대 환경역학연구실 <a href="http://pf.kakao.com/_XsuxgC/43627405">미세먼지 대시보드</a></p></li>
-<li><p><a href="http://pf.kakao.com/_XsuxgC/55192190">삼성서울병원 정신과 통계자문계약</a></p></li>
-<li><p><a href="http://pf.kakao.com/_XsuxgC/55577702">서울대병원 순환기내과 통계자문계약</a></p></li>
-</ul>
-</section>
-<section id="주요-논문-성과" class="slide level2">
-<h2>주요 논문 성과</h2>
-<div class="large">
-<p>SCI 논문 200건 지원</p>
-</div>
-<center>
-<img src="https://raw.githubusercontent.com/jinseob2kim/lecture-general/master/docs/snu-premed/paper.jpg" width="80%">
-</center>
-</section>
-<section id="정부지원사업-선정" class="slide level2">
-<h2>정부지원사업 선정</h2>
-<center>
-<img src="https://raw.githubusercontent.com/jinseob2kim/lecture-general/master/docs/snu-premed/gv.jpg" width="100%">
-</center>
-</section>
-<section id="년-iitp-연구개발과제-선정" class="slide level2">
-<h2>22년 IITP 연구개발과제 선정</h2>
-<div class="large">
-<p>2년 10.5억 with 앤틀러, 파이디지털헬스케어</p>
-</div>
-<center>
-<img src="http://k.kakaocdn.net/dn/bsgueW/btrzkqLQ3H2/qQBLFHw769HWkRJyeRWRG1/img_l.jpg" width="70%">
-</center>
-</section>
-<section id="채용" class="slide level2">
-<h2>채용</h2>
-<div class="large">
-<ol type="1">
-<li>R 데이터분석가</li>
-</ol>
-<ul>
-<li><p>병원데이터, 공단/심평원/국건영 데이터</p></li>
-<li><p>분석웹 개발</p></li>
-</ul>
-<ol start="2" type="1">
-<li>R 패키지 개발자</li>
-</ol>
-<ul>
-<li>IITP 선정후 채용</li>
-</ul>
-</div>
-</section>
-<section id="핵심기술-r" class="slide level2 center middle">
-<h2>핵심기술 R</h2>
-</section>
-<section id="프로그램-개발-블로그-운영" class="slide level2">
-<h2>프로그램 개발, 블로그 운영</h2>
-<div class="large">
-<p><a href="https://www.r-project.org/">R</a> packages</p>
-<ul>
-<li><p><a href="https://github.com/jinseob2kim/jstable">jstable</a>: 논문용 테이블 만들기</p></li>
-<li><p><a href="https://github.com/jinseob2kim/jskm">jskm</a>: 생존분석 그림 만들기</p></li>
-<li><p><a href="https://github.com/jinseob2kim/jsmodule">jsmodule</a>: 웹에서 하는 통계분석</p></li>
-</ul>
-</div>
-<div class="large">
-<p>데이터 분석용 가상머신(<a href="https://www.docker.com/">docker</a> image)</p>
-<ul>
-<li><a href="https://github.com/jinseob2kim/docker-rshiny">rshiny</a>: <a href="https://www.rstudio.com/">Rstudio</a>와 <a href="https://www.rstudio.com/products/shiny/shiny-server/">shiny server</a> 가 설치된 이미지.</li>
-</ul>
-</div>
-<div class="large">
-<p><a href="https://blog.zarathu.com/">블로그</a>, 카카오톡 오픈채팅방- 프로그래밍 갤러리 R 유저 모임</p>
-</div>
-</section>
-<section id="다운로드" class="slide level2">
-<h2>80,000 다운로드</h2>
-<center>
-<img src="cran.png" width="80%">
-</center>
-</section>
-<section id="발표-개발환경구축" class="slide level2">
-<h2>발표: 개발환경구축</h2>
-<center>
-<img src="https://raw.githubusercontent.com/jinseob2kim/lecture-general/master/docs/snu-premed/RUCK2018.jpg" width="80%">
-</center>
-</section>
-<section id="발표-r패키지-개발-후기" class="slide level2">
-<h2>발표: R패키지 개발 후기</h2>
-<center>
-<img src="https://raw.githubusercontent.com/jinseob2kim/lecture-general/master/docs/snu-premed/RUCK2019.jpg" width="80%">
-</center>
-</section>
-<section id="공부모임-shiny-밋업" class="slide level2">
-<h2>공부모임: Shiny 밋업</h2>
-<div class="large">
-<p>https://github.com/shinykorea/Meetup</p>
-<ul>
-<li><p>월 1회 공부내용 공유. 30회 진행</p></li>
-<li><p>의료/유전학/축산/반도체/게임/IPTV/회계 등 다양한 분야 사람들이 모임.</p></li>
-<li><p><strong>경기도 코로나 대시보드 공동작업</strong></p></li>
-<li><p>21년 공개SW기반 <strong>커뮤니티</strong> 지원사업, <strong>韓中日 공개SW</strong> 국제협력 강화 TASK 선정</p></li>
-</ul>
-</div>
-</section>
-<section id="경기도-코로나-병상관리-대시보드" class="slide level2">
-<h2>경기도 코로나 <a href="https://github.com/shinykorea/corona-sickbed">병상관리 대시보드</a></h2>
-
-<img data-src="https://shinykorea.github.io/corona-activityrecord/d1.png" class="r-stretch"></section>
-<section id="프로그래밍갤러리-r-유저모임" class="slide level2">
-<h2>프로그래밍갤러리 R 유저모임</h2>
-<div class="large">
-<p>디시인사이드 프로그래밍 갤러리 고정닉 활동: <strong><a href="https://gallog.dcinside.com/jinseob2kim">조선니체</a></strong></p>
-<p>카카오톡 오픈채팅방 운영: 정모 2회</p>
-</div>
-<center>
-<img src="kakao_open.jpg" width="25%">
-</center>
-</section>
-<section id="바이오헬스-규제과학과" class="slide level2">
-<h2>바이오헬스 규제과학과</h2>
-<div class="large">
-<p>겸임교수로 <a href="https://github.com/jinseob2kim/R-skku-biohrs">R빅데이터분석</a> 3학점 강의중(월 19-21시)</p>
-</div>
-<center>
-<img src="https://raw.githubusercontent.com/jinseob2kim/lecture-general/master/docs/snu-premed/biohrs.jpg" width="80%">
-</center>
-</section>
-<section id="sw마에스트로-멘토" class="slide level2">
-<h2><a href="https://www.swmaestro.org/sw/main/contents.do?menuNo=200034">SW마에스트로 멘토</a></h2>
-<div class="large">
-<ul>
-<li><p>과기정통부, 정보통신기획평가원 주관 SW인재양성사업</p></li>
-<li><p>기술멘토 60인 선발: 23년까지 임기</p></li>
-</ul>
-<center>
-<img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdDeAvB%2FbtrqOgDFlcX%2FLvib9Ieq3ftZwbAIyPMRl1%2Fimg.jpg" width="50%">
-</center>
 </div>
 </section>
 <section id="common-data-modelcdm" class="slide level2 center middle">
@@ -593,7 +436,6 @@
 <h2>Executive summary</h2>
 <div class="large">
 <ul>
-<li><p>연구지원법인 차라투 운영하면서 CDM 공동연구 진행</p></li>
 <li><p>CDM은 병원들의 데이터를 똑같은 형태로 만든다.</p></li>
 <li><p>하나의 분석코드로 다기관메타분석 가능</p></li>
 <li><p>분석 전과정에 R을 이용하나, <a href="https://feedernet.com/">Feedernet</a> 에서 R없이 기본분석 가능.</p></li>
@@ -620,7 +462,7 @@
   <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="index_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
-
+  
 
   <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
@@ -643,7 +485,7 @@
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":false},
 'smaller': false,
-
+ 
         // Display controls in the bottom right corner
         controls: false,
 
@@ -924,7 +766,7 @@
         });
         const isCodeAnnotation = (el) => {
           for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {
+            if (clz.startsWith('code-annotation-')) {                     
               return true;
             }
           }
@@ -944,11 +786,11 @@
             button.setAttribute("data-bs-toggle", "tooltip");
             button.setAttribute("data-bs-placement", "left");
             button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button,
-              { trigger: "manual",
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
                 customClass: "code-copy-button-tooltip",
                 offset: [0, -8]});
-            tooltip.show();
+            tooltip.show();    
           }
           setTimeout(function() {
             if (tooltip) {
@@ -1027,7 +869,7 @@
           }
             config['offset'] = [0,0];
             config['maxWidth'] = 700;
-          window.tippy(el, config);
+          window.tippy(el, config); 
         }
         const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
         for (var i=0; i<noterefs.length; i++) {
@@ -1084,6 +926,6 @@
         }
       });
       </script>
-
+    
 
 </body></html>
