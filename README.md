@@ -13,21 +13,21 @@
 | 시간 | 교육주제 | 교육세부내용 | 강사 |
 |---|---|---|---|
 | 09:30 ~ 10:30 | OT 및 목표 설정 | [과정 전반 소개](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-0930-orientation/index.html) | 김진섭 |
-| 10:30 ~ 11:30 | 통계이론 | [의학연구 위한 기초통계(Table 1), 회귀/생존분석](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1030-basic-statistics-regression-survival/index.html) | 김진섭 |
+| 10:30 ~ 11:30 | 통계이론 |  [가능도/정규분포], [의학연구 위한 기초통계(Table 1)](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1030-basic-statistics-regression-survival/index.html), [code](https://github.com/jinseob2kim/R-skku-biohrs/blob/main/code/descriptive.R) | 김진섭 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
-| 12:30 ~ 13:30 | R과 AI agent 이용한 의학연구실습 | [R 기초 & AI agent 설치](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1230-r-ai-agent-install/index.html) | 김진섭 |
-| 13:30 ~ 14:30 | R과 AI agent 이용한 의학연구실습 | [분석용 데이터만들기](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1330-analysis-dataset/index.html) | 김진섭 |
-| 14:30 ~ 15:30 | R과 AI agent 이용한 의학연구실습 | [논문용 분석결과 만들기](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1430-paper-results/index.html) | 김진섭 |
-| 15:30 ~ 16:00 | R과 AI agent 이용한 의학연구실습 | [예시데이터 실습](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1530-medical-research-practice/index.html) | 김진섭 |
+| 12:30 ~ 13:30 | AI agent로 R분석하기 | [AI agent 설치 및 기초실습](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1230-r-ai-agent-install/index.html) | 김진섭 |
+| 13:30 ~ 14:30 | R 데이터매니지먼트 | [R 기본 스타일](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1330-analysis-dataset/index.html), [code](https://github.com/jinseob2kim/R-skku-biohrs/blob/main/code/base.R) | 김진섭 |
+| 14:30 ~ 15:00 | R 데이터매니지먼트 | [tidyverse 스타일](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1430-paper-results/index.html) | 김진섭 |
+| 15:30 ~ 16:00 | R 데이터매니지먼트 | [data.table 스타일](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1530-medical-research-practice/index.html) | 김진섭 |
 
 ## 기본반 2일차: 7/21
 
 | 시간 | 교육주제 | 교육세부내용 | 강사 |
 |---|---|---|---|
-| 09:30 ~ 10:30 | Randomized Controlled Trial 이란? | [RCT가 중요한 이유와 주요 학술지 통계방법 리뷰](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-0930-rct-intro/index.html) | 김진섭 |
-| 10:30 ~ 11:30 | 통계이론2 | [가능도, 정규분포, 샘플수 계산, 생존분석 심화](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1030-likelihood-normal-survival/index.html) | 김진섭 |
+| 09:30 ~ 10:30 | 통계이론2 | [회귀/생존분석](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-0930-rct-intro/index.html), [code](https://github.com/jinseob2kim/R-skku-biohrs/blob/main/code/regression.R) | 김진섭 |
+| 10:30 ~ 11:30 | RCT 이해 | [NEJM/Lancet/JAMA 논문으로 배우는 RCT 개념과 통계](https://jinseob2kim.github.io/lecture-general/yonsei_conf/) | 김진섭 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
-| 12:30 ~ 13:30 | 슬라이드, 분석웹 만들기 | [Quarto markdown과 Shiny 활용](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1230-quarto-shiny/index.html) | 김진섭 |
+| 12:30 ~ 13:30 | AGENT.md 만들기 | [의학연구위한 AGENT.md 만들기](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1230-quarto-shiny/index.html) | 김진섭 |
 | 13:30 ~ 14:30 | RCT 재현 프로젝트 | [RCT 예시데이터 분석결과 재현](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1330-rct-reproduction-project/index.html) | 김진섭 |
 | 14:30 ~ 15:30 | 연사 특강 | [의사의 길: 나만의 특이점을 찾아서](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1430-physician-path/index.html) | 김진섭 |
 | 15:30 ~ 16:00 | 기본반 수료식 | [수료증 및 기념품 전달](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1530-completion/index.html) | 김진섭 |
@@ -39,10 +39,10 @@
 | 09:30 ~ 10:30 | SCRAP 설명 및 시연 | CDW 소개, EMR 원자료와 CDW 차이, CDW 데이터 구조, 검색 조건, JOIN 개념 | 박이주 |
 | 10:30 ~ 11:30 | SCRAP 실습 | SCRAP 화면과 기능 소개, 조건 검색 및 코호트 추출 실습 | 박이주 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
-| 12:30 ~ 13:30 | CDM(Common Data Model) 이해 | [CDM의 개념, Database 형태, 대표연구 소개](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1230-cdm-intro/index.html) | 김진섭 |
-| 13:30 ~ 14:30 | CDM(Common Data Model) 이해 | [CDM estimation 소개](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1330-cdm-practice/index.html) | 김진섭 |
-| 14:30 ~ 15:30 | CDM 로 RCT재현: 분석 수행 | [ATLAS 활용 실험군/대조군 코호트 만들기](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1430-cdm-rct-atlas/index.html) | 김진섭 |
-| 15:30 ~ 16:00 | CDM 로 RCT재현: 분석 수행 | [분석 옵션 설정 및 R 패키지 실행](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1530-cdm-r-package/index.html) | 김진섭 |
+| 12:30 ~ 13:30 | RWD(Real World Data) 이해 | [RWD 소개 및 RCT와의 비교](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1230-cdm-intro/index.html) | 김진섭 |
+| 13:30 ~ 14:30 | CDM(Common Data Model) 이해 |  [CDM 개념](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1230-cdm-intro/index.html) | 김진섭 |
+| 14:30 ~ 15:30 | CDM 로 RCT재현: 분석 수행 |  [CDM estimation 패키지 만들기 in ATLAS](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1330-cdm-practice/index.html) | 김진섭 |
+| 15:30 ~ 16:00 | CDM 로 RCT재현: 분석 수행 | [R패키지 실행 및 결과 확인](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1430-cdm-rct-atlas/index.html) | 김진섭 |
 
 ## 심화반 2일차: 7/23
 
