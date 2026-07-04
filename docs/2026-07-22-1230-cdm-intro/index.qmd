@@ -1,6 +1,6 @@
 ---
-title: "공통데이터모델(CDM) 소개"
-subtitle: "2026 여름 디지털 헬스케어 부트캠프"
+title: "RWD와 CDM 이해"
+subtitle: "심화반 1일차 4-5교시 | RWD와 CDM"
 author: "김진섭"
 date: "2026.07.22"
 format:

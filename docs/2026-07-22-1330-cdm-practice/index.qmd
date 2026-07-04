@@ -1,6 +1,6 @@
 ---
-title: "공통데이터모델(CDM) 실습"
-subtitle: "2026 여름 디지털 헬스케어 부트캠프"
+title: "CDM estimation 패키지 만들기 in ATLAS"
+subtitle: "심화반 1일차 6교시 | CDM 로 RCT재현(1)"
 author: "김진섭"
 date: "2026.07.22"
 format:

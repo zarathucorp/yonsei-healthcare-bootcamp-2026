@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.26">
 
   <meta name="author" content="김진섭">
-  <meta name="dcterms.date" content="2026-07-21">
+  <meta name="dcterms.date" content="2026-07-20">
   <title>가능도와 정규분포</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="../slides_assets/custom-style.css">
   <link rel="stylesheet" href="../slides_assets/custom-style-fullbg.css">
   <link rel="stylesheet" href="../slides_assets/custom-xaringan-compat.css">
+  <link rel="stylesheet" href="likelihood-style.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -134,7 +135,7 @@
 
 <section id="title-slide" data-background-image="../slides_assets/bg.png" data-background-opacity="0.3" data-background-size="cover" class="quarto-title-block center">
   <h1 class="title">가능도와 정규분포</h1>
-  <p class="subtitle">기본반 2일차 2교시 | 통계이론2</p>
+  <p class="subtitle">기본반 1일차 2교시 | 통계이론</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -144,7 +145,12 @@
 </div>
 </div>
 
-  <p class="date">2026-07-21</p>
+  <p class="date">2026-07-20</p>
+</section>
+<section>
+<section id="가능도likelihood" class="title-slide slide level1 center">
+<h1>가능도(Likelihood)</h1>
+
 </section>
 <section id="headline" class="slide level2">
 <h2>HEADLINE</h2>
@@ -193,14 +199,8 @@
 <li>각 숫자가 나올 확률은 <span class="math inline">\(\frac{1}{6}\)</span> 동일.</li>
 </ul>
 <center>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-1-1.png" width="960"></p>
-</figure>
-</div>
-</div>
+<div class="likelihood-figure">
+<p><img data-src="figures/likelihood-01-dice.png" alt="주사위 눈의 확률분포"></p>
 </div>
 </center>
 </section>
@@ -211,14 +211,8 @@
 <li>확률은 <span class="math inline">\(p = _{10}C_{n}\frac{1}{2}^n\frac{1}{2}^{10-n} = _{10}C_{n}\frac{1}{2}^{10}=\frac{_{10}C_{n}}{1024}\)</span></li>
 </ul>
 <center>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
-</figure>
-</div>
-</div>
+<div class="likelihood-figure">
+<p><img data-src="figures/likelihood-02-coin.png" alt="동전 10번 던지기의 앞면 횟수 확률분포"></p>
 </div>
 </center>
 </section>
@@ -230,14 +224,8 @@
 <li><strong>확률 = 가능도</strong> 로 정의.</li>
 </ul>
 <center>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" width="1536"></p>
-</figure>
-</div>
-</div>
+<div class="likelihood-figure">
+<p><img data-src="figures/likelihood-03-discrete.png" alt="주사위와 동전의 이산 확률 비교"></p>
 </div>
 </center>
 </section>
@@ -265,8 +253,15 @@
 <li>PDF: 1 ~ 6 은 모두 0.2, 나머지는 0.</li>
 <li>2 ~ 4 가 뽑힐 확률은 <span class="math inline">\(2\times 0.2 = 0.4\)</span>.</li>
 </ul>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">1 ~ 6의 숫자 뽑기</p></section>
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/likelihood-04-uniform-pdf.png" alt="1에서 6 사이 균등분포의 확률밀도함수"></p>
+<figcaption>1 ~ 6의 숫자 뽑기</figcaption>
+</figure>
+</div>
+</div>
+</section>
 <section id="pdf-예시-표준정규분포" class="slide level2">
 <h2>PDF 예시: 표준정규분포</h2>
 <ul>
@@ -275,8 +270,15 @@
 <li><span class="math inline">\(z\)</span>가 특정 값일 확률은 전부 0</li>
 <li>-1.96 ~ 1.96 일 확률은 0.95: p-value</li>
 </ul>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">표준정규분포 PDF</p></section>
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/likelihood-05-standard-normal-95.png" alt="표준정규분포에서 -1.96부터 1.96까지의 면적"></p>
+<figcaption>표준정규분포 PDF</figcaption>
+</figure>
+</div>
+</div>
+</section>
 <section id="표준정규분포-특정사건-비교는-포기" class="slide level2">
 <h2>표준정규분포: 특정사건 비교는 포기?</h2>
 <ul>
@@ -285,8 +287,15 @@
 <li>가장 솟아 있는 0 근처가 가능성 높고, 0에서 멀어질수록 가능성이 낮음을 느끼고있다.</li>
 <li><strong>확률</strong> 은 연속사건의 가능성 차이를 나타낼 수 없음</li>
 </ul>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">표준정규분포의 PDF</p></section>
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/likelihood-06-standard-normal-density.png" alt="표준정규분포의 확률밀도"></p>
+<figcaption>표준정규분포의 PDF</figcaption>
+</figure>
+</div>
+</div>
+</section>
 <section id="가능도-in-연속사건-특정-사건의-가능성" class="slide level2">
 <h2>가능도 in 연속사건: 특정 사건의 가능성</h2>
 <blockquote>
@@ -299,28 +308,10 @@
 <li>연속사건: <strong>확률</strong> <span class="math inline">\(\neq\)</span> 가능도 =&gt; <strong>PDF값 = 가능도</strong></li>
 </ul></li>
 </ul>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="768"></p>
-</figure>
+<div class="likelihood-pair">
+<p><img data-src="figures/likelihood-07-discrete-comparison.png" alt="이산사건에서 확률과 가능도 비교"></p>
+<p><img data-src="figures/likelihood-08-continuous-comparison.png" alt="연속사건에서 확률밀도와 가능도 비교"></p>
 </div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="768"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
 </section>
 <section id="가능도-응용-사건이-여러번-일어난다면" class="slide level2">
 <h2>가능도 응용: 사건이 여러번 일어난다면?</h2>
@@ -339,7 +330,7 @@
 <li><p><strong>가능도</strong> : 각 사건의 가능도가 0.24, 0.4, 0.24이므로 0.24 <span class="math inline">\(\times\)</span> 0.4 <span class="math inline">\(\times\)</span> 0.24 <span class="math inline">\(=\)</span> 0.02</p></li>
 <li><p>연속사건에서 가능도와 확률은 다르다</p></li>
 </ul>
-</section>
+</section></section>
 <section>
 <section id="최대가능도-추정량maximum-likelihood-estimator-mle" class="title-slide slide level1 center">
 <h1>최대가능도 추정량(Maximum Likelihood Estimator, MLE)</h1>
@@ -354,8 +345,15 @@
 <li>가능성 <span class="math inline">\(L\)</span>을 최대(MLE)로 만드는 <span class="math inline">\(p=0.4\)</span></li>
 <li>일그러진 동전의 앞면나올 확률은 0.4라고 추정. 직관과 일치</li>
 </ul>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">동전 앞면이 나올 확률 <span class="math inline">\(p\)</span>에 따른 가능도 <span class="math inline">\(L\)</span></p></section>
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/likelihood-09-coin-mle.png" alt="동전 앞면 확률에 따른 가능도"></p>
+<figcaption>동전 앞면이 나올 확률 <span class="math inline">\(p\)</span>에 따른 가능도 <span class="math inline">\(L\)</span></figcaption>
+</figure>
+</div>
+</div>
+</section>
 <section id="연속사건-키" class="slide level2">
 <h2>연속사건: 키</h2>
 <ul>
@@ -365,8 +363,15 @@
 <li><p>위 5번 측정결과가 나타날 가능성 <span class="math inline">\(L\)</span> <small> <span class="math inline">\(=\frac{1}{\sqrt{2\pi}\sigma^2}e^{-\frac{(178-\mu)^2}{2\sigma^2}}\times\frac{1}{\sqrt{2\pi}\sigma^2}e^{-\frac{(179-\mu)^2}{2\sigma^2}}\times\frac{1}{\sqrt{2\pi}\sigma^2}e^{-\frac{(180-\mu)^2}{2\sigma^2}}\times\frac{1}{\sqrt{2\pi}\sigma^2}e^{-\frac{(181-\mu)^2}{2\sigma^2}}\times\frac{1}{\sqrt{2\pi}\sigma^2}e^{-\frac{(182-\mu)^2}{2\sigma^2}}\)</span></small></p></li>
 <li><p><span class="math inline">\(L\)</span>이 최대이려면 <span class="math inline">\((178-\mu)^2+(179-\mu)^2+(180-\mu)^2+(181-\mu)^2+(182-\mu)^2\)</span>이 최소여야 함. <span class="math inline">\(\mu=180\)</span>일 때 최소.</p></li>
 </ul>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">실제 키에 따른 가능도 <span class="math inline">\(L\)</span></p></section>
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/likelihood-10-height-mle.png" alt="실제 키에 따른 가능도"></p>
+<figcaption>실제 키에 따른 가능도 <span class="math inline">\(L\)</span></figcaption>
+</figure>
+</div>
+</div>
+</section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 <blockquote>
@@ -436,15 +441,33 @@
 <li>정규분포가 이항분포의 근사값으로 표현된다면?</li>
 </ul>
 </section>
-<section id="이항분포-근사-동전을-무한히-던지면" class="slide level2">
+<section id="이항분포-근사-동전을-무한히-던지면" class="slide level2 normal-approx-slide">
 <h2>이항분포 근사: 동전을 무한히 던지면?</h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="1152" class="r-stretch quarto-figure-center"><p class="caption">이항분포 VS 정규분포: 동전 던지기</p><p><span class="math inline">\(B(1000,\frac{1}{2}) \simeq N(1000\times \frac{1}{2}, 1000\times \frac{1}{2} \times \frac{1}{2})\)</span></p>
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/normal-01-binomial-coin.png" alt="동전 던지기 이항분포와 정규분포 근사"></p>
+<figcaption>이항분포 VS 정규분포: 동전 던지기</figcaption>
+</figure>
+</div>
+</div>
+<div class="likelihood-formula">
+<p><span class="math inline">\(B(1000,\frac{1}{2}) \simeq N(1000\times \frac{1}{2}, 1000\times \frac{1}{2} \times \frac{1}{2})\)</span></p>
+</div>
 </section>
-<section id="이항분포의-근사-주사위를-무한히-던지면" class="slide level2">
+<section id="이항분포의-근사-주사위를-무한히-던지면" class="slide level2 normal-approx-slide">
 <h2>이항분포의 근사: 주사위를 무한히 던지면?</h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="1152" class="r-stretch quarto-figure-center"><p class="caption">이항분포 VS 정규분포: 주사위 던지기</p><p><span class="math inline">\(B(600,\frac{1}{6}) \simeq N(600\times \frac{1}{6}, 600\times \frac{1}{6} \times \frac{5}{6})\)</span></p>
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/normal-02-binomial-dice.png" alt="주사위 던지기 이항분포와 정규분포 근사"></p>
+<figcaption>이항분포 VS 정규분포: 주사위 던지기</figcaption>
+</figure>
+</div>
+</div>
+<div class="likelihood-formula">
+<p><span class="math inline">\(B(600,\frac{1}{6}) \simeq N(600\times \frac{1}{6}, 600\times \frac{1}{6} \times \frac{5}{6})\)</span></p>
+</div>
 </section>
 <section id="이항분포-근사-일반화" class="slide level2">
 <h2>이항분포 근사: 일반화</h2>
@@ -496,7 +519,7 @@
 <li>수백, 수천 명의 여론조사를 민심의 척도로 간주해도 되나?</li>
 </ul>
 </section>
-<section id="예-일그러진-동전-p-0.4" class="slide level2">
+<section id="예-일그러진-동전-p-0.4" class="slide level2 clt-slide">
 <h2>예: 일그러진 동전 <span class="math inline">\(p = 0.4\)</span></h2>
 <ul>
 <li>행위 1: <strong>10번 던져</strong> 앞면 나올 확률 <span class="math inline">\(\hat{p}\)</span> 계산</li>
@@ -504,13 +527,12 @@
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
+<p><img data-src="figures/normal-03-clt-coin.png" alt="일그러진 동전 예시의 중심극한정리"></p>
+<figcaption>일그러진 동전 예시의 중심극한정리</figcaption>
 </figure>
-</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -522,7 +544,7 @@
 <p>따라서 <span class="math inline">\(n\)</span>이 커지면 <span class="math inline">\(\hat{p}\)</span> 는 <span class="math inline">\(N(p,\frac{p(1-p)}{n})\)</span> 을 따른다</p>
 </div></div>
 </section>
-<section id="주사위-던지기" class="slide level2">
+<section id="주사위-던지기" class="slide level2 clt-slide">
 <h2>주사위 던지기</h2>
 <ul>
 <li>주사위눈 <strong>평균(</strong><span class="math inline">\(\mu\)</span>): <span class="math inline">\(\frac{1+2+3+4+5+6}{6}=3.5\)</span>, <strong>분산(</strong><span class="math inline">\(\sigma^2\)</span>): <span class="math inline">\(\frac{(1-3.5)^2+(2-3.5)^2+\cdots+(6-3.5)^2}{6}\approx 2.92\)</span></li>
@@ -530,13 +552,12 @@
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
+<p><img data-src="figures/normal-04-clt-dice.png" alt="주사위 예시의 중심극한정리"></p>
+<figcaption>주사위 예시의 중심극한정리</figcaption>
 </figure>
-</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -548,34 +569,34 @@
 <p><span class="math inline">\(n\)</span>이 커지면 <span class="math inline">\(\bar{X}\)</span>는 <span class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>을 따른다.</p>
 </div></div>
 </section>
-<section id="표준정규분포" class="slide level2">
+<section id="표준정규분포" class="slide level2 clt-slide">
 <h2>표준정규분포</h2>
 <ul>
 <li>표준 정규분포(<span class="math inline">\(\mu=0\)</span>, <span class="math inline">\(\sigma^2=1\)</span>)에서 <span class="math inline">\(n\)</span>개 뽑아 평균내기</li>
 <li>세팅은 이전과 동일</li>
 </ul>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
+<div class="clt-grid">
+<div class="clt-visual">
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
+<p><img data-src="figures/normal-05-clt-standard-normal.png" alt="표준정규분포 예시의 중심극한정리"></p>
+<figcaption>표준정규분포 예시의 중심극한정리</figcaption>
 </figure>
 </div>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
+<div class="clt-notes">
 <ol type="1">
 <li><span class="math inline">\(n\)</span>이 커질수록 표본평균 <span class="math inline">\(\bar{X}\)</span> 분포 <span class="math inline">\(\simeq\)</span> 정규분포</li>
 <li><span class="math inline">\(\bar{X}\)</span>의 평균 <span class="math inline">\(\simeq\)</span> 실제평균 0</li>
-<li><span class="math inline">\(\bar{X}\)</span>의 분산 <span class="math inline">\(\simeq\)</span> <span class="math inline">\(\frac{1}{n}\)</span>에 가까워졌다.<br>
-</li>
+<li><span class="math inline">\(\bar{X}\)</span>의 분산 <span class="math inline">\(\simeq\)</span> <span class="math inline">\(\frac{1}{n}\)</span>에 가까워졌다.</li>
 </ol>
 <p><strong>연속확률의 경우에도</strong> <span class="math inline">\(n\)</span>이 커지면 <span class="math inline">\(\bar{X}\)</span>는 <span class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>을 따른다.</p>
-</div></div>
+</div>
+</div>
 </section>
-<section id="카이제곱분포" class="slide level2">
+<section id="카이제곱분포" class="slide level2 clt-slide clt-with-summary">
 <h2>카이제곱분포</h2>
 <ul>
 <li>자유도 1인 카이제곱분포(<span class="math inline">\(\mu=1\)</span>, <span class="math inline">\(\sigma^2=2\)</span>): 왼쪽으로 치우친 분포에서 뽑아도?</li>
@@ -583,13 +604,12 @@
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
+<div class="likelihood-figure">
+<div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
+<p><img data-src="figures/normal-06-clt-chisq.png" alt="카이제곱분포 예시의 중심극한정리"></p>
+<figcaption>카이제곱분포 예시의 중심극한정리</figcaption>
 </figure>
-</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -623,8 +643,15 @@
 <li><p>30번 던져서 앞면 18번(<span class="math inline">\(\hat{p}=0.6\)</span>) 나왔다면? 18번 이상 나올 확률: 2.5% <span class="math inline">\(\div2\)</span> = 1.25% -&gt; 이상한데</p></li>
 <li><p>100번 던져서 앞면 60번(<span class="math inline">\(\hat{p}=0.6\)</span>) 나왔다면? 60번 이상 나올 확률: 0.004% <span class="math inline">\(\div2\)</span> = 0.002% -&gt; 동전조작!</p></li>
 </ul>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="1440" class="r-stretch"></section>
+<div class="likelihood-figure-wide">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/normal-07-pvalue.png" alt="표본 크기별 p-value 직관"></p>
+<figcaption>표본 크기별 p-value 직관</figcaption>
+</figure>
+</div>
+</div>
+</section>
 <section id="conclusion-1" class="slide level2">
 <h2>Conclusion</h2>
 <ul>
@@ -958,44 +985,6 @@
       Reveal.on('slidechanged', updateFooterVisibility);
     });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

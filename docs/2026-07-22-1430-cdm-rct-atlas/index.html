@@ -11,7 +11,7 @@
 
   <meta name="author" content="김진섭">
   <meta name="dcterms.date" content="2026-07-22">
-  <title>ATLAS 활용하여 concept 및 실험군/대조군 코호트 만들기</title>
+  <title>R패키지 실행 및 결과 확인</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -26,7 +26,7 @@
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
       width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
       vertical-align: middle;
     }
   </style>
@@ -65,12 +65,12 @@
     }
     .reveal .footnotes ol {
       counter-reset: ol;
-      list-style-type: none; 
+      list-style-type: none;
       margin-left: 0;
     }
     .reveal .footnotes ol li:before {
       counter-increment: ol;
-      content: counter(ol) ". "; 
+      content: counter(ol) ". ";
     }
     .reveal .footnotes ol li > p:first-child {
       display: inline-block;
@@ -112,19 +112,19 @@
     .reveal .slide > img.r-stretch.quarto-figure-center {
       display: block;
       margin-left: auto;
-      margin-right: auto; 
+      margin-right: auto;
     }
     .reveal .slide > img.stretch.quarto-figure-left,
     .reveal .slide > img.r-stretch.quarto-figure-left  {
       display: block;
       margin-left: 0;
-      margin-right: auto; 
+      margin-right: auto;
     }
     .reveal .slide > img.stretch.quarto-figure-right,
     .reveal .slide > img.r-stretch.quarto-figure-right  {
       display: block;
       margin-left: auto;
-      margin-right: 0; 
+      margin-right: 0;
     }
   </style>
 </head>
@@ -133,13 +133,13 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../slides_assets/bg.png" data-background-opacity="0.3" data-background-size="cover" class="quarto-title-block center">
-  <h1 class="title">ATLAS 활용하여 concept 및 실험군/대조군 코호트 만들기</h1>
-  <p class="subtitle">2026 여름 디지털 헬스케어 부트캠프</p>
+  <h1 class="title">R패키지 실행 및 결과 확인</h1>
+  <p class="subtitle">심화반 1일차 7교시 | CDM 로 RCT재현(2)</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-김진섭 
+김진섭
 </div>
 </div>
 </div>
@@ -150,28 +150,28 @@
 <h2>오늘의 목표</h2>
 <div class="large">
 <ul>
-<li>이 차시에서 다룰 핵심 질문을 정리합니다.</li>
-<li>필요한 개념과 실습 흐름을 한눈에 잡습니다.</li>
-<li>수업 후 다시 실행할 수 있도록 코드와 결과물을 남깁니다.</li>
+<li>ATLAS에서 만든 분석 패키지의 구조를 확인합니다.</li>
+<li>R 환경에서 패키지를 실행하는 순서를 정리합니다.</li>
+<li>생성된 결과 파일과 주요 지표를 확인합니다.</li>
 </ul>
 </div>
 <div class="highlight-box">
-<p>이 파일은 <code>ATLAS 활용하여 concept 및 실험군/대조군 코호트 만들기</code> 강의의 시작 템플릿입니다. 실제 강의 내용에 맞춰 슬라이드 제목, 표, 그림, 코드를 채워 넣으면 됩니다.</p>
+<p>수업에서는 예시 데이터, 코드, 결과물을 한 흐름으로 정리합니다.</p>
 </div>
 </section>
 <section id="강의-흐름" class="slide level2">
 <h2>강의 흐름</h2>
 <div style="padding: 10px 40px;">
-<div class="highlight-box">
+<div class=".{highlight-box}">
 <p><strong>01. 배경</strong> — 왜 이 주제가 필요한지 정리</p>
 </div>
-<div class="highlight-box-blue">
+<div class=".{highlight-box-blue}">
 <p><strong>02. 핵심 개념</strong> — 수업에서 꼭 잡아야 할 용어와 구조</p>
 </div>
-<div class="highlight-box-teal">
+<div class=".{highlight-box-teal}">
 <p><strong>03. 실습</strong> — 예시 데이터, 코드, 결과 확인</p>
 </div>
-<div class="highlight-box-purple">
+<div class=".{highlight-box-purple}">
 <p><strong>04. 정리</strong> — 수업 후 남겨야 할 파일과 다음 단계</p>
 </div>
 </div>
@@ -182,56 +182,32 @@
 
 </div>
 <div class="accent-box">
-<p>이곳에 차시의 핵심 메시지를 한 문장으로 적습니다.</p>
+<p>이 차시의 핵심 질문을 먼저 정하고, 분석 과정에서 반복해서 확인할 기준을 세웁니다.</p>
 </div>
 <div class="columns">
 <div class="column" style="width:58%;">
 <p><span class="section-title"><strong>내용 메모</strong></span></p>
 <ul>
-<li>배경 설명이나 문제 정의를 넣습니다.</li>
-<li>수업 중 강조할 개념을 짧은 문장으로 정리합니다.</li>
-<li>표나 그림이 필요하면 다음 슬라이드로 분리합니다.</li>
+<li>수업에서 다룰 개념을 짧은 문장으로 정리합니다.</li>
+<li>예시 데이터와 코드가 필요한 부분은 실습 슬라이드에서 분리합니다.</li>
+<li>결과 표와 그림은 재실행 가능한 파일로 남깁니다.</li>
 </ul>
 </div><div class="column" style="width:42%;">
 <div class="highlight-box-gray">
 <p><strong>수업 정보</strong></p>
-<ul>
-<li>날짜: 2026.07.22</li>
-<li>시간: 14:30 ~ 15:30</li>
-<li>주제: CDM 로 RCT재현: 분석 수행</li>
-<li>강사: 김진섭</li>
-</ul>
+<p>2026.07.22 15:30 ~ 16:00 | 김진섭</p>
 </div>
 </div></div>
 </section>
 <section id="실습-자리" class="slide level2">
 <h2>실습 자리</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="summary-grid-4">
-<div class="summary-item si-green">
-<p><strong>자료</strong></p>
-<p>데이터 위치와 파일명</p>
+<div class="large">
+<ul>
+<li>예시 데이터 경로를 확인합니다.</li>
+<li>코드를 실행하고 중간 결과를 점검합니다.</li>
+<li><code>results/</code>와 <code>figures/</code>에 저장되는 산출물을 확인합니다.</li>
+</ul>
 </div>
-<div class="summary-item si-blue">
-<p><strong>코드</strong></p>
-<p>실행할 R 스크립트</p>
-</div>
-<div class="summary-item si-teal">
-<p><strong>결과</strong></p>
-<p>표, 그림, 모델 결과</p>
-</div>
-<div class="summary-item si-purple">
-<p><strong>문서</strong></p>
-<p>슬라이드, 보고서, 제출물</p>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="key-message-bar">
-<p><strong>실습 메모</strong></p>
-<p>수업 중 실행한 코드는 <code>code/</code> 폴더에 남깁니다. 결과 파일은 재현할 수 있게 파일명과 생성 과정을 함께 기록합니다.</p>
-</div>
-</div></div>
 </section>
 <section id="정리" class="slide level2 conclusion-slide">
 <h2>정리</h2>
@@ -241,28 +217,28 @@
 <div class="conclusion-layout">
 <div class="conclusion-hero">
 <div class="conclusion-kicker">
-마무리
+정리
 </div>
 <div class="conclusion-big">
-핵심 한 줄
+핵심 흐름
 </div>
 <div class="conclusion-formula">
-수업이 끝난 뒤 남겨야 할 결과물을 적습니다.
+문제 정의 → 코드 실행 → 결과 확인 → 산출물 정리
 </div>
-<p>다음 차시로 넘어가기 전에 코드, 결과 파일, 슬라이드 링크가 모두 열리는지 확인합니다.</p>
+<p>수업 후에는 같은 코드를 다시 실행해 같은 결과가 나오는지 확인합니다.</p>
 </div>
 <div class="conclusion-sidegrid">
 <div class="conclusion-card cc-gray">
-<p><strong>확인 1</strong></p>
-<p>실습 코드가 위에서 아래로 실행되는가</p>
+<p><strong>개념</strong></p>
+<p>오늘 다룬 용어와 판단 기준</p>
 </div>
 <div class="conclusion-card cc-purple">
-<p><strong>확인 2</strong></p>
-<p>표와 그림 파일이 저장되어 있는가</p>
+<p><strong>코드</strong></p>
+<p>재실행 가능한 R 스크립트</p>
 </div>
 <div class="conclusion-card cc-green">
-<p><strong>확인 3</strong></p>
-<p>README와 수강생용 목차 링크가 맞는가</p>
+<p><strong>결과</strong></p>
+<p>표, 그림, 문서 산출물</p>
 </div>
 </div>
 </div>
@@ -284,7 +260,7 @@
   <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="index_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
-  
+
 
   <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
@@ -307,7 +283,7 @@
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":false},
 'smaller': false,
- 
+
         // Display controls in the bottom right corner
         controls: false,
 
@@ -588,7 +564,7 @@
         });
         const isCodeAnnotation = (el) => {
           for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {                     
+            if (clz.startsWith('code-annotation-')) {
               return true;
             }
           }
@@ -608,11 +584,11 @@
             button.setAttribute("data-bs-toggle", "tooltip");
             button.setAttribute("data-bs-placement", "left");
             button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button, 
-              { trigger: "manual", 
+            tooltip = new bootstrap.Tooltip(button,
+              { trigger: "manual",
                 customClass: "code-copy-button-tooltip",
                 offset: [0, -8]});
-            tooltip.show();    
+            tooltip.show();
           }
           setTimeout(function() {
             if (tooltip) {
@@ -691,7 +667,7 @@
           }
             config['offset'] = [0,0];
             config['maxWidth'] = 700;
-          window.tippy(el, config); 
+          window.tippy(el, config);
         }
         const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
         for (var i=0; i<noterefs.length; i++) {
@@ -748,6 +724,6 @@
         }
       });
       </script>
-    
+
 
 </body></html>

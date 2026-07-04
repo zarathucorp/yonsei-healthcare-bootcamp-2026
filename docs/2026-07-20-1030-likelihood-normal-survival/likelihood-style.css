@@ -1,0 +1,111 @@
+/* Local sizing for the likelihood/normal-distribution combined deck. */
+.reveal .slides section {
+  font-size: 0.925em;
+}
+
+.reveal .likelihood-figure,
+.reveal .likelihood-figure-wide {
+  text-align: center;
+  margin-top: 0.25rem;
+}
+
+.reveal .likelihood-figure img {
+  max-width: 92%;
+  max-height: 500px;
+  width: auto;
+  object-fit: contain;
+}
+
+.reveal .columns .likelihood-figure img {
+  max-width: 100%;
+  max-height: 500px;
+}
+
+.reveal .likelihood-figure-wide img {
+  max-width: 96%;
+  max-height: 340px;
+  width: auto;
+  object-fit: contain;
+}
+
+.reveal figcaption {
+  color: #333333;
+  font-size: 0.58em;
+  font-weight: 500;
+  line-height: 1.25;
+  margin-top: 0.12rem;
+  text-align: center;
+}
+
+.reveal .likelihood-formula {
+  font-size: 0.9em;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+.reveal .normal-approx-slide .likelihood-figure img {
+  max-height: 480px;
+}
+
+.reveal .clt-slide .columns {
+  align-items: start;
+}
+
+.reveal .clt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
+  align-items: start;
+  margin-top: 0.2rem;
+}
+
+.reveal .clt-slide .likelihood-figure {
+  margin-top: 0.05rem;
+}
+
+.reveal .clt-slide .likelihood-figure img {
+  max-height: 430px;
+}
+
+.reveal .clt-slide figcaption {
+  font-size: 0.52em;
+  margin-top: 0.08rem;
+}
+
+.reveal .clt-slide ol {
+  margin-top: 0.15rem;
+}
+
+.reveal .clt-slide ol li,
+.reveal .clt-slide .column p,
+.reveal .clt-notes p {
+  line-height: 1.24;
+}
+
+.reveal .clt-slide .column p,
+.reveal .clt-notes p {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.reveal .clt-with-summary blockquote {
+  font-size: 0.66em;
+  line-height: 1.25;
+  margin-top: 0.25rem;
+  padding: 0.28rem 0.55rem;
+}
+
+.reveal .likelihood-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin-top: 0.4rem;
+}
+
+.reveal .likelihood-pair img {
+  max-width: 100%;
+  max-height: 320px;
+  width: auto;
+  object-fit: contain;
+}
