@@ -12,7 +12,7 @@
 
 | 시간 | 교육주제 | 교육세부내용 | 강사 |
 |---|---|---|---|
-| 09:30 ~ 10:30 | OT 및 목표 설정 | [과정 전반 소개](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-0930-orientation/index.html) | 김진섭 |
+| 09:30 ~ 10:30 | OT 및 목표 설정 | 과정 전반 소개 | 김진섭 |
 | 10:30 ~ 11:30 | 통계이론 | [가능도/정규분포](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1030-likelihood-normal/index.html), [의학연구 위한 기초통계(Table 1)](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1030-basic-statistics-table1/index.html), [code](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-20-1030-basic-statistics-regression-survival.R) | 김진섭 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
 | 12:30 ~ 13:30 | AI agent로 R분석하기 | [AI agent 설치 및 기초실습](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1230-r-ai-agent-install/index.html) | 김진섭 |
@@ -25,7 +25,7 @@
 | 시간 | 교육주제 | 교육세부내용 | 강사 |
 |---|---|---|---|
 | 09:30 ~ 10:30 | 통계이론2 | [회귀/생존분석](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-0930-regression-survival/index.html), [code](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-21-0930-regression-survival.R) | 김진섭 |
-| 10:30 ~ 11:30 | RCT 이해 | [NEJM/Lancet/JAMA 논문으로 배우는 RCT 개념과 통계](https://jinseob2kim.github.io/lecture-general/yonsei_conf/) | 김진섭 |
+| 10:30 ~ 11:30 | RCT 이해 | [RCT란?, RACING trial로 배우는 RCT](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-0930-orientation/index.html), [NEJM/Lancet/JAMA 논문으로 배우는 RCT 개념과 통계](https://jinseob2kim.github.io/lecture-general/yonsei_conf/) | 김진섭 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
 | 12:30 ~ 13:30 | AGENT.md 만들기 | [의학연구위한 AGENT.md 만들기](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1230-medical-research-agent-md/index.html) | 김진섭 |
 | 13:30 ~ 14:30 | RCT 실습 | [RCT 예시데이터 분석결과 재현](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1330-rct-reproduction-project/index.html) | 김진섭 |
