@@ -42,7 +42,7 @@
 | 12:30 ~ 13:30 | RWD(Real World Data) 이해 | [RWD 소개 및 RCT와의 비교](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1230-cdm-intro/index.html) | 김진섭 |
 | 13:30 ~ 14:30 | CDM(Common Data Model) 이해 | [CDM 개념](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1230-cdm-intro/index.html) | 김진섭 |
 | 14:30 ~ 15:30 | CDM 로 RCT재현(1) | [CDM estimation 패키지 만들기 in ATLAS](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1430-cdm-estimation-atlas/index.html) | 김진섭 |
-| 15:30 ~ 16:00 | CDM 로 RCT재현(2) | [R패키지 실행 및 결과 확인](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1530-r-package-results/index.html), (code)[https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-22-1530-cdm-rpackage-run.R] | 김진섭 |
+| 15:30 ~ 16:00 | CDM 로 RCT재현(2) | [R패키지 실행 및 결과 확인](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-22-1530-r-package-results/index.html), [code](shttps://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-22-1530-cdm-rpackage-run.R) | 김진섭 |
 
 ## 심화반 2일차: 7/23
 
