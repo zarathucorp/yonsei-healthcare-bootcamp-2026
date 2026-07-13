@@ -40,8 +40,6 @@ editor: visual
 - Cohort definition: Concept set 이용 Target/Comparator/Outcome 코호트 설정
 
 - Analysis: 관찰시간, PS매칭여부, 통계모델 설정
-
-- Meta analysis: Feedernet 다기관분석 합침
 :::
 
 ## 코호트 디자인 {.center .middle}
