@@ -63,12 +63,12 @@ editor: visual
 
 ## 오늘의 목표
 
-::: large
-**01.** ATLAS에서 만든 estimation 분석 패키지를 다운로드합니다.  
-**02.** RStudio 서버에서 패키지 구조와 실행 코드를 확인합니다.  
-**03.** 제공되는 코드를 단계별로 실행하여 결과 파일을 생성합니다.  
-**04.** 생성된 결과 zip을 CDM META Analysis에서 확인합니다.  
-:::
+<div class="large" style="display: grid; gap: 16px; line-height: 1.45;">
+<div><strong>01.</strong> ATLAS에서 만든 estimation 분석 패키지를 다운로드합니다.</div>
+<div><strong>02.</strong> RStudio 서버에서 패키지 구조와 실행 코드를 확인합니다.</div>
+<div><strong>03.</strong> 제공되는 코드를 단계별로 실행하여 결과 파일을 생성합니다.</div>
+<div><strong>04.</strong> 생성된 결과 zip을 CDM META Analysis에서 확인합니다.</div>
+</div>
 
 ::: highlight-box
 목표: ATLAS 설계물이 실제 R 분석 결과로 이어지는 흐름을 알수있게 도와줍니다.
@@ -91,6 +91,7 @@ editor: visual
 
 - ATLAS에서는 어떤 환자를 비교할지, 어떤 outcome을 볼지, 어떤 분석 방법을 쓸지 정의합니다.
 - 이 설정은 아직 결과가 아니라, 분석을 실행하기 위한 설계도입니다.
+- Study Package는 이 설계도를 R 코드, SQL, 설정 파일로 묶어 내려받은 실행 패키지입니다.
 - RStudio에서는 이 패키지를 CDM 데이터베이스에 연결해 cohort 생성, 분석 실행, 결과 저장까지 수행합니다.
 - 최종 결과는 `output/` 폴더와 `Results_*.zip` 파일로 확인합니다.
 :::
