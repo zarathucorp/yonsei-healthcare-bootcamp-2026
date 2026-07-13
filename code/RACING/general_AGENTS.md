@@ -1,6 +1,6 @@
-# general_AGENTS.MD
+# general_AGENTS.md
 
-이 문서는 RACING trial 자료처럼 논문 표와 그림을 R 코드로 재현할 때 따르는 기본 분석 스타일이다. 
+이 문서는 논문 표와 그림을 만드는 기본 분석 스타일이다. 
 
 ## global.R 작성 원칙
 
@@ -42,7 +42,6 @@ wb$save("Tables.xlsx")
 ## 논문용 테이블 필수 규칙
 
 - 같은 그룹명/변수명은 반복 표기하지 않는다.
-- grouping 컬럼(`group`, `strata`, `outcome`, `model` 등)의 같은 값이 연속 행에 반복되면 `merge_v(j = ...)`로 세로 병합한다.
 - 병합한 컬럼에는 `valign(j = ..., valign = "top")`과 `align(j = ..., align = "left")`를 적용한다.
 - 변수명은 raw 코드명이 아니라 사람이 읽는 라벨로 표시한다.
 - 컬럼명/변수명 그대로 노출하지 않는다. 예: `dose_mg`, `ANC_bl`, `var123`.
@@ -66,7 +65,6 @@ wb$save("Tables.xlsx")
 - `CreateTableOneJS(...)$table %>% cbind(Variable = rownames(.), .)`로 변수명 컬럼을 추가한다.
 - 3군 이상 비교 시 `pairwise = T` 옵션으로 pairwise p-value를 한 번에 출력한다.
 - `test` 컬럼은 제거하고 저장한다. 예: `$table[, -which(colnames($table) == "test")]`.
-- `cox2.display()`: Cox model 테이블에 사용한다.
 - `TableSubgroupMultiCox/GLM`: subgroup analysis에 사용한다.
 - `LabeljsCox()`: Cox model 레이블 적용에 사용한다.
 - `labelepidisplay`는 사용하지 않는다.
@@ -122,27 +120,6 @@ fit <- survfit(fmla, data = dd)
 # 맞음
 fit <- eval(substitute(survfit(f, data = dd), list(f = fmla)))
 ```
-
-- `coxph()`도 동일하다.
-- formula를 변수로 넘기면 `cox2.display()`가 `fit$call$formula`를 파싱할 때 `"object of type 'symbol' is not subsettable"` 에러가 날 수 있다.
-- `update(model, ...)` 내부 호출도 실패할 수 있으므로 `eval(substitute())`를 사용한다.
-
-```r
-# 틀림
-fit <- coxph(fmla, data = df)
-
-# 맞음
-fit <- eval(substitute(coxph(f, data = df), list(f = fmla)))
-```
-
-### cox2.display / LabeljsCox 관련
-
-- `LabeljsCox()` 적용 후 rownames가 variable name에서 label로 치환된다.
-- table 결과에서 variable name 기준 매칭이 필요하면 유의 마커나 P value 추출은 별도 `coxph()` 결과에서 직접 계산한다.
-- `data_for_univariate = dd`: multivariate 모델에서 univariate 결과도 같이 출력할 때 사용한다.
-- `.$table[, 1:2]`는 univariate 결과(HR, P)다.
-- `.$table[, 3:4]`는 multivariate 결과(adj.HR, P)다.
-
 ### out 변수 관리
 
 - `global.R`에서 `out`, `out.label`을 만든다.
@@ -172,18 +149,11 @@ strata_list[["Albumin \u2264 3.5"]] <- dd
 ### Table 주석
 
 - footer는 실제 사용된 검정과 반드시 일치시킨다.
-- 일반 데이터에서 `CreateTableOneJS`를 사용할 때 mean ± SD는 `"P by t-test / Chi-squared or Fisher's exact test"`로 적는다.
-- median (IQR)는 `"P by Wilcoxon rank-sum test / Chi-squared or Fisher's exact test"`로 적는다.
-- `nonnormal` 옵션을 바꾸면 footer 문구도 같이 바꾼다.
-- 2그룹 비교에서 `nonnormal`을 쓸 때는 `testNonNormal = wilcox.test`를 지정한다.
-- 기본값은 Kruskal-Wallis이므로 2그룹 nonnormal 분석에서는 특히 주의한다.
-- 기대빈도 <5라 Fisher's exact test가 자동 선택될 수 있으면 footer에 `"or Fisher's exact test"`를 포함한다.
 
 ### 테이블 footer 재검토
 
 - 제출하거나 답변하기 전에 모든 테이블의 footer가 실제 사용된 통계와 일치하는지 재검토한다.
 - 수치가 맞아도 방법 기술이 틀리면 재작업 대상이다.
-- `nonnormal` 옵션을 바꿨는지, 2군+nonnormal에서 `testNonNormal = wilcox.test`를 적용했는지 확인한다.
 
 ### 0/1 factor level 강제
 
@@ -197,21 +167,6 @@ vars01 <- sapply(factor_vars, function(v) {
 })
 for (v in names(vars01)[vars01 == TRUE]) {
   out[, (v) := factor(as.character(get(v)), levels = c("0", "1"))]
-}
-```
-
-### 1/2 factor level 강제
-
-- 1/2 코딩 변수도 한쪽 값만 있어도 `levels = c("1", "2")`를 강제한다.
-- 1=없음, 2=있음 구조에서 `"No: 100%"`만 보이지 않게 하고 `"Yes: 0 (0%)"`를 표시한다.
-
-```r
-vars12 <- sapply(factor_vars, function(v) {
-  lv <- sort(unique(na.omit(as.character(out[[v]]))))
-  length(lv) > 0 && all(lv %in% c("1", "2"))
-})
-for (v in names(vars12)[vars12 == TRUE]) {
-  out[, (v) := factor(as.character(get(v)), levels = c("1", "2"))]
 }
 ```
 
@@ -259,14 +214,6 @@ df[, Event := paste0(Events, "/", N, " (", sprintf("%.1f", Events / N * 100), "%
 
 - `cox.zph(fit, transform = "identity")`로 변수별 PH 위반 p-value를 확인한다.
 
-### 반복측정 RCT 분석
-
-- 기본 모델은 `outcome ~ group * time + (1|ID)`로 둔다.
-- baseline 시점을 포함한 uLDA 형태를 기본으로 쓴다.
-- Primary test는 `group × time interaction`이다.
-- Post-hoc은 `emmeans`로 시점별 군간 비교와 baseline 대비 군내 변화를 계산한다.
-- 결과표는 LMM ANOVA를 별도 테이블로 빼지 않는다.
-- 메인 결과 테이블 하나에 시점별 mean±SD, within-group P(V0 대비), between-group P, interaction P를 통합한다.
 
 ### 심장학 연구 KM curve
 
