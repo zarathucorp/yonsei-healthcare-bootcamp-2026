@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.26">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="김진섭">
   <meta name="dcterms.date" content="2026-07-22">
@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -26,11 +29,11 @@
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
       width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-1bd6f591a4abecf1a9363260c405cac5.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-fa2d3e21028720e1b17fb35980df85e0.css">
   <link rel="stylesheet" href="../slides_assets/custom-style.css">
   <link rel="stylesheet" href="../slides_assets/custom-style-fullbg.css">
   <link rel="stylesheet" href="../slides_assets/custom-xaringan-compat.css">
@@ -65,12 +68,12 @@
     }
     .reveal .footnotes ol {
       counter-reset: ol;
-      list-style-type: none;
+      list-style-type: none; 
       margin-left: 0;
     }
     .reveal .footnotes ol li:before {
       counter-increment: ol;
-      content: counter(ol) ". ";
+      content: counter(ol) ". "; 
     }
     .reveal .footnotes ol li > p:first-child {
       display: inline-block;
@@ -112,19 +115,19 @@
     .reveal .slide > img.r-stretch.quarto-figure-center {
       display: block;
       margin-left: auto;
-      margin-right: auto;
+      margin-right: auto; 
     }
     .reveal .slide > img.stretch.quarto-figure-left,
     .reveal .slide > img.r-stretch.quarto-figure-left  {
       display: block;
       margin-left: 0;
-      margin-right: auto;
+      margin-right: auto; 
     }
     .reveal .slide > img.stretch.quarto-figure-right,
     .reveal .slide > img.r-stretch.quarto-figure-right  {
       display: block;
       margin-left: auto;
-      margin-right: 0;
+      margin-right: 0; 
     }
   </style>
 </head>
@@ -139,7 +142,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-김진섭
+김진섭 
 </div>
 </div>
 </div>
@@ -168,8 +171,8 @@
 <h2>Main design choices</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 24%">
-<col style="width: 76%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -206,8 +209,8 @@
 <table class="caption-top">
 <caption>Main design choices for our comparative cohort study.</caption>
 <colgroup>
-<col style="width: 24%">
-<col style="width: 76%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -398,6 +401,13 @@
 <li>AMI with Inpatient or ER visit</li>
 </ul>
 <table class="caption-top">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 38%">
+<col style="width: 14%">
+<col style="width: 18%">
+<col style="width: 11%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Concept Id</th>
@@ -425,6 +435,13 @@
 </tbody>
 </table>
 <table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 34%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Concept Id</th>
@@ -478,8 +495,8 @@
 <img src="https://ohdsi.github.io/TheBookOfOhdsi/images/Cohorts/EarliestEventExplained.png" width="70%">
 </center>
 </section>
-<section id="concept-for-other-criteria" class="slide level2">
-<h2>Concept for other criteria</h2>
+<section id="concept-for-other-criteria-hypertensive-disorder" class="slide level2">
+<h2>Concept for other criteria: Hypertensive disorder</h2>
 <table class="caption-top">
 <caption>Hypertensive disorder</caption>
 <thead>
@@ -501,8 +518,18 @@
 </tr>
 </tbody>
 </table>
-<table class="caption-top">
-<caption>Hypertension drugs</caption>
+</section>
+<section id="concept-for-other-criteria-hypertension-drugs-13" class="slide level2 smaller">
+<h2>Concept for other criteria: Hypertension drugs (1/3)</h2>
+<table class="caption-top" style="width:100%;">
+<caption>Hypertension drugs, part 1</caption>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 39%">
+<col style="width: 14%">
+<col style="width: 18%">
+<col style="width: 11%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Concept Id</th>
@@ -605,316 +632,245 @@
 <td>NO</td>
 </tr>
 <tr class="even">
-<td>1308842</td>
-<td style="text-align: left;">valsartan</td>
+<td>21601490</td>
+<td style="text-align: left;">Sulfonamides, plain</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="odd">
-<td>1309068</td>
-<td style="text-align: left;">Minoxidil</td>
+<td>21601503</td>
+<td style="text-align: left;">Sulfonamides and potassium</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="concept-for-other-criteria-hypertension-drugs-23" class="slide level2 smaller">
+<h2>Concept for other criteria: Hypertension drugs (2/3)</h2>
+<table class="caption-top">
+<caption>Hypertension drugs, part 2</caption>
+<colgroup>
+<col style="width: 11%">
+<col style="width: 58%">
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concept Id</th>
+<th style="text-align: left;">Concept Name</th>
+<th>Excluded</th>
+<th>Descendants</th>
+<th>Mapped</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>21600452</td>
+<td style="text-align: left;">Rauwolfia alkaloids and diuretics in combination</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="even">
-<td>1309799</td>
-<td style="text-align: left;">eplerenone</td>
+<td>21601458</td>
+<td style="text-align: left;">Other antihypertensives and diuretics</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="odd">
-<td>1310756</td>
-<td style="text-align: left;">moexipril</td>
+<td>21600464</td>
+<td style="text-align: left;">Methyldopa and diuretics in combination</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="even">
-<td>1313200</td>
-<td style="text-align: left;">Nadolol</td>
+<td>21601455</td>
+<td style="text-align: left;">MAO inhibitors and diuretics</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="odd">
-<td>1314002</td>
-<td style="text-align: left;">Atenolol</td>
+<td>21601489</td>
+<td style="text-align: left;">LOW-CEILING DIURETICS, EXCL. THIAZIDES</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="even">
-<td>1314577</td>
-<td style="text-align: left;">nebivolol</td>
+<td>21601542</td>
+<td style="text-align: left;">Low-ceiling diuretics and potassium-sparing agents</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="odd">
-<td>1317640</td>
-<td style="text-align: left;">telmisartan</td>
+<td>21600466</td>
+<td style="text-align: left;">Imidazoline receptor agonists in combination with diuretics</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="even">
-<td>1317967</td>
-<td style="text-align: left;">aliskiren</td>
+<td>21600472</td>
+<td style="text-align: left;">Guanidine derivatives and diuretics</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="odd">
-<td>1318137</td>
-<td style="text-align: left;">Nicardipine</td>
+<td>21601541</td>
+<td style="text-align: left;">DIURETICS AND POTASSIUM-SPARING AGENTS IN COMBINATION</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="even">
-<td>1318853</td>
-<td style="text-align: left;">Nifedipine</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1319880</td>
-<td style="text-align: left;">Nisoldipine</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1319998</td>
-<td style="text-align: left;">Acebutolol</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1322081</td>
-<td style="text-align: left;">Betaxolol</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1326012</td>
-<td style="text-align: left;">Isradipine</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1327978</td>
-<td style="text-align: left;">Penbutolol</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1328165</td>
-<td style="text-align: left;">Diltiazem</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1331235</td>
-<td style="text-align: left;">quinapril</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1332418</td>
-<td style="text-align: left;">Amlodipine</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1334456</td>
-<td style="text-align: left;">Ramipril</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1335471</td>
-<td style="text-align: left;">benazepril</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1338005</td>
-<td style="text-align: left;">Bisoprolol</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1340128</td>
-<td style="text-align: left;">Captopril</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1341238</td>
-<td style="text-align: left;">Terazosin</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1341927</td>
-<td style="text-align: left;">Enalapril</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1342439</td>
-<td style="text-align: left;">trandolapril</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1344965</td>
-<td style="text-align: left;">Guanfacine</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1345858</td>
-<td style="text-align: left;">Pindolol</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1346686</td>
-<td style="text-align: left;">eprosartan</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1346823</td>
-<td style="text-align: left;">carvedilol</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1347384</td>
-<td style="text-align: left;">irbesartan</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1350489</td>
-<td style="text-align: left;">Prazosin</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1351557</td>
-<td style="text-align: left;">candesartan</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1353766</td>
-<td style="text-align: left;">Propranolol</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1353776</td>
-<td style="text-align: left;">Felodipine</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1363053</td>
-<td style="text-align: left;">Doxazosin</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1363749</td>
-<td style="text-align: left;">Fosinopril</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1367500</td>
-<td style="text-align: left;">Losartan</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1373225</td>
-<td style="text-align: left;">Perindopril</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="odd">
-<td>1373928</td>
-<td style="text-align: left;">Hydralazine</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr class="even">
-<td>1386957</td>
-<td style="text-align: left;">Labetalol</td>
+<td>21601461</td>
+<td style="text-align: left;">DIURETICS</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="odd">
 <td>1395058</td>
-<td style="text-align: left;">Chlorthalidone</td>
+<td style="text-align: left;">chlorthalidone</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="even">
-<td>1398937</td>
-<td style="text-align: left;">Clonidine</td>
+<td>1340128</td>
+<td style="text-align: left;">captopril</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="odd">
-<td>40226742</td>
-<td style="text-align: left;">olmesartan</td>
+<td>21601779</td>
+<td style="text-align: left;">CALCIUM CHANNEL BLOCKERS AND DIURETICS</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
 </tr>
 <tr class="even">
-<td>40235485</td>
-<td style="text-align: left;">azilsartan</td>
+<td>21601780</td>
+<td style="text-align: left;">Calcium channel blockers and diuretics</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="odd">
+<td>21601730</td>
+<td style="text-align: left;">BETA BLOCKING AGENTS, THIAZIDES AND OTHER DIURETICS</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="concept-for-other-criteria-hypertension-drugs-33" class="slide level2 smaller">
+<h2>Concept for other criteria: Hypertension drugs (3/3)</h2>
+<table class="caption-top">
+<caption>Hypertension drugs, part 3</caption>
+<colgroup>
+<col style="width: 10%">
+<col style="width: 61%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concept Id</th>
+<th style="text-align: left;">Concept Name</th>
+<th>Excluded</th>
+<th>Descendants</th>
+<th>Mapped</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>21601733</td>
+<td style="text-align: left;">Beta blocking agents, selective, thiazides and other diuretics</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="even">
+<td>21601731</td>
+<td style="text-align: left;">Beta blocking agents, non-selective, thiazides and other diuretics</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="odd">
+<td>21601718</td>
+<td style="text-align: left;">BETA BLOCKING AGENTS AND OTHER DIURETICS</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="even">
+<td>21601832</td>
+<td style="text-align: left;">ANGIOTENSIN II RECEPTOR BLOCKERS (ARBs), COMBINATIONS</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="odd">
+<td>21601833</td>
+<td style="text-align: left;">Angiotensin II receptor blockers (ARBs) and diuretics</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="even">
+<td>21600470</td>
+<td style="text-align: left;">Alpha-adrenoreceptor antagonists and diuretics</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="odd">
+<td>21601728</td>
+<td style="text-align: left;">Alpha and beta blocking agents and other diuretics</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="even">
+<td>21601453</td>
+<td style="text-align: left;">Alkaloids, excl. rauwolfia, in combination with diuretics</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="odd">
+<td>21601782</td>
+<td style="text-align: left;">AGENTS ACTING ON THE RENIN-ANGIOTENSIN SYSTEM</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="even">
+<td>21601784</td>
+<td style="text-align: left;">ACE inhibitors, plain</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="odd">
+<td>21601783</td>
+<td style="text-align: left;">ACE INHIBITORS, PLAIN</td>
 <td>NO</td>
 <td>YES</td>
 <td>NO</td>
@@ -1019,42 +975,6 @@
 <img src="https://ohdsi.github.io/TheBookOfOhdsi/images/PopulationLevelEstimation/outcomeModelSettings.png" width="70%">
 </center>
 </section>
-<section id="evaluation-settings" class="slide level2 center middle">
-<h2>Evaluation Settings</h2>
-</section>
-<section id="negative-control" class="slide level2">
-<h2>Negative Control</h2>
-<div class="large">
-<p>Negative control concept 를 어떻게 코호트로 만들것인가?</p>
-</div>
-<center>
-<img src="https://ohdsi.github.io/TheBookOfOhdsi/images/PopulationLevelEstimation/ncSettings.png" width="70%">
-</center>
-<p>Postivie Control은 시뮬레이션용. 일단 무시.</p>
-</section>
-<section id="feedernet" class="slide level2">
-<h2>Feedernet</h2>
-<div class="large">
-<ul>
-<li><p>My project -&gt; 프로젝트 생성 -&gt; Analysis탭 -&gt; New analysis</p></li>
-<li><p>Import from ATLAS 누르고 분석저장한 ATALS로 들어가기</p></li>
-<li><p>저장한 분석 클릭</p></li>
-<li><p>Execute 누르고 분석할 병원 복수 선택</p></li>
-</ul>
-</div>
-</section>
-<section id="meta-analysis" class="slide level2">
-<h2>Meta analysis</h2>
-<div class="large">
-<ul>
-<li><p>https://openstat.ai/ 의 meta-analysis 선택: HR, 95%CI 직접 입력</p></li>
-<li><p>차라투 의뢰..</p></li>
-</ul>
-</div>
-<center>
-<img src="meta.png" width="70%">
-</center>
-</section>
 <section id="executive-summary-1" class="slide level2">
 <h2>Executive summary</h2>
 <div class="large">
@@ -1062,7 +982,6 @@
 <li><p>Concept set: 약물, 시술, 질병 등 개념 정의</p></li>
 <li><p>Cohort definition: Concept set 이용 Target/Comparator/Outcome 코호트 설정</p></li>
 <li><p>Analysis: 관찰시간, PS매칭여부, 통계모델 설정</p></li>
-<li><p>Meta analysis: Feedernet 다기관분석 합침</p></li>
 </ul>
 </div>
 </section>
@@ -1086,7 +1005,7 @@
   <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="index_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
-
+  
 
   <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
@@ -1109,7 +1028,7 @@
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":false},
 'smaller': false,
-
+ 
         // Display controls in the bottom right corner
         controls: false,
 
@@ -1390,7 +1309,7 @@
         });
         const isCodeAnnotation = (el) => {
           for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {
+            if (clz.startsWith('code-annotation-')) {                     
               return true;
             }
           }
@@ -1410,11 +1329,11 @@
             button.setAttribute("data-bs-toggle", "tooltip");
             button.setAttribute("data-bs-placement", "left");
             button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button,
-              { trigger: "manual",
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
                 customClass: "code-copy-button-tooltip",
                 offset: [0, -8]});
-            tooltip.show();
+            tooltip.show();    
           }
           setTimeout(function() {
             if (tooltip) {
@@ -1493,7 +1412,7 @@
           }
             config['offset'] = [0,0];
             config['maxWidth'] = 700;
-          window.tippy(el, config);
+          window.tippy(el, config); 
         }
         const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
         for (var i=0; i<noterefs.length; i++) {
@@ -1550,6 +1469,6 @@
         }
       });
       </script>
-
+    
 
 </body></html>
