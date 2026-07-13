@@ -179,7 +179,10 @@
 <section id="오늘의-목표" class="slide level2">
 <h2>오늘의 목표</h2>
 <div class="large">
-<p><strong>01.</strong> ATLAS에서 만든 estimation 분석 패키지를 다운로드합니다. <strong>02.</strong> RStudio 서버에서 패키지 구조와 실행 코드를 확인합니다. <strong>03.</strong> 제공되는 코드를 단계별로 실행하여 결과 파일을 생성합니다. <strong>04.</strong> 생성된 결과 zip을 CDM META Analysis에서 확인합니다.</p>
+<p><strong>01.</strong> ATLAS에서 만든 estimation 분석 패키지를 다운로드합니다.<br>
+<strong>02.</strong> RStudio 서버에서 패키지 구조와 실행 코드를 확인합니다.<br>
+<strong>03.</strong> 제공되는 코드를 단계별로 실행하여 결과 파일을 생성합니다.<br>
+<strong>04.</strong> 생성된 결과 zip을 CDM META Analysis에서 확인합니다.</p>
 </div>
 <div class="highlight-box">
 <p>목표: ATLAS 설계물이 실제 R 분석 결과로 이어지는 흐름을 알수있게 도와줍니다.</p>
@@ -190,17 +193,20 @@
 <div class="spacer-xs">
 
 </div>
+</section>
+<section id="핵심-개념-1" class="slide level2 intro-slide">
+<h2>핵심 개념</h2>
 <div class="accent-box">
-<p>ATLAS에서 만든 분석은 아직 실행할수 있는 결과가 아니라, R에서 실행할 수 있도록 정리된 분석 설계입니다.</p>
+<p>이번 실습의 핵심은 ATLAS에서 만든 분석 설계를 R에서 실행 가능한 결과로 바꾸는 과정입니다.</p>
 </div>
 <div class="columns">
 <div class="column" style="width:58%;">
 <p><span class="section-title"><strong>Background Info</strong></span></p>
 <ul>
-<li>ATLAS는 코호트, 비교군, 결과변수, 분석 조건을 설계하는 도구입니다.</li>
-<li>Study Package는 이 설계를 R 코드와 설정 파일로 묶어 내려받은 것입니다.</li>
-<li>RStudio에서는 이 패키지를 실제 CDM 데이터베이스에 연결해 실행합니다.</li>
-<li>실행 후 생성된 결과 파일을 통해 cohort 수, outcome 발생, effect estimate를 확인합니다.</li>
+<li>ATLAS에서는 어떤 환자를 비교할지, 어떤 outcome을 볼지, 어떤 분석 방법을 쓸지 정의합니다.</li>
+<li>이 설정은 아직 결과가 아니라, 분석을 실행하기 위한 설계도입니다.</li>
+<li>RStudio에서는 이 패키지를 CDM 데이터베이스에 연결해 cohort 생성, 분석 실행, 결과 저장까지 수행합니다.</li>
+<li>최종 결과는 <code>output/</code> 폴더와 <code>Results_*.zip</code> 파일로 확인합니다.</li>
 </ul>
 </div></div>
 </section>
