@@ -181,7 +181,7 @@ RStudio Files 창에서 압축 해제된 package 폴더를 확인합니다.
 
 <li><code>install.packages(".", ...)</code> : study package 설치</li>
 
-<li><code>library(TESTPLZ)</code> : 패키지 로드 및 dependency 확인</li>
+<li><code>library(<패키지 이름>)</code> : 패키지 로드 및 dependency 확인</li>
 
 <li><code>outputFolder</code>, <code>maxCores</code> 등 실행 옵션 설정</li>
 
