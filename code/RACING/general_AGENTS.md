@@ -1,4 +1,4 @@
-# general_AGENTS.MD
+# general_AGENTS.md
 
 이 문서는 RACING trial 자료처럼 논문 표와 그림을 R 코드로 재현할 때 따르는 기본 분석 스타일이다. 
 
