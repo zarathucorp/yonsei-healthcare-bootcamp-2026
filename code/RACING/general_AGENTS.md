@@ -12,7 +12,6 @@
 - 데이터를 읽고 전처리한 뒤, 사용할 변수를 `varlist`에 저장한다.
 - 생존분석을 할 경우 `varlist$Event`, `varlist$Time`에 event/time 변수를 순서에 맞춰 저장한다.
 - `out`을 만들고 factor/numeric을 지정한 뒤, `out.label`을 만든다.
-- `out.label`에 label 정보를 채운 뒤 분석하거나, `out`과 `out.label`로 Shiny를 만든다.
 - `varlist`와 `out`이 나오기 전에 필요한 파생변수를 모두 만든다.
 - `out` 이후에는 새 분석용 변수를 만들지 않는다.
 - 반복측정데이터일 때는 `out` 기반으로 long form `out.long`, `out.long.label`을 추가로 만들고 `out`과 동일하게 작업한다.
@@ -230,3 +229,8 @@ df[, Event := paste0(Events, "/", N, " (", sprintf("%.1f", Events / N * 100), "%
 - 어색한 영어 번역투를 줄인다.
 - 부자연스러운 수동태, `~에 대해`, `~를 가진다` 식 직역을 피한다.
 - 사용자에게 보이는 모든 한글 텍스트에 적용한다.
+
+## 분석시 유의사항
+- **Statistical Analysis는 반드시 영어로** 작성 (논문 methods 스타일)
+- 마지막에 `All analyses were performed using R 4.6.1 (R Foundation for Statistical Computing, Vienna, Austria).` 포함
+- R 패키지 버전(lmerTest, emmeans 등)은 넣지 않음
