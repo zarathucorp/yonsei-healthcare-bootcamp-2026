@@ -1,0 +1,17 @@
+Synthetic example data; not original RACING patient-level data.
+
+Group counts
+         group     N
+        <fctr> <int>
+1: Combination  1894
+2: Monotherapy  1886
+
+Primary endpoint
+         group     N Events  Rate
+        <fctr> <int>  <int> <num>
+1: Combination  1894    172   9.1
+2: Monotherapy  1886    186   9.9
+
+LDL missing counts
+LDL_y1 LDL_y2 LDL_y3 
+   432    683   1116 
