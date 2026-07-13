@@ -92,15 +92,6 @@ Synthetic data는 최소한 아래 방향성을 확인한다.
 - `primary_time_mo`: primary endpoint 발생 월. 미발생자는 `NA`
 - `primary_event`: primary endpoint 발생 여부
 
-생존분석용 관찰 시간은 아래처럼 구성한다.
-
-```r
-dd[, .event := as.integer(as.character(primary_event))]
-dd[, .time := fifelse(.event == 1L,
-                      as.numeric(primary_time_mo),
-                      as.numeric(admend_mo))]
-```
-
 ### 3년 임상 endpoint 변수
 
 아래 변수는 3년 동안의 발생 여부를 비교한다. 별도 시간 변수를 만들거나 Cox model을 적용하지 않는다.
@@ -171,48 +162,6 @@ Subgroup 변수도 `global.R`에서 미리 만든다.
 11. `out` 기반 `out.long` 생성
 12. `out.long.label` 생성
 
-```r
-varlist <- list(
-  ID = "ID",
-  Base = c(),
-  Followup = "admend_mo",
-  Time = "primary_time_mo",
-  Event = "primary_event",
-  Clinical = c(),
-  LDL = c(),
-  Safety = c(),
-  Subgroup = c()
-)
-
-varlist <- lapply(varlist, function(v) intersect(v, names(a)))
-
-out <- a[, .SD, .SDcols = unique(unlist(varlist))]
-
-factor_vars <- names(out)[vapply(
-  out,
-  function(z) length(unique(na.omit(z))) <= 6L,
-  logical(1)
-)]
-factor_vars <- setdiff(
-  factor_vars,
-  c(varlist$ID, varlist$Time, varlist$Followup)
-)
-out[, (factor_vars) := lapply(.SD, factor), .SDcols = factor_vars]
-
-vars01 <- vapply(factor_vars, function(v) {
-  lv <- sort(unique(na.omit(as.character(out[[v]]))))
-  length(lv) > 0L && all(lv %in% c("0", "1"))
-}, logical(1))
-for (v in names(vars01)[vars01]) {
-  out[, (v) := factor(as.character(get(v)), levels = c("0", "1"))]
-}
-
-conti_vars <- setdiff(names(out), c(factor_vars, varlist$ID))
-out[, (conti_vars) := lapply(.SD, as.numeric), .SDcols = conti_vars]
-
-out.label <- jstable::mk.lev(out)
-```
-
 Subgroup 변수는 `out` 생성 전에 만든다.
 
 - `Age60`
@@ -228,53 +177,10 @@ Subgroup 변수는 `out` 생성 전에 만든다.
 
 반복측정 자료는 `out`에서 만든다.
 
-```r
-out.long <- rbindlist(lapply(seq_len(3L), function(yr) {
-  out[, .(
-    ID,
-    group,
-    timepoint = factor(
-      paste0(yr, if (yr == 1L) " year" else " years"),
-      levels = c("1 year", "2 years", "3 years")
-    ),
-    LDL = get(paste0("LDL_y", yr)),
-    LDL70 = factor(
-      as.character(get(paste0("LDL70_y", yr))),
-      levels = c("0", "1")
-    ),
-    LDL55 = factor(
-      as.character(get(paste0("LDL55_y", yr))),
-      levels = c("0", "1")
-    )
-  )]
-}))
-
-out.long.label <- jstable::mk.lev(out.long)
-```
-
 ## analysis.R 작성 원칙
 
-`analysis.R`은 `source("global.R")`로 시작한다. 분석 중 필요한 임시 변수는 `dd <- copy(out)` 또는 `dd <- copy(out.long)` 안에서만 만든다. `out` 자체에는 새 변수를 추가하지 않는다.
-
-```r
-source("global.R")
-
-library(data.table);library(magrittr)
-library(survival);library(jskm);library(jstable)
-library(ggplot2);library(forestploter);library(grid)
-library(flextable);library(openxlsx);library(gridExtra);library(ragg)
-library(officer);library(rvg)
-
-asset_dir <- "docs/2026-07-21-RCT-RACING"
-dir.create("results", showWarnings = FALSE)
-dir.create("figures", showWarnings = FALSE)
-
-synthetic_footer <- "This table was generated from synthetic example data, not original RACING patient-level data."
-synthetic_note <- "Synthetic example data; not original RACING patient-level data."
-
-ft_list <- list()
-plot_list <- list()
-```
+`analysis.R`은 `source("global.R")`로 시작한다. 
+분석 중 필요한 임시 변수는 `dd <- copy(out)` 또는 `dd <- copy(out.long)` 안에서만 만든다. `out` 자체에는 새 변수를 추가하지 않는다.
 
 ## RACING_Table1.png: baseline characteristics
 
@@ -310,27 +216,6 @@ plot_list <- list()
 - `primary_time_mo`가 `NA`라는 이유로 미발생자를 분석에서 제외하면 안 된다.
 - 시간축 단위는 months로 표시한다.
 - `jskm()`에는 반드시 `data = dd`를 넣고 cumulative incidence로 표시한다.
-
-```r
-dd <- copy(out)
-dd <- dd[!is.na(primary_event) & !is.na(admend_mo)]
-dd[, .event := as.integer(as.character(primary_event))]
-dd[, .time := fifelse(
-  .event == 1L,
-  as.numeric(primary_time_mo),
-  as.numeric(admend_mo)
-)]
-stopifnot(!anyNA(dd$.time))
-
-fmla <- Surv(.time, .event) ~ group
-fit <- eval(substitute(survfit(f, data = dd), list(f = fmla)))
-
-plot_list[["Figure 2"]] <- jskm(
-  fit, data = dd, pval = TRUE, marks = FALSE,
-  table = TRUE, cumhaz = TRUE,
-  xlab = "Months", ylab = "Cumulative incidence"
-)
-```
 
 ## RACING_Table3.png: LDL-C outcomes
 
@@ -374,16 +259,6 @@ plot_list[["Figure 2"]] <- jskm(
 - 이 중단 수치는 synthetic patient-level data에서 계산한 값이 아니므로 Figure 1 각주에 출처와 한계를 명시한다.
 - 논문 숫자를 하드코딩할 때는 `summary numbers from Lancet RACING paper`라고 주석을 남긴다.
 
-```r
-flow_dt <- out[, .(N = .N), by = group]
-flow_dt[, Step := as.character(group)]
-flow_dt <- rbind(
-  data.table(Step = "Randomised", N = nrow(out)),
-  flow_dt[, .(Step, N)],
-  fill = TRUE
-)
-```
-
 ## 산출물 저장
 
 표 계산 결과는 `table1`–`table4`에 저장하고, 같은 자료로 `ft_list`, Excel, PNG를 만든다.
@@ -424,31 +299,8 @@ Excel 시트 형식은 저장소 루트의 `Tables_example.xlsx`를 기준으로
 ### PPT
 
 Figure 1–3은 `officer`와 `rvg`로 `figures/RACING_Figures.pptx`에 저장한다.
-
-```r
-ppt <- read_pptx()
-
-for (nm in c("Figure 1", "Figure 2")) {
-  ppt <- add_slide(ppt, layout = "Blank", master = "Office Theme")
-  ppt <- ph_with(
-    ppt,
-    value = rvg::dml(ggobj = plot_list[[nm]]),
-    location = ph_location_fullsize()
-  )
-}
-
-ppt <- add_slide(ppt, layout = "Blank", master = "Office Theme")
-ppt <- ph_with(
-  ppt,
-  value = rvg::dml(code = grid::grid.draw(figure3_grob)),
-  location = ph_location_fullsize()
-)
-
-print(ppt, target = "figures/RACING_Figures.pptx")
-```
-
 PPT에는 표를 넣지 않는다.
-
+PPT 한 페이지에 그림이 들어갈 수 있어야 한다.
 ### PNG
 
 슬라이드용 Table 1–4와 Figure 1–3 PNG를 `docs/2026-07-21-RCT-RACING/`에 저장한다.
@@ -465,10 +317,6 @@ PPT에는 표를 넣지 않는다.
 ### 추가 검증 파일
 
 Primary Cox model은 아래 방식으로 PH 가정을 검증한다.
-
-```r
-primary_ph <- cox.zph(primary_cox, transform = "identity")
-```
 
 결과는 `results/RACING_primary_PH_assumption.xlsx`에 저장한다.
 
@@ -500,24 +348,3 @@ primary_ph <- cox.zph(primary_cox, transform = "identity")
 - `figures/RACING_Figures.pptx`에 Figure 1–3 슬라이드가 있는지 확인한다.
 - 7개 PNG가 모두 생성되고 0바이트가 아닌지 확인한다.
 - 모든 산출물에 synthetic data 문구가 있는지 확인한다.
-
-```r
-expected_png <- file.path(
-  "docs/2026-07-21-RCT-RACING",
-  c(
-    "RACING_Figure1.png",
-    "RACING_Table1.png",
-    "RACING_Table2.png",
-    "RACING_Figure2.png",
-    "RACING_Table3.png",
-    "RACING_Table4.png",
-    "RACING_Figure3.png"
-  )
-)
-
-stopifnot(all(file.exists(expected_png)))
-stopifnot(all(file.info(expected_png)$size > 0))
-stopifnot(file.exists("results/RACING_Tables.xlsx"))
-stopifnot(file.exists("figures/RACING_Figures.pptx"))
-stopifnot(file.exists("results/RACING_primary_PH_assumption.xlsx"))
-```
