@@ -65,7 +65,6 @@ wb$save("Tables.xlsx")
 - `CreateTableOneJS(..., labeldata = out.label, Labels = T)` 옵션으로 라벨을 적용한다.
 - `CreateTableOneJS(...)$table %>% cbind(Variable = rownames(.), .)`로 변수명 컬럼을 추가한다.
 - 3군 이상 비교 시 `pairwise = T` 옵션으로 pairwise p-value를 한 번에 출력한다.
-- 별도 2군 테이블을 만들지 않는다.
 - `test` 컬럼은 제거하고 저장한다. 예: `$table[, -which(colnames($table) == "test")]`.
 - `cox2.display()`: Cox model 테이블에 사용한다.
 - `TableSubgroupMultiCox/GLM`: subgroup analysis에 사용한다.
