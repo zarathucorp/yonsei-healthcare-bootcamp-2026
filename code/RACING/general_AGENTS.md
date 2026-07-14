@@ -231,6 +231,48 @@ df[, Event := paste0(Events, "/", N, " (", sprintf("%.1f", Events / N * 100), "%
 - 사용자에게 보이는 모든 한글 텍스트에 적용한다.
 
 ## 분석시 유의사항
+
 - **Statistical Analysis는 반드시 영어로** 작성 (논문 methods 스타일)
 - 마지막에 `All analyses were performed using R 4.6.1 (R Foundation for Statistical Computing, Vienna, Austria).` 포함
 - R 패키지 버전(lmerTest, emmeans 등)은 넣지 않음
+
+
+## RACING Synthetic data 해석시 주의사항
+
+### Safety population
+
+- RACING PDF의 safety population은 safety event가 있었는지가 아니라 allocated therapy를 실제로 받았는지를 기준으로 정의된다.
+- 현재 `RACING_synthetic_data.xlsx`에는 allocated therapy 수령 여부, allocated therapy 미수령 사유, per-protocol 포함 여부 변수가 없다.
+- 따라서 safety population은 synthetic data에서 재구성하지 않는다.
+- Table 4의 denominator는 randomised participants로 사용하고, footer에 다음과 같이 명시한다.
+  ```text
+  Safety endpoints were summarised among all randomised participants because allocated-treatment receipt and safety population variables were unavailable in the synthetic data.
+  ```
+
+### 약제 불내성 중단/감량 변수
+
+- synthetic data에는 약제 불내성 때문에 약을 중단하거나 감량한 사람들 변수가 존재하지 않는다.
+- 따라서 safety endpoint들을 묶어 새로운 변수 intolerance_stop_reduce를 만든다.
+- 기준 safety endpoint는 muscle_ae, myalgia, myopathy, myonecrosis, hepatic_ae, ck_elevation, fasting_glucose_elevation를 사용한다.
+- 위 변수들 중 하나라도 1이면 intolerance_stop_reduce = 1, 전부 0이면 intolerance_stop_reduce = 0으로 둔다.
+- 이 변수는 반드시 global.R에서 out 만들기 전에 생성한다.
+- 이 값은 실제 원자료의 치료 중단/감량 변수가 아니라 safety endpoint 기반 composite이므로, Table 4 footer에 이를 명시한다.
+  ```text
+  The intolerance-discontinuation row was derived from intolerance-related safety endpoints in the synthetic data.
+  ```
+- Table 4에서 intolerance_stop_reduce를 별도 행으로 추가했다면, 이후 varlist$Safety 반복 출력에서는 이 변수를 제외한다. (같은 row가 두 번 생기는 것 방지하기 위해)
+  ```
+  for (v in setdiff(varlist$Safety, "intolerance_stop_reduce")) {
+    add_t4_event(v, safety_labels[[v]])
+  }
+  ```
+  
+### Figure 1 trial profile
+
+  - LDL_y1, LDL_y2, LDL_y3 결측은 LDL laboratory follow-up missing이다.
+  - LDL 결측을 trial follow-up 중단으로 해석하지 않는다.
+  - 따라서 LDL 결측은 Figure 1 trial profile에 넣지 않는다.
+  - death는 allcause_death_event로 표시한다.
+  - lost to follow-up, withdrawal consent 변수가 없으면 임의로 만들지 않는다.
+  - primary_event == 0 & admend_mo < 36은 lost to follow-up으로 단정하지 않는다.
+  - 이 경우에는 "censored before 3 years, reason unavailable"로 표시한다.
