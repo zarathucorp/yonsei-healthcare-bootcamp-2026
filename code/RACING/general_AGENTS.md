@@ -236,6 +236,11 @@ df[, Event := paste0(Events, "/", N, " (", sprintf("%.1f", Events / N * 100), "%
 - 마지막에 `All analyses were performed using R 4.6.1 (R Foundation for Statistical Computing, Vienna, Austria).` 포함
 - R 패키지 버전(lmerTest, emmeans 등)은 넣지 않음
 
+## PPT 슬라이드 작업 시 유의사항
+  - 모든 글자는 한 페이지 안에 배치
+  - 글자 자림과 화면 밖 넘침 방지
+  - 그림, 도형, 화살표가 글자를 가리지 않도록 배치
+  - 랜더링된 HTML에서 겹침과 가독성까지 확인
 
 ## RACING Synthetic data 해석시 주의사항
 
