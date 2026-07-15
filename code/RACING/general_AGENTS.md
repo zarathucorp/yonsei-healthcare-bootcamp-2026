@@ -7,36 +7,8 @@
 - `data.table`을 메인 패키지로 사용한다.
 - `dplyr` 스타일은 거의 쓰지 않는다.
 - pipe operator는 `%>%`만 사용한다.
-- 데이터 읽기, 전처리, 사용할 변수 정리는 `global.R`에서 한다.
-- 실제 분석은 `analysis.R` 등 별도 R 파일로 분리한다.
-- 데이터를 읽고 전처리한 뒤, 사용할 변수를 `varlist`에 저장한다.
-- 생존분석을 할 경우 `varlist$Event`, `varlist$Time`에 event/time 변수를 순서에 맞춰 저장한다.
-- `out`을 만들고 factor/numeric을 지정한 뒤, `out.label`을 만든다.
-- `varlist`와 `out`이 나오기 전에 필요한 파생변수를 모두 만든다.
-- `out` 이후에는 새 분석용 변수를 만들지 않는다.
-- 반복측정데이터일 때는 `out` 기반으로 long form `out.long`, `out.long.label`을 추가로 만들고 `out`과 동일하게 작업한다.
 
-## 산출물 저장 원칙
 
-- 그림으로 저장할 경우 기본은 PPT다.
-- `rvg::dml`과 `officer`를 사용해 벡터그래픽으로 저장한다.
-- 그림 크기는 기본적으로 fullsize로 둔다.
-- 테이블은 `flextable`로 포맷팅하고, 논문에 바로 쓸 수 있는 형태로 만든다.
-- 테이블명은 `set_caption()`으로 넣는다.
-- 통계방법 주석은 `add_footer_lines()`로 넣는다.
-- 테이블은 Excel로만 저장한다. PPT에는 그림만 넣는다.
-- PPT 안에 `flextable` 슬라이드를 만들지 않는다. 별도 요청이 있을 때만 PPT 표를 추가한다.
-- Excel 저장은 `flexlsx`와 `openxlsx2`를 사용해 여러 시트로 저장한다.
-
-```r
-library(flextable);library(flexlsx);library(openxlsx2)
-wb <- wb_workbook()
-for (sn in names(ft_list)) {
-  wb$add_worksheet(sn)
-  wb <- wb_add_flextable(wb, sn, ft_list[[sn]])
-}
-wb$save("Tables.xlsx")
-```
 
 ## 논문용 테이블 필수 규칙
 
@@ -69,39 +41,6 @@ wb$save("Tables.xlsx")
 - `labelepidisplay`는 사용하지 않는다.
 - `mk.lev()`: 레이블 데이터프레임 생성에 사용한다.
 
-## global.R 기본 구조
-
-```r
-library(data.table);library(magrittr);library(jstable);library(openxlsx)
-setwd("~/파일 경로")
-
-# a <- readxl::read_excel("data.xlsx", skip = 1) %>% data.table(check.names = T)
-
-varlist <- list(
-  Base = c()
-)
-
-out <- a[, .SD, .SDcols = c(unlist(varlist))]
-
-factor_vars <- c(names(out)[sapply(out, function(x){length(table(x))}) <= 6])
-out[, (factor_vars) := lapply(.SD, factor), .SDcols = factor_vars]
-
-conti_vars <- setdiff(names(out), c(factor_vars))
-out[, (conti_vars) := lapply(.SD, as.numeric), .SDcols = conti_vars]
-
-out.label <- jstable::mk.lev(out)
-
-vars01 <- sapply(factor_vars, function(v) {
-  lv <- sort(unique(na.omit(as.character(out[[v]]))))
-  length(lv) > 0 && all(lv %in% c("0", "1"))
-})
-for (v in names(vars01)[vars01 == TRUE]) {
-  out[, (v) := factor(as.character(get(v)), levels = c("0", "1"))]
-}
-for (v in names(vars01)[vars01 == TRUE]) {
-  out.label[variable == v, val_label := c("No", "Yes")]
-}
-```
 
 ## 분석 코드 주의사항
 
@@ -119,11 +58,7 @@ fit <- survfit(fmla, data = dd)
 # 맞음
 fit <- eval(substitute(survfit(f, data = dd), list(f = fmla)))
 ```
-### out 변수 관리
 
-- `global.R`에서 `out`, `out.label`을 만든다.
-- `analysis.R`에서는 `out`, `out.label`을 그대로 사용한다.
-- `out`에 분석용 임시 파생변수를 만들지 않는다.
 
 ### 부등호/특수문자 표기
 

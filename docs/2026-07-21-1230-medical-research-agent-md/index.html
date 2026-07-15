@@ -232,27 +232,27 @@
 <h2>강의 흐름</h2>
 <div style="padding: 10px 40px;">
 <div class="highlight-box">
-<p><strong>01. general_AGENTS.md 이해하기</strong> — 공통 작업 구조와 분석 원칙 확인</p>
+<p><strong>01. AGENTS.md 이해하기</strong> — 공통 작업 구조와 분석 원칙 확인</p>
 </div>
 <div class="highlight-box-blue">
 <p><strong>02. RACING synthetic data로 분석 재현하기</strong> — 규칙을 코드에 적용하고 결과 해석</p>
 </div>
 </div>
 </section>
-<section id="general_agents.md" class="slide level2 intro-slide">
-<h2>general_AGENTS.md</h2>
+<section id="agents.md" class="slide level2 intro-slide">
+<h2>AGENTS.md</h2>
 <div class="spacer-xs">
 
 </div>
 <div class="accent-box">
-<p>AI agent가 분석을 시작하기 전에 읽는 <strong>공통 작업 계약서</strong></p>
+<p>AI agent가 분석을 시작하기 전에 읽는 <strong>공통 작업 문서</strong></p>
 </div>
 <div class="highlight-box-blue">
-<p><a href="https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/RACING/general_AGENTS.md">general_AGENTS.md 바로가기</a></p>
+<p><a href="https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1230-medical-research-agent-md/RACING/general_AGENTS.md">AGENTS.md 바로가기</a></p>
 </div>
 <div class="large">
 <div class="highlight-box-gray">
-<p><span class="section-title"><strong>general_AGENTS.md란?</strong></span></p>
+<p><span class="section-title"><strong>AGENTS.md란?</strong></span></p>
 <ul>
 <li>AI agent가 따라야 할 분석·코딩·저장 규칙을 모은 문서이다.</li>
 <li>AI의 작업 방식과 판단 기준을 정하는 매뉴얼이다.</li>
@@ -522,7 +522,7 @@
 <ul>
 <li><p><strong>factor/numeric 변환</strong>: 각 변수를 분석 목적에 맞게 자료형을 지정하는 작업 <br> ex) factor: 성별, 치료군 같은 <strong>범주형 변수</strong> <br> numeric: 나이, 체중 같은 <strong>연속형 변수</strong></p></li>
 <li><p>같은 그룹명/변수명 반복 표기하지 않는다.</p></li>
-<li><p>컬럼명/변수명 그대로 노출하지 않는다. 예: <code>dose_mg</code>, <code>ANC_bl</code>, <code>var123</code>.</p></li>
+<li><p>컬럼명/변수명 그대로 노출하지 않는다.<br> ex) <code>dose_mg</code>, <code>ANC_bl</code>, <code>var123</code></p></li>
 <li><p>병합한 컬럼에는 <code>valign(j = ..., valign = "top")</code>과 <code>align(j = ..., align = "left")</code>를 적용한다.</p></li>
 <li><p>라벨은 named character vector, <code>jstable::mk.lev()</code>, <code>out.label</code>을 활용한다.</p></li>
 </ul>
@@ -581,7 +581,7 @@
 <ul>
 <li>데이터 처리에는 <code>data.table</code>을 기본으로 사용한다.</li>
 <li><code>dplyr</code> 문법은 가급적 사용하지 않는다.</li>
-<li>코드의 처리 순서를 깔끔하게 보여주기 위해 파이프 연산자는 %&gt;%를 사용한다.</li>
+<li>코드 순서를 깔끔하게 보여주기 위해 파이프 연산자 %&gt;%를 사용한다.</li>
 </ul>
 <p><span class="section-title"><strong>반복 작업</strong></span></p>
 <ul>
@@ -596,7 +596,7 @@
 <ul>
 <li>표는 목록에 모은 뒤 하나의 Excel 파일에 여러 시트로 저장한다.</li>
 <li>그림은 <code>lapply</code>로 생성하여 <code>plot_list</code>에 먼저 저장한다.</li>
-<li>완성된 <code>plot_list</code>를 <code>for</code>문으로 순회하며 PPT에 저장한다.</li>
+<li>완성된 <code>plot_list</code>를 <code>for</code>문으로 PPT 슬라이드에 하나씩 저장한다.</li>
 <li>그림 생성과 파일 저장을 분리하여 디자인 수정이나 재저장이 쉽도록 한다.</li>
 </ul>
 <p><span class="section-title"><strong>스크립트 구성</strong></span></p>
@@ -627,7 +627,7 @@
 <p>제출하기 전에 모든 테이블의 footer가 실제 사용된 통계와 일치하는지 재검토한다. <br> 수치가 맞아도 방법 기술이 틀리면 재작업 대상이다.</p>
 </div>
 <div class="accent-box">
-<p>Synthetic data를 사용한 경우 모든 표와 그림의 footer에 합성자료를 이용한 분석임을 명시한다.</p>
+<p>Synthetic data를 사용한 경우, 모든 표와 그림의 footer에 합성자료를 이용한 분석임을 명시한다.</p>
 </div>
 </section>
 <section id="jstable" class="slide level2">
@@ -640,9 +640,9 @@
 </ul>
 <p><span class="section-title"><strong>회귀 및 하위그룹 분석</strong></span></p>
 <ul>
-<li>TableSubgroupMultiCox()는 Cox 모형의 하위그룹 분석에 사용한다.</li>
-<li>TableSubgroupMultiGLM()은 GLM 기반 하위그룹 분석에 사용한다.</li>
-<li>LabeljsCox()로 Cox 모형 결과에 변수와 범주 라벨을 적용한다.</li>
+<li><code>TableSubgroupMultiCox()</code>는 Cox 모형의 하위그룹 분석에 사용한다.</li>
+<li><code>TableSubgroupMultiGLM()</code>은 GLM 기반 하위그룹 분석에 사용한다.</li>
+<li><code>LabeljsCox()</code>로 Cox 모형 결과에 변수와 범주 라벨을 적용한다.</li>
 </ul>
 </section>
 <section id="jstable-표-출력-정리" class="slide level2">
@@ -730,22 +730,20 @@
 <li><code>TableSubgroupMultiCox/GLM()</code> 결과는 data.frame에서 data.table로 변환한 뒤 <code>:=</code>를 사용한다.</li>
 <li><code>forest()</code>에 넘기는 data.frame은 표시할 열만 선택한다.</li>
 <li><code>forest_theme()</code>에서는 <code>refline_gp = gpar(col = ...)</code>, <code>footnote_gp = gpar(col = ...)</code>를 사용한다.</li>
-<li><code>refline_col</code>, <code>footnote_col</code>은 deprecated이므로 쓰지 않는다.</li>
-<li><code>library(grid)</code>가 필요하다.</li>
+<li><code>refline_col</code>, <code>footnote_col</code>은 쓰지 않는다. <code>library(grid)</code>를 사용한다.</li>
 </ul>
 </div>
 </div><div class="column" style="width:39%;">
 <div class="highlight-box">
 <p><span class="section-title"><strong>Forest plot 레이아웃과 시각요소</strong></span></p>
 <ul>
-<li>CI를 그리는 열은 빈 공백 열로 확보한다.</li>
-<li>텍스트 열에 <code>ci_column</code>을 지정하면 선이 글자와 겹친다.</li>
+<li>CI를 그리는 열은 빈 공백 열로 확보하여 선이 글자와 겹치지 않도록 한다.</li>
+<li><code>sizes</code>에는 스칼라를 넣어 모든 점의 크기를 동일하게 둔다. ex) <code>sizes = 0.4</code></li>
+<li><code>x_trans = "log"</code>로 x축 로그 스케일을 사용한다.</li>
+<li>극단값(OR &gt; 100 또는 Inf)은 <code>est</code>, <code>low</code>, <code>high</code>를 NA로 설정해서 점과 선을 그리지 않는다.</li>
+<li>극단값 행의 p-value도 빈칸으로 둔다.</li>
 <li>서브그룹 하위 레벨은 들여쓴다. ex) <code>df$Variable &lt;- ifelse(is.na(df$Count), df$Variable, paste0("   ", df$Variable))</code></li>
 <li><code>Count</code>, <code>P value</code> 등 표시용 컬럼의 NA는 <code>""</code>로 변환한 뒤 <code>forest()</code>에 전달한다.</li>
-<li>극단값(OR &gt; 100 또는 Inf)은 <code>est</code>, <code>low</code>, <code>high</code>를 NA로 설정해서 점과 선을 그리지 않는다.</li>
-<li>극단값 행의 P value도 빈칸으로 둔다.</li>
-<li><code>sizes</code>에는 스칼라를 넣어 모든 점의 크기를 동일하게 둔다. ex) <code>sizes = 0.4</code>.</li>
-<li><code>x_trans = "log"</code>로 x축 로그 스케일을 사용한다.</li>
 <li>Event는 <code>Events/N (%)</code> 형식으로 표시한다.</li>
 <li>header row의 P value는 <code>""</code>로 처리한다.</li>
 <li>level 라벨은 <code>0/1</code> 대신 <code>No/Yes</code> 등 의미 있는 라벨로 변환한다.</li>
@@ -758,15 +756,15 @@
 <p><span class="section-title"><strong>심장학 연구 KM curve</strong></span></p>
 <ul>
 <li><code>cumhaz = TRUE</code>를 사용하여 cumulative incidence, 즉 1-S(t) 형태로 표시한다.</li>
-<li>y축 라벨은 <code>"Cumulative incidence"</code>로 둔다.</li>
-<li>ylims는 연구 event rate에 맞춰 설정한다. ex) <code>ylims = c(0, 0.3)</code>.</li>
+<li>y축 라벨은 “Cumulative incidence”로 둔다.</li>
+<li>ylims는 연구 event rate에 맞춰 설정한다.<br> ex) ylims = c(0, 0.3)</li>
 </ul>
 <p><span class="section-title"><strong>PPT 슬라이드 작업 시 유의사항</strong></span></p>
 <ul>
-<li>모든 글자는 한 페이지 안에 배치</li>
-<li>글자 자림과 화면 밖 넘침 방지</li>
-<li>그림, 도형, 화살표가 글자를 가리지 않도록 배치</li>
-<li>랜더링된 HTML에서 겹침과 가독성까지 확인</li>
+<li>모든 글자는 한 페이지 안에 배치한다.</li>
+<li>글자 자림과 화면 밖 넘침 방지한다.</li>
+<li>그림, 도형, 화살표가 글자를 가리지 않도록 배치한다.</li>
+<li>랜더링된 HTML에서 겹침과 가독성까 확인한다.</li>
 </ul>
 </section>
 <section id="산출물-기준---일반" class="slide level2">
@@ -774,19 +772,18 @@
 <p><span class="section-title"><strong>한글 문체 / 표현 규칙</strong></span></p>
 <ul>
 <li>“견고하다” 표현은 쓰지 않는다.</li>
-<li>영어 <code>robust</code>는 “robust하다”, “일관되다”, “일관된 결과”, “모든 분석에서 일치” 등으로 쓴다.</li>
-<li>“권합니다”, “권장합니다”, “권고합니다”, “권장” 표현은 쓰지 않는다.</li>
-<li>대신 “~하는 게 좋겠습니다”로 쓴다.</li>
+<li>영어 “robust”는 “robust하다”, “일관되다”, “일관된 결과”, “모든 분석에서 일치” 등으로 쓴다.</li>
 <li>어색한 영어 번역투를 줄인다.</li>
 <li>부자연스러운 수동태, “~에 대해”, “~를 가진다” 식 직역을 피한다.</li>
+<li>“권합니다”, “권장합니다”, “권고합니다”, “권장” 표현은 쓰지 않는다. 대신 “~하는 게 좋겠습니다”로 쓴다.</li>
 <li>사용자에게 보이는 모든 한글 텍스트에 적용한다.</li>
 </ul>
 </section>
 <section id="산출물-기준---분석시-유의사항" class="slide level2">
 <h2>4. 산출물 기준 - 분석시 유의사항</h2>
 <ul>
-<li><strong>Statistical Analysis는 반드시 영어로</strong> 작성 (논문 methods 스타일)</li>
-<li>마지막에 <code>All analyses were performed using R 4.6.1 (R Foundation for Statistical Computing, Vienna, Austria).</code> 포함</li>
+<li><strong>Statistical Analysis는 반드시 영어로 작성</strong>한다. (논문 methods 스타일)</li>
+<li>마지막에 “All analyses were performed using R 4.6.1 (R Foundation for Statistical Computing, Vienna, Austria).”을 포함한다.</li>
 <li>R 패키지 버전(lmerTest, emmeans 등)은 넣지 않는다.</li>
 </ul>
 <div class="accent-box">
@@ -801,21 +798,28 @@
 <div class="highlight-box">
 <p><span class="section-title"><strong>Safety population</strong></span></p>
 <ul>
-<li><p>RACING PDF의 safety population은 safety event가 있었는지가 아니라 allocated therapy를 실제로 받았는지를 기준으로 정의된다.</p></li>
-<li><p>현재 <code>RACING_synthetic_data.xlsx</code>에는 allocated therapy 수령 여부, allocated therapy 미수령 사유, per-protocol 포함 여부 변수가 없다.</p></li>
-<li><p>따라서 safety population은 synthetic data에서 재구성하지 않는다.</p></li>
-<li><p>Table 4의 denominator는 randomised participants로 사용하고, footer에 다음과 같이 명시한다.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href=""></a>Safety endpoints were summarised among all randomised participants because allocated-treatment receipt and safety population variables were unavailable in the synthetic data.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li>RACING PDF의 safety population은 safety event가 있었는지가 아니라 allocated therapy를 실제로 받았는지를 기준으로 정의된다.</li>
+<li>현재 RACING_synthetic_data.xlsx에는 allocated therapy 수령 여부, allocated therapy 미수령 사유, per-protocol 포함 여부 변수가 없다.</li>
+<li>따라서 safety population은 synthetic data에서 재구성하지 않는다.</li>
 </ul>
 </div>
+<div class="highlight-box">
+<p><span class="section-title"><strong>Table 4 footer</strong></span></p>
+<ul>
+<li>Table 4의 denominator는 randomised participants로 사용하고, footer에 다음과 같이 명시한다.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href=""></a>Safety endpoints were summarised among all randomised participants because allocated-treatment receipt and safety population variables were unavailable in the synthetic data.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
 <div class="highlight-box-gray">
 <p><span class="section-title"><strong>Figure 1 trial profile</strong></span></p>
 <ul>
 <li><code>LDL_y1</code>, <code>LDL_y2</code>, <code>LDL_y3</code> 결측은 LDL laboratory follow-up missing이다.</li>
 <li>LDL 결측을 trial follow-up 중단으로 해석하지 않는다.</li>
 <li>따라서 LDL 결측은 Figure 1 trial profile에 넣지 않는다.</li>
-<li>death는 <code>allcause_death_event</code>로 표시한다. lost to follow-up, withdrawal consent 변수가 없으면 임의로 만들지 않는다.</li>
-<li><code>primary_event == 0 &amp; admend_mo &lt; 36</code>은 lost to follow-up으로 단정하지 않는다.</li>
+<li>death는 <code>allcause_death_event</code>로 표시한다.</li>
+<li><code>lost to follow-up</code>, <code>withdrawal consent</code> 변수가 없으면 임의로 만들지 않는다.</li>
+<li><code>primary_event == 0 &amp; admend_mo &lt; 36</code>은 <code>lost to follow-up</code>으로 단정하지 않는다.</li>
 <li>이 경우에는 “censored before 3 years, reason unavailable”로 표시한다.</li>
 </ul>
 </div>
@@ -828,18 +832,24 @@
 <div class="highlight-box-blue">
 <p><span class="section-title"><strong>약제 불내성 중단/감량 변수</strong></span></p>
 <ul>
-<li><p>synthetic data에는 약제 불내성 때문에 약을 중단하거나 감량한 사람들 변수가 존재하지 않는다.</p></li>
-<li><p>따라서 safety endpoint들을 묶어 새로운 composite 변수 <code>intolerance_stop_reduce</code>를 만든다.</p></li>
-<li><p>기준 safety endpoint는 <code>muscle_ae</code>, <code>myalgia</code>, <code>myopathy</code>, <code>myonecrosis</code>, <code>hepatic_ae</code>, <code>ck_elevation</code>, <code>fasting_glucose_elevation</code>를 사용한다.</p></li>
-<li><p>위 변수들 중 하나라도 1이면 <code>intolerance_stop_reduce = 1</code>, 전부 0이면 <code>intolerance_stop_reduce = 0</code>으로 둔다.</p></li>
-<li><p>이 변수는 반드시 global.R에서 <code>out</code> 만들기 전에 생성한다.</p></li>
-<li><p>이 값은 실제 원자료의 치료 중단/감량 변수가 아니라 safety endpoint 기반 composite이므로, Table 4 footer에 이를 명시한다.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb13-1"><a href=""></a>The intolerance-discontinuation row was derived from intolerance-related safety endpoints in the synthetic data.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Table 4에서 <code>intolerance_stop_reduce</code>를 별도 행으로 추가했다면, 이후 <code>varlist$Safety</code> 반복 출력에서는 이 변수를 제외한다. (같은 row가 두 번 생기는 것 방지하기 위해)</p></li>
+<li>synthetic data에는 약제 불내성 때문에 약을 중단하거나 감량한 사람들 변수가 존재하지 않는다.</li>
+<li>따라서 safety endpoint들을 묶어 새로운 composite 변수 <code>intolerance_stop_reduce</code>를 만든다.</li>
+<li>기준 safety endpoint는 <code>muscle_ae</code>, <code>myalgia</code>, <code>myopathy</code>, <code>myonecrosis</code>, <code>hepatic_ae</code>, <code>ck_elevation</code>, <code>fasting_glucose_elevation</code>를 사용한다. <br><br></li>
+<li>위 변수들 중 하나라도 1이면 <code>intolerance_stop_reduce = 1</code>, 전부 0이면 <code>intolerance_stop_reduce = 0</code>으로 둔다.</li>
+<li>이 변수는 반드시 global.R에서 <code>out</code> 만들기 전에 생성한다.</li>
+</ul>
+</div>
+<div class="highlight-box">
+<p><span class="section-title"><strong>Table 4 footer</strong></span></p>
+<ul>
+<li>이 값은 실제 원자료의 치료 중단/감량 변수가 아니라 safety endpoint 기반 composite이므로, Table 4 footer에 이를 명시한다.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb13-1"><a href=""></a>The intolerance-discontinuation row was derived from intolerance-related safety endpoints in the synthetic data.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Table 4에서 <code>intolerance_stop_reduce</code>를 별도 행으로 추가했다면, 이후 <code>varlist$Safety</code> 반복 출력에서는 이 변수를 제외한다. (같은 row가 두 번 생기는 것 방지하기 위해)</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>  <span class="cf">for</span> (v <span class="cf">in</span> <span class="fu">setdiff</span>(varlist<span class="sc">$</span>Safety, <span class="st">"intolerance_stop_reduce"</span>)) {</span>
-<span id="cb14-2"><a href=""></a>    <span class="fu">add_t4_event</span>(v, safety_labels[[v]])</span>
-<span id="cb14-3"><a href=""></a>  }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-2"><a href=""></a>    <span class="fu">add_t4_event</span>(v, safety_labels[[v]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
