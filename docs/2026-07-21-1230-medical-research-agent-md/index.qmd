@@ -66,7 +66,7 @@ AI agent가 분석을 시작하기 전에 읽는 **공통 작업 문서**
 :::
 
 ::: highlight-box-blue
-[AGENTS.md 바로가기]()
+[AGENTS.md 바로가기](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1230-medical-research-agent-md/RACING/general_AGENTS.md)
 :::
 
 :::: {.large}
