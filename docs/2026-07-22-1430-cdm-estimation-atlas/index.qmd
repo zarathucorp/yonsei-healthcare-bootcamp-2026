@@ -17,6 +17,71 @@ format:
     footer: "Zarathu Co., Ltd."
     self-contained: false
     include-after-body: ../slides_assets/header-inject-fullbg.html
+    include-in-header:
+      - text: |
+          <style>
+          .concept-id-copy {
+            display: inline-block;
+            margin-top: 0.35em;
+            padding: 0.35em 0.8em;
+            border: 2px solid rgb(35, 105, 170);
+            border-radius: 0.35em;
+            background: rgb(255, 255, 255);
+            color: rgb(35, 105, 170);
+            font: inherit;
+            font-size: 0.58em;
+            font-weight: 700;
+            line-height: 1.2;
+            cursor: pointer;
+            pointer-events: auto;
+            position: relative;
+            z-index: 20;
+            user-select: none;
+          }
+          .concept-id-copy:hover,
+          .concept-id-copy:focus-visible {
+            background: rgb(35, 105, 170);
+            color: rgb(255, 255, 255);
+            outline: none;
+          }
+          </style>
+          <script>
+          document.addEventListener("click", async function (event) {
+            const button = event.target.closest(".concept-id-copy");
+            if (!button) return;
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            const ids = button.dataset.conceptIds;
+            let copied = false;
+
+            if (navigator.clipboard && window.isSecureContext) {
+              try {
+                await navigator.clipboard.writeText(ids);
+                copied = true;
+              } catch (error) {}
+            }
+
+            if (!copied) {
+              const textarea = document.createElement("textarea");
+              textarea.value = ids;
+              textarea.setAttribute("readonly", "");
+              textarea.style.position = "fixed";
+              textarea.style.opacity = "0";
+              document.body.appendChild(textarea);
+              textarea.select();
+              copied = document.execCommand("copy");
+              textarea.remove();
+            }
+
+            const originalText = button.textContent;
+            button.textContent = copied ? "복사 완료 ✓" : "복사 실패";
+            window.setTimeout(function () {
+              button.textContent = originalText;
+            }, 1400);
+          });
+          </script>
     chalkboard:
       buttons: false
     preview-links: true
@@ -85,6 +150,12 @@ editor: visual
 | 1363749    | Fosinopril   | NO       | YES         | NO     |
 | 1373225    | Perindopril  | NO       | YES         | NO     |
 
+<button type="button" class="concept-id-copy" data-concept-ids="1308216, 1310756, 1331235, 1334456, 1335471, 1340128, 1341927, 1342439, 1363749, 1373225">
+
+Concept ID 복사
+
+</button>
+
 ## Concept: Thiazide or thiazide-like diuretic
 
 | Concept Id | Concept Name        | Excluded | Descendants | Mapped |
@@ -93,6 +164,12 @@ editor: visual
 | 974166     | Hydrochlorothiazide | NO       | YES         | NO     |
 | 978555     | Indapamide          | NO       | YES         | NO     |
 | 1395058    | Chlorthalidone      | NO       | YES         | NO     |
+
+<button type="button" class="concept-id-copy" data-concept-ids="907013, 974166, 978555, 1395058">
+
+Concept ID 복사
+
+</button>
 
 ## Concept: outcome
 
@@ -110,10 +187,16 @@ editor: visual
 | 4329847    | Myocardial infarction     | NO       | YES         | NO     |
 
 | Concept Id | Concept Name                       | Excluded | Descendants | Mapped |
-|------------|:------------------------|------------|------------|------------|
+|--------------|:---------------|--------------|--------------|--------------|
 | 262        | Emergency Room and Inpatient Visit | NO       | YES         | NO     |
 | 9201       | Inpatient Visit                    | NO       | YES         | NO     |
 | 9203       | Emergency Room Visit               | NO       | YES         | NO     |
+
+<button type="button" class="concept-id-copy" data-concept-ids="432791, 314666, 4329847, 262, 9201, 9203">
+
+Concept ID 복사
+
+</button>
 
 ## Cohort: New ACEI mono
 
@@ -137,6 +220,12 @@ https://atlas-demo.ohdsi.org/#/cohortdefinition/1775515
 
 : Hypertensive disorder
 
+<button type="button" class="concept-id-copy" data-concept-ids="316866">
+
+Concept ID 복사
+
+</button>
+
 ## Concept for other criteria: Hypertension drugs (1/3) {.smaller}
 
 | Concept Id | Concept Name               | Excluded | Descendants | Mapped |
@@ -159,46 +248,63 @@ https://atlas-demo.ohdsi.org/#/cohortdefinition/1775515
 
 : Hypertension drugs, part 1
 
+<button type="button" class="concept-id-copy" data-concept-ids="904542, 907013, 932745, 942350, 956874, 970250, 974166, 978555, 991382, 1305447, 1307046, 1307863, 1308216, 21601490, 21601503">
+
+Concept ID 복사
+
+</button>
+
 ## Concept for other criteria: Hypertension drugs (2/3) {.smaller}
 
-| Concept Id | Concept Name                                                | Excluded | Descendants | Mapped |
-|------------|:------------------------------------------------------------|----------|-------------|--------|
-| 21600452   | Rauwolfia alkaloids and diuretics in combination            | NO       | YES         | NO     |
-| 21601458   | Other antihypertensives and diuretics                       | NO       | YES         | NO     |
-| 21600464   | Methyldopa and diuretics in combination                     | NO       | YES         | NO     |
-| 21601455   | MAO inhibitors and diuretics                                | NO       | YES         | NO     |
-| 21601489   | LOW-CEILING DIURETICS, EXCL. THIAZIDES                      | NO       | YES         | NO     |
-| 21601542   | Low-ceiling diuretics and potassium-sparing agents          | NO       | YES         | NO     |
-| 21600466   | Imidazoline receptor agonists in combination with diuretics | NO       | YES         | NO     |
-| 21600472   | Guanidine derivatives and diuretics                         | NO       | YES         | NO     |
-| 21601541   | DIURETICS AND POTASSIUM-SPARING AGENTS IN COMBINATION       | NO       | YES         | NO     |
-| 21601461   | DIURETICS                                                   | NO       | YES         | NO     |
-| 1395058    | chlorthalidone                                              | NO       | YES         | NO     |
-| 1340128    | captopril                                                   | NO       | YES         | NO     |
-| 21601779   | CALCIUM CHANNEL BLOCKERS AND DIURETICS                      | NO       | YES         | NO     |
-| 21601780   | Calcium channel blockers and diuretics                      | NO       | YES         | NO     |
-| 21601730   | BETA BLOCKING AGENTS, THIAZIDES AND OTHER DIURETICS         | NO       | YES         | NO     |
+| Concept Id | Concept Name | Excluded | Descendants | Mapped |
+|------------|:------------------------|------------|------------|------------|
+| 21600452 | Rauwolfia alkaloids and diuretics in combination | NO | YES | NO |
+| 21601458 | Other antihypertensives and diuretics | NO | YES | NO |
+| 21600464 | Methyldopa and diuretics in combination | NO | YES | NO |
+| 21601455 | MAO inhibitors and diuretics | NO | YES | NO |
+| 21601489 | LOW-CEILING DIURETICS, EXCL. THIAZIDES | NO | YES | NO |
+| 21601542 | Low-ceiling diuretics and potassium-sparing agents | NO | YES | NO |
+| 21600466 | Imidazoline receptor agonists in combination with diuretics | NO | YES | NO |
+| 21600472 | Guanidine derivatives and diuretics | NO | YES | NO |
+| 21601541 | DIURETICS AND POTASSIUM-SPARING AGENTS IN COMBINATION | NO | YES | NO |
+| 21601461 | DIURETICS | NO | YES | NO |
+| 1395058 | chlorthalidone | NO | YES | NO |
+| 1340128 | captopril | NO | YES | NO |
+| 21601779 | CALCIUM CHANNEL BLOCKERS AND DIURETICS | NO | YES | NO |
+| 21601780 | Calcium channel blockers and diuretics | NO | YES | NO |
+| 21601730 | BETA BLOCKING AGENTS, THIAZIDES AND OTHER DIURETICS | NO | YES | NO |
 
 : Hypertension drugs, part 2
 
+<button type="button" class="concept-id-copy" data-concept-ids="21600452, 21601458, 21600464, 21601455, 21601489, 21601542, 21600466, 21600472, 21601541, 21601461, 1395058, 1340128, 21601779, 21601780, 21601730">
+
+Concept ID 복사
+
+</button>
+
 ## Concept for other criteria: Hypertension drugs (3/3) {.smaller}
 
-| Concept Id | Concept Name                                                       | Excluded | Descendants | Mapped |
-|------------|:-------------------------------------------------------------------|----------|-------------|--------|
-| 21601733   | Beta blocking agents, selective, thiazides and other diuretics     | NO       | YES         | NO     |
-| 21601731   | Beta blocking agents, non-selective, thiazides and other diuretics | NO       | YES         | NO     |
-| 21601718   | BETA BLOCKING AGENTS AND OTHER DIURETICS                           | NO       | YES         | NO     |
-| 21601832   | ANGIOTENSIN II RECEPTOR BLOCKERS (ARBs), COMBINATIONS              | NO       | YES         | NO     |
-| 21601833   | Angiotensin II receptor blockers (ARBs) and diuretics              | NO       | YES         | NO     |
-| 21600470   | Alpha-adrenoreceptor antagonists and diuretics                     | NO       | YES         | NO     |
-| 21601728   | Alpha and beta blocking agents and other diuretics                 | NO       | YES         | NO     |
-| 21601453   | Alkaloids, excl. rauwolfia, in combination with diuretics          | NO       | YES         | NO     |
-| 21601782   | AGENTS ACTING ON THE RENIN-ANGIOTENSIN SYSTEM                      | NO       | YES         | NO     |
-| 21601784   | ACE inhibitors, plain                                              | NO       | YES         | NO     |
-| 21601783   | ACE INHIBITORS, PLAIN                                              | NO       | YES         | NO     |
+| Concept Id | Concept Name | Excluded | Descendants | Mapped |
+|------------|:-------------------------|------------|------------|------------|
+| 21601733 | Beta blocking agents, selective, thiazides and other diuretics | NO | YES | NO |
+| 21601731 | Beta blocking agents, non-selective, thiazides and other diuretics | NO | YES | NO |
+| 21601718 | BETA BLOCKING AGENTS AND OTHER DIURETICS | NO | YES | NO |
+| 21601832 | ANGIOTENSIN II RECEPTOR BLOCKERS (ARBs), COMBINATIONS | NO | YES | NO |
+| 21601833 | Angiotensin II receptor blockers (ARBs) and diuretics | NO | YES | NO |
+| 21600470 | Alpha-adrenoreceptor antagonists and diuretics | NO | YES | NO |
+| 21601728 | Alpha and beta blocking agents and other diuretics | NO | YES | NO |
+| 21601453 | Alkaloids, excl. rauwolfia, in combination with diuretics | NO | YES | NO |
+| 21601782 | AGENTS ACTING ON THE RENIN-ANGIOTENSIN SYSTEM | NO | YES | NO |
+| 21601784 | ACE inhibitors, plain | NO | YES | NO |
+| 21601783 | ACE INHIBITORS, PLAIN | NO | YES | NO |
 
 : Hypertension drugs, part 3
 
+<button type="button" class="concept-id-copy" data-concept-ids="21601733, 21601731, 21601718, 21601832, 21601833, 21600470, 21601728, 21601453, 21601782, 21601784, 21601783">
+
+Concept ID 복사
+
+</button>
 
 ## Cohort Exit Criteria
 
