@@ -12,7 +12,7 @@
 
 | 시간 | 교육주제 | 교육세부내용 | 강사 |
 |---|---|---|---|
-| 09:30 ~ 10:30 | OT 및 목표 설정 | 과정 전반 소개 | 김진섭 |
+| 09:30 ~ 10:30 | OT 및 목표 설정 |임범진 교육부학장 인사말씀, 과정 전반 소개 | 김진섭 |
 | 10:30 ~ 11:30 | 통계이론 | [가능도/정규분포](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1030-likelihood-normal/index.html), [의학연구 위한 기초통계(Table 1)](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1030-basic-statistics-table1/index.html), [code](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-20-1030-basic-statistics-regression-survival.R) | 김진섭 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
 | 12:30 ~ 13:30 | AI agent로 R분석하기 | [AI agent 설치 및 기초실습](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1230-r-ai-agent-install/index.html) | 김진섭 |
@@ -66,5 +66,6 @@
 | 10:30 ~ 11:30 | 프로젝트 작업 | 분석 결과 정리 및 발표 자료 제작 | 김진섭 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
 | 12:30 ~ 13:30 | 발표회 | 발표회 | 김진섭 |
-| 13:30 ~ 14:30 | 발표회 | 발표회 | 김진섭 |
+| 13:30 ~ 14:00 | 발표회 | 발표회 | 김진섭 |
+| 14:00 ~ 14:30 | 폐회사 | 폐회사 | 윤진숙 교수(의사과학자 학부사업 총괄책임자) |
 | 14:30 ~ 15:00 | 발표회 및 시상 | 발표회 및 시상 | 김진섭 |
