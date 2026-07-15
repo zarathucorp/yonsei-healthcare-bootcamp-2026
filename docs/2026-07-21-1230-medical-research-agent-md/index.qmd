@@ -1,6 +1,6 @@
 ---
-title: "의학연구위한 AGENT.md 만들기"
-subtitle: "기본반 2일차 3교시 | AGENT.md 만들기"
+title: "의학연구를 위한 AGENTS.md 만들기"
+subtitle: "기본반 2일차 3교시 | AI agent 분석 매뉴얼"
 author: "김진섭"
 date: "2026.07.21"
 format:
@@ -34,104 +34,733 @@ editor: visual
 
 ## 오늘의 목표
 
-::: {.large}
-- 연구 프로젝트에서 반복되는 작업 규칙을 문서로 정리합니다.
-- 데이터, 코드, 결과물 위치를 AGENT.md에 명확히 적습니다.
-- AI agent가 지켜야 할 보안과 분석 원칙을 정합니다.
+::: large
+- AI agent가 지켜야 할 보안 및 분석 원칙을 이해합니다.
+- 미리 준비된 AI agent 매뉴얼의 구성과 내용을 익힙니다.
+- 예시 데이터와 AI를 함께 활용하는 방법을 알아봅니다.
 :::
 
-::: {.highlight-box}
-수업에서는 예시 데이터, 코드, 결과물을 한 흐름으로 정리합니다.
+::: highlight-box
+수업에서는 분석 규칙을 읽고, 코드에 적용하고, 결과를 확인하는 흐름을 살펴봅니다.
 :::
 
 ## 강의 흐름
 
-::: {style="padding: 10px 40px;"}
-
-::: .{highlight-box}
-**01. 연구 폴더 구조** — 데이터, 코드, 결과물 위치 정리
+::::: {style="padding: 10px 40px;"}
+::: highlight-box
+**01. general_AGENTS.md 이해하기** — 공통 작업 구조와 분석 원칙 확인
 :::
 
-::: .{highlight-box-blue}
-**02. 분석 규칙** — 패키지, 실행 순서, 산출물 기준
+::: highlight-box-blue
+**02. RACING synthetic data로 분석 재현하기** — 규칙을 코드에 적용하고 결과 해석
 :::
+:::::
 
-::: .{highlight-box-teal}
-**03. 보안 기준** — 개인정보와 접근 토큰을 남기지 않는 원칙
-:::
-
-::: .{highlight-box-purple}
-**04. 적용** — AGENT.md를 이용한 반복 작업
-:::
-
-:::
-
-## 핵심 개념 {.intro-slide}
+## general_AGENTS.md {.intro-slide}
 
 ::: spacer-xs
 :::
 
 ::: accent-box
-이 차시의 핵심 질문을 먼저 정하고, 분석 과정에서 반복해서 확인할 기준을 세웁니다.
+AI agent가 분석을 시작하기 전에 읽는 **공통 작업 계약서**
 :::
 
-::: columns
-::: {.column width="58%"}
-[**내용 메모**]{.section-title}
-
-- 수업에서 다룰 개념을 짧은 문장으로 정리합니다.
-- 예시 데이터와 코드가 필요한 부분은 실습 슬라이드에서 분리합니다.
-- 결과 표와 그림은 재실행 가능한 파일로 남깁니다.
+::: highlight-box-blue
+[general_AGENTS.md 바로가기](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/RACING/general_AGENTS.md)
 :::
 
-::: {.column width="42%"}
+:::: {.large}
 ::: highlight-box-gray
-**수업 정보**
+[**general_AGENTS.md란?**]{.section-title}
 
-2026.07.21 12:30 ~ 13:30 | 김진섭
+- AI agent가 따라야 할 분석·코딩·저장 규칙을 모은 문서이다.
+- AI의 작업 방식과 판단 기준을 정하는 매뉴얼이다.
+- 프로젝트마다 데이터 구조와 산출물 기준이 다르므로 작업 전에 먼저 읽게 한다.
 :::
-:::
+::::
+
+## 매뉴얼이 정하는 범위
+
+::::::: summary-grid-4
+::: {.summary-item .si-green}
+**파일 구조**
+
+`global.R`과 `analysis.R`의 역할
 :::
 
-## 실습 자리
+::: {.summary-item .si-blue}
+**변수 관리**
+
+`varlist`, `out`, `out.label`
+:::
+
+::: {.summary-item .si-teal}
+**분석 기준**
+
+검정, 모델, CI, 라벨
+:::
+
+::: {.summary-item .si-purple}
+**산출물 기준**
+
+Excel 표, PPT 그림, 검토 항목
+:::
+:::::::
+
+::: accent-box
+AI에게 “분석해 줘”라고만 말하는 대신, **데이터를 다루는 순서와 결과물의 기준**을 함께 제공한다.
+:::
+
+## 의료데이터와 AI: 먼저 지킬 것
 
 ::: {.large}
-- 예시 데이터 경로를 확인합니다.
-- 코드를 실행하고 중간 결과를 점검합니다.
-- `results/`와 `figures/`에 저장되는 산출물을 확인합니다.
+
+::::::: columns
+:::: {.column width="50%"}
+::: highlight-box
+[**데이터 보호**]{.section-title}
+
+- 교육에서는 synthetic data를 사용한다.
+- 환자 식별정보와 실제 원자료를 입력하지 않는다.
+- API key와 접근 토큰을 코드나 문서에 남기지 않는다.
+:::
+::::
+
+:::: {.column width="50%"}
+::: highlight-box-blue
+[**분석 검증**]{.section-title}
+
+- AI가 만든 코드와 통계방법을 직접 확인한다.
+- 실행 결과와 표·그림의 수치가 일치하는지 본다.
+- 데이터에 없는 정보는 임의로 만들지 않는다.
+:::
+::::
+:::::::
+
 :::
 
-## 정리 {.conclusion-slide}
+## 1. 파일 역할- global.R과 analysis.R
 
-::: spacer-xs
+:::accent-box
+별도의 두 파일로 구분하여 작성한다.<br>
+global.R에서 **분석 전**에 분석에 필요한 데이터와 객체를 만들어 준비하는 파일이고<br>
+analysis.R에서 **실제 분석**을 수행한다. 
 :::
 
-::: {.conclusion-layout}
-::: {.conclusion-hero}
-<div class="conclusion-kicker">정리</div>
-<div class="conclusion-big">핵심 흐름</div>
-<div class="conclusion-formula">문제 정의 → 코드 실행 → 결과 확인 → 산출물 정리</div>
 
-수업 후에는 같은 코드를 다시 실행해 같은 결과가 나오는지 확인합니다.
+::: {.large}
+
+::::::: columns
+:::: {.column width="50%"}
+::: highlight-box
+[**global.R**]{.section-title}
+
+- 패키지 불러오기
+- 데이터 읽기와 전처리
+- 파생변수 생성
+- `varlist`, `out`, `out.label` 준비
+:::
+::::
+
+:::: {.column width="50%"}
+::: highlight-box-blue
+[**analysis.R**]{.section-title}
+
+- 통계분석 실행
+- 표와 그림 생성
+- figures와 tables 각가 ppt와 엑셀에 저장
+- 분석 결과 검증
+:::
+::::
+:::::::
+
 :::
 
-::: {.conclusion-sidegrid}
-::: {.conclusion-card .cc-gray}
-**개념**
-
-오늘 다룬 용어와 판단 기준
+## 1.1 - global.R의 기본 흐름
+:::space-xs
 :::
 
-::: {.conclusion-card .cc-purple}
-**코드**
-
-재실행 가능한 R 스크립트
+:::accent-box
+분석에 사용할 데이터와 변수를 미리 준비하는 파일이다.
 :::
 
-::: {.conclusion-card .cc-green}
-**결과**
+:::::::: columns
+:::: {.column width="58%"}
+::: {style="font-size: 0.72em;"}
+``` r
+library(data.table)
+library(magrittr)
+library(jstable)
 
-표, 그림, 문서 산출물
+# 1. 데이터 불러오기 
+a <- fread("synthetic_data.csv")
+
+# 2. 전처리와 파생변수
+a[, Age60 := factor(
+  ifelse(Age < 60, "<60", "≥60")
+)]
+
+# 3. 분석 변수 목록
+varlist <- list(
+  Time  = "primary_time_mo",
+  Event = "primary_event",
+  Base  = c("group", "Age", "Sex", "BMI")
+)
+
+# 4. 분석용 데이터 만들기
+out <- a[, .SD, .SDcols = unique(unlist(varlist))]
+
+# 5. 표시용 라벨 만들기
+out.label <- jstable::mk.lev(out)
+```
 :::
+::::
+
+::::: {.column width="42%"}
+::: highlight-box
+[**실행 순서**]{.section-title}
+
+1.  데이터를 읽는다.
+2.  필요한 파생변수를 만든다.
+3.  사용할 변수를 `varlist`에 정리한다.
+4.  `out`을 만들고 자료형을 지정한다.
+5.  `out.label`을 만듭니다.
 :::
+
+:::::
+::::::::
+
+## 1.2 - analysis.R의 기본 흐름
+:::space-xs
 :::
+
+:::accent-box
+`global.R`에서 준비한 `out`을 그대로 사용해 분석하고, 표와 그림을 모아 저장하는 파일이다.
+:::
+
+:::::::: columns
+:::: {.column width="58%"}
+::: {style="font-size: 0.70em;"}
+``` r
+source("global.R")
+
+ft_list <- list()
+plot_list <- list()
+
+# 1. 통계분석 실행
+fit <- survival::coxph(
+  survival::Surv(primary_time_mo, primary_event) ~ group,
+  data = out
+)
+
+# 2. 표 결과 모으기
+ft_list[["Cox model"]] <-
+  summary(fit)$coefficients %>%
+  data.table(keep.rownames = "Variable")
+
+# 3. 그림 결과 모으기
+km_fit <- survival::survfit(
+  survival::Surv(primary_time_mo, primary_event) ~ group,
+  data = out
+)
+plot_list[["KM curve"]] <-
+  jskm::jskm(km_fit, data = out)
+
+# 4. 산출물 저장
+openxlsx::write.xlsx(
+  ft_list, "results/Tables.xlsx"
+)
+```
+:::
+::::
+
+::::: {.column width="42%"}
+::: highlight-box-blue
+[**실행 순서**]{.section-title}
+
+1.  `global.R`을 불러온다.
+2.  `out`으로 통계분석을 실행한다.
+3.  표와 그림을 목록에 모은다.
+4.  표는 Excel, 그림은 PPT로 저장한다.
+5.  저장된 파일과 주요 수치를 확인한다.
+:::
+
+:::::
+::::::::
+
+## 1.3 - 산출물 저장 위치
+:::space-xs
+:::
+
+:::accent-box
+Figures는 PPT에, Tables는 Excel에 저장한다.
+:::
+
+::::::: columns
+:::: {.column width="48%"}
+::: highlight-box
+[**Tables.xlsx**]{.section-title}
+
+- `flextable`로 논문 형식 적용
+- `flexlsx`, `openxlsx2` 사용
+- 여러 표를 각각의 sheet로 저장
+- 기본적으로 PPT 표는 만들지 않음
+:::
+::::
+
+:::: {.column width="52%"}
+::: highlight-box-blue
+[**Figures.pptx**]{.section-title}
+
+- `ggplot` 객체를 `plot_list`에 저장
+- `rvg::dml()`로 벡터그래픽 변환
+- `officer`로 슬라이드 추가
+- 기본 크기는 fullsize
+:::
+::::
+:::::::
+
+## 2. 변수 관리 - varlist와 out
+
+::::::::: columns
+:::: {.column width="55%"}
+::: {style="font-size: 0.76em;"}
+``` r
+varlist <- list(
+  ID       = "ID",
+  Base     = c("group", "Age", "Sex", "BMI"),
+  Followup = "admend_mo",
+  Time     = "primary_time_mo",
+  Event    = "primary_event",
+  Safety   = c("myalgia", "hepatic_ae")
+)
+
+out <- a[, .SD,
+         .SDcols = unique(unlist(varlist))]
+
+stopifnot(
+  identical(varlist$Time, "primary_time_mo"),
+  identical(varlist$Event, "primary_event")
+)
+```
+:::
+
+:::highlight-box
+`out`과 `out.label`은 global.R에서 만든다. <br>
+analysis.R에서 `out`과 `out.label`을 그대로 사용한다.
+:::
+
+::::
+
+:::::: {.column width="45%"}
+::: highlight-box-blue
+
+`varlist`는 분석에 사용할 변수의 이름을 정리한 목록이다. <br>
+`out`은 `varlist`에 저장된 변수명을 기준으로 원자료에서 추출한 실제 분석 데이터다. 
+:::
+
+::: highlight-box-gray
+
+생존분석을 할 경우 `varlist$Event`, `varlist$Time`에 event/time 변수를 순서에 맞춰 저장한다.
+<br><br>
+반복측정데이터일 때는 out 기반으로 long form `out.long`을 추가로 만들고 out과 동일하게 작업한다.
+:::
+
+::: highlight-box-teal
+
+varlist와 out이 나오기 전에 필요한 파생변수를 모두 만든다. <br>
+out 이후에는 새 분석용 변수를 만들지 않는다.
+:::
+
+::: highlight-box
+
+out을 만들고 factor/numeric을 지정한 뒤, `out.label`을 만든다. <br>
+`out.label`은 사람이 읽기 쉽게 만든 표시용 라벨 데이터이다. 
+:::
+
+::::::
+:::::::::
+
+## 2.2 - 일반적인 변수 관리 
+:::space-xs
+:::
+
+[**일반적인 변수 관리 규칙**]{.section-title}
+
+- **factor/numeric 변환**: 각 변수를 분석 목적에 맞게 자료형을 지정하는 작업 <br> 
+ex) factor: 성별, 치료군 같은 **범주형 변수** <br>
+    numeric: 나이, 체중 같은 **연속형 변수**
+    
+- 같은 그룹명/변수명 반복 표기하지 않는다.
+
+- 컬럼명/변수명 그대로 노출하지 않는다. 예: `dose_mg`, `ANC_bl`, `var123`.
+
+- 병합한 컬럼에는 `valign(j = ..., valign = "top")`과 `align(j = ..., align = "left")`를 적용한다.
+
+- 라벨은 named character vector, `jstable::mk.lev()`, `out.label`을 활용한다.
+
+[**부등호/특수문자 표기**]{.section-title}
+
+- 테이블, 그림, 라벨 등 사용자에게 보이는 텍스트에서 `>=`는 `≥`, `<=`는 `≤`로 표기한다.
+
+- R 코드 문자열에서도 동일하게 쓴다. (단, 코드 로직 조건문의 `>=`, `<=`는 R 문법이므로 그대로 유지한다.)
+ex)  `labels = c("≥35")` 또는 `labels = c("\u226535")`
+
+
+- `kg/m^2`는 `kg/m²`로 표기한다. 범위 하이픈은 en dash(`–`) 사용을 고려한다.
+
+- `\uXXXX` 유니코드 이스케이프는 백틱 안에서 사용할 수 없다.
+
+- 한글/특수문자가 포함된 컬럼명은 `setnames()`로 영문명으로 바꾼 뒤 사용한다.
+
+- 리스트 이름에 특수문자가 필요하면 `setNames()` 또는 `[[ ]]` 할당을 사용한다.
+
+## 2.3 - 0/1 factor level 
+:::space-xs
+:::
+
+::::::::: columns
+:::: {.column width="58%"}
+::: {style="font-size: 0.72em;"}
+``` r
+factor_vars <- names(out)[vapply(
+  out,
+  function(x) length(unique(na.omit(x))) <= 6L,
+  logical(1)
+)]
+
+vars01 <- vapply(factor_vars, function(v) {
+  lv <- sort(unique(na.omit(as.character(out[[v]]))))
+  length(lv) > 0L && all(lv %in% c("0", "1"))
+}, logical(1))
+
+for (v in names(vars01)[vars01]) {
+  out[, (v) := factor(
+    as.character(get(v)),
+    levels = c("0", "1")
+  )]
+}
+```
+:::
+::::
+
+:::::: {.column width="42%"}
+::: highlight-box
+한쪽 값만 관측된 0/1 변수도 두 범주가 표에 표시되도록 levels = c("0", "1")로 고정한다.
+:::
+
+::: highlight-box-blue
+out.label의 값 라벨을 수정하여 0/1을 No/Yes처럼 의미 있는 표현으로 표시한다.
+:::
+
+::: highlight-box-gray
+관측되지 않은 범주도 표에 표시할 수 있도록 factor level을 미리 고정한다.
+```r
+factor(x, levels = c("0", "1"))
+```
+
+:::
+::::::
+:::::::::
+
+## 3 - 분석 기준
+
+[**패키지와 문법**]{.section-title}
+
+- 데이터 처리에는 `data.table`을 기본으로 사용한다.
+- `dplyr` 문법은 가급적 사용하지 않는다.
+- 코드의 처리 순서를 깔끔하게 보여주기 위해 파이프 연산자는 %>%를 사용한다. 
+
+[**반복 작업**]{.section-title}
+
+- 여러 분석 결과는 `lapply`로 리스트에 모은다.
+- 여러 데이터 객체를 합칠 때는 `rbindlist`를 사용한다.
+- 파일 저장, PPT 슬라이드 추가, Excel 쓰기처럼 외부 결과를 변경하는 작업에는 `for`문을 사용한다.
+
+## 3 - 분석 기준
+
+[**표와 그림 관리**]{.section-title}
+
+- 표는 목록에 모은 뒤 하나의 Excel 파일에 여러 시트로 저장한다.
+- 그림은 `lapply`로 생성하여 `plot_list`에 먼저 저장한다.
+- 완성된 `plot_list`를 `for`문으로 순회하며 PPT에 저장한다.
+- 그림 생성과 파일 저장을 분리하여 디자인 수정이나 재저장이 쉽도록 한다.
+
+[**스크립트 구성**]{.section-title}
+
+- 분석 순서가 위에서 아래로 드러나도록 작성한다.
+- 반복해서 사용하지 않는 코드는 불필요하게 함수로 감싸지 않는다.
+- 데이터 준비, 분석, 표·그림 생성, 파일 저장, 결과 검증 순서를 유지한다.
+- 하나의 분석 과정에서 일관된 문법으로 작성하여 코드의 흐름을 빠르게 파악하고 오류를 찾기 쉽게 한다. 
+
+## 3.1 - 논문용 테이블의 세 가지 기준
+다.
+
+::: highlight-box-purple
+**점추정과 CI**
+
+AUC, HR, OR, RR, 평균, 중앙값, 비율등 estimate에는 반드시 95% CI를 함께 제시한다.
+:::
+
+::: highlight-box-blue
+**정확한 footer**
+
+CI 산출 방법을 footer에 명시한다. <br>
+Footer에 통계방법을 한 줄로 요약하여, reviewer가 footer만 읽어도 **어떤 검정과 모델을 사용했고 CI를 어떻게 계산했는지** 알 수 있도록 한다. <br>
+테이블 제목은 `set_caption()`, 통계방법은 `add_footer_lines()`로 넣는다.
+:::
+
+::: highlight-box
+**Table 주석**
+
+footer는 실제 사용된 검정과 반드시 일치시킨다.
+:::
+
+::: highlight-box-gray
+**테이블 footer 재검토**
+
+제출하기 전에 모든 테이블의 footer가 실제 사용된 통계와 일치하는지 재검토한다. <br>
+수치가 맞아도 방법 기술이 틀리면 재작업 대상이다.
+:::
+
+:::accent-box
+Synthetic data를 사용한 경우 모든 표와 그림의 footer에 합성자료를 이용한 분석임을 명시한다.
+:::
+
+## 3.2 - jstable
+[**라벨 준비**]{.section-title}
+
+- `mk.lev()`로 레이블 데이터프레임 (`out.label`)생성에 사용한다. 
+- 표와 모형 결과에는 raw 변수명 대신 `out.label`의 라벨을 적용한다.
+- `labelepidisplay`는 사용하지 않는다.
+
+[**회귀 및 하위그룹 분석**]{.section-title}
+
+- TableSubgroupMultiCox()는 Cox 모형의 하위그룹 분석에 사용한다.
+- TableSubgroupMultiGLM()은 GLM 기반 하위그룹 분석에 사용한다.
+- LabeljsCox()로 Cox 모형 결과에 변수와 범주 라벨을 적용한다.
+
+## 3.2 - jstable 표 출력 정리
+
+- 변수명을 별도 컬럼으로 추가한다.
+```r
+table1 <- table1 %>%
+cbind(Variable = rownames(.), .)
+```
+- 비교군이 3개 이상이면 pairwise = T로 군별 pairwise p-value를 함께 출력한다.
+```r
+table1 <- CreateTableOneJS(
+vars = varlist$Base,
+strata = "group",
+data = out,
+pairwise = T)$table
+```
+- 분석 과정에서만 사용하는 test 컬럼을 제거한 후 Table을 저장한다.
+```r
+table1 <- table1[
+  , -which(colnames(table1) == "test")
+  ]
+```
+
+## 3.3 - 분석 코드 주의사항 
+
+::: accent-box
+`jskm`은 p-value와 risk table을 계산하기 위해 원본 데이터와 formula를 다시 확인하여 사용한다.
+:::
+
+::::::: columns
+:::: {.column width="50%"}
+
+::: highlight-box-blue
+[**데이터 명시**]{.section-title}
+
+`data = dd`를 명시하여 `survfit()`과 `jskm()`이 같은 데이터를 사용하도록 한다.
+
+```r
+fit <- survfit(
+    Surv(time, event) ~ group,
+    data = dd
+  )
+
+  jskm(
+    fit,
+    data = dd,
+    pval = TRUE
+  )
+```
+:::
+
+::::
+
+:::: {.column width="50%"}
+
+::: highlight-box
+`survfit(fmla, data = dd)`로 작성하면 `jskm`이 시간, 사건, 비교군 변수를 확인하지 못할 수 있다.
+:::
+
+::: highlight-box
+[**실제 formula 저장**]{.section-title}
+
+fit 안에 `Surv(time, event) ~ group`이 직접 저장되도록 `eval(substitute())` 패턴을 사용하여 <br>
+문제를 해결한다. 
+:::
+
+::::
+:::::::
+
+## 3.4 - cox PH 가정 검증
+
+- `cox.zph(fit, transform = "identity")`로 변수별 PH 위반 p-value를 확인한다.
+
+
+## 3.5 - forest plot
+:::::::: columns
+:::: {.column width="61%"}
+::: {style="font-size: 0.66em;"}
+```r
+df$Variable <- ifelse(is.na(df$Count), df$Variable, paste0("   ", df$Variable))
+df$Count <- ifelse(is.na(df$Count), "", df$Count)
+df$` ` <- paste(rep(" ", 20), collapse = " ")
+df$`OR (95% CI)` <- ifelse(is.na(df$est), "",
+                            sprintf("%.2f (%.2f-%.2f)", df$est, df$low, df$high))
+df[is.na(`P value`), `P value` := ""]
+
+p <- forest(
+  df[, c("Variable", "Count", " ", "OR (95% CI)", "P value", "P interaction")],
+  est = df$est, lower = df$low, upper = df$high,
+  sizes = 0.4, ci_column = 3, ref_line = 1,
+  x_trans = "log", xlim = c(0.1, 10), ticks_at = c(0.25, 0.5, 1, 2, 4),
+  theme = forest_theme(base_size = 10, refline_gp = gpar(col = "grey50"))
+)
+```
+
+```r
+df[, Event := paste0(Events, "/", N, " (", sprintf("%.1f", Events / N * 100), "%)")]
+```
+:::
+
+::: highlight-box-gray
+- `TableSubgroupMultiCox/GLM()` 결과는 data.frame에서 data.table로 변환한 뒤 `:=`를 사용한다.
+- `forest()`에 넘기는 data.frame은 표시할 열만 선택한다.
+- `forest_theme()`에서는 `refline_gp = gpar(col = ...)`, `footnote_gp = gpar(col = ...)`를 사용한다.
+- `refline_col`, `footnote_col`은 deprecated이므로 쓰지 않는다.
+- `library(grid)`가 필요하다.
+:::
+
+::::
+
+::::: {.column width="39%"}
+
+:::highlight-box
+[**Forest plot 레이아웃과 시각요소**]{.section-title}
+
+- CI를 그리는 열은 빈 공백 열로 확보한다.
+- 텍스트 열에 `ci_column`을 지정하면 선이 글자와 겹친다.
+- 서브그룹 하위 레벨은 들여쓴다. 
+ex) `df$Variable <- ifelse(is.na(df$Count), df$Variable, paste0("   ", df$Variable))`
+- `Count`, `P value` 등 표시용 컬럼의 NA는 `""`로 변환한 뒤 `forest()`에 전달한다.
+- 극단값(OR > 100 또는 Inf)은 `est`, `low`, `high`를 NA로 설정해서 점과 선을 그리지 않는다.
+- 극단값 행의 P value도 빈칸으로 둔다.
+- `sizes`에는 스칼라를 넣어 모든 점의 크기를 동일하게 둔다. ex) `sizes = 0.4`.
+- `x_trans = "log"`로 x축 로그 스케일을 사용한다.
+- Event는 `Events/N (%)` 형식으로 표시한다.
+- header row의 P value는 `""`로 처리한다.
+- level 라벨은 `0/1` 대신 `No/Yes` 등 의미 있는 라벨로 변환한다.
+:::
+
+:::::
+::::::::
+
+## 4. 산출물 기준 - 그림
+
+[**심장학 연구 KM curve**]{.section-title}
+
+- `cumhaz = TRUE`를 사용하여 cumulative incidence, 즉 1-S(t) 형태로 표시한다.
+- y축 라벨은 `"Cumulative incidence"`로 둔다.
+- ylims는 연구 event rate에 맞춰 설정한다. 
+ex) `ylims = c(0, 0.3)`.
+
+
+[**PPT 슬라이드 작업 시 유의사항**]{.section-title}
+ 
+- 모든 글자는 한 페이지 안에 배치
+- 글자 자림과 화면 밖 넘침 방지
+- 그림, 도형, 화살표가 글자를 가리지 않도록 배치
+- 랜더링된 HTML에서 겹침과 가독성까지 확인
+ 
+## 4. 산출물 기준 - 일반
+
+[**한글 문체 / 표현 규칙**]{.section-title}
+
+- "견고하다" 표현은 쓰지 않는다.
+- 영어 `robust`는 "robust하다", "일관되다", "일관된 결과", "모든 분석에서 일치" 등으로 쓴다.
+- "권합니다", "권장합니다", "권고합니다", "권장" 표현은 쓰지 않는다.
+- 대신 "~하는 게 좋겠습니다"로 쓴다.
+- 어색한 영어 번역투를 줄인다.
+- 부자연스러운 수동태, "~에 대해", "~를 가진다" 식 직역을 피한다.
+- 사용자에게 보이는 모든 한글 텍스트에 적용한다.
+
+## 4. 산출물 기준 - 분석시 유의사항
+
+- **Statistical Analysis는 반드시 영어로** 작성 (논문 methods 스타일)
+- 마지막에 `All analyses were performed using R 4.6.1 (R Foundation for Statistical Computing, Vienna, Austria).` 포함
+- R 패키지 버전(lmerTest, emmeans 등)은 넣지 않는다.
+
+:::accent-box
+synthetic data에서 없는 정보는 추정하거나 임의로 재구성하지 않는다. <br>
+기존 변수로 명확하게 정의할 수 있는 파생변수만 만들고, 생성 기준과 해석의 한계를 함께 명시한다.
+:::
+  
+## RACING - 유의사항 
+:::space-xs
+:::
+
+:::highlight-box
+[**Safety population**]{.section-title}
+
+- RACING PDF의 safety population은 safety event가 있었는지가 아니라 allocated therapy를 실제로 받았는지를 기준으로 정의된다.
+- 현재 `RACING_synthetic_data.xlsx`에는 allocated therapy 수령 여부, allocated therapy 미수령 사유, per-protocol 포함 여부 변수가 없다.
+- 따라서 safety population은 synthetic data에서 재구성하지 않는다.
+- Table 4의 denominator는 randomised participants로 사용하고, footer에 다음과 같이 명시한다.
+  ```text
+  Safety endpoints were summarised among all randomised participants because allocated-treatment receipt and safety population variables were unavailable in the synthetic data.
+  ```
+:::
+
+:::highlight-box-gray
+[**Figure 1 trial profile**]{.section-title}  
+
+- `LDL_y1`, `LDL_y2`, `LDL_y3` 결측은 LDL laboratory follow-up missing이다.
+- LDL 결측을 trial follow-up 중단으로 해석하지 않는다.
+- 따라서 LDL 결측은 Figure 1 trial profile에 넣지 않는다.
+- death는 `allcause_death_event`로 표시한다.
+ lost to follow-up, withdrawal consent 변수가 없으면 임의로 만들지 않는다.
+- `primary_event == 0 & admend_mo < 36`은 lost to follow-up으로 단정하지 않는다.
+- 이 경우에는 "censored before 3 years, reason unavailable"로 표시한다.
+:::
+
+## RACING - 유의사항
+:::space-xs
+:::
+
+:::highlight-box-blue
+[**약제 불내성 중단/감량 변수**]{.section-title}
+
+- synthetic data에는 약제 불내성 때문에 약을 중단하거나 감량한 사람들 변수가 존재하지 않는다.
+- 따라서 safety endpoint들을 묶어 새로운 composite 변수 `intolerance_stop_reduce`를 만든다.
+- 기준 safety endpoint는 `muscle_ae`, `myalgia`, `myopathy`, `myonecrosis`, `hepatic_ae`, `ck_elevation`, `fasting_glucose_elevation`를 사용한다.
+- 위 변수들 중 하나라도 1이면 `intolerance_stop_reduce = 1`, 전부 0이면 `intolerance_stop_reduce = 0`으로 둔다.
+- 이 변수는 반드시 global.R에서 `out` 만들기 전에 생성한다.
+- 이 값은 실제 원자료의 치료 중단/감량 변수가 아니라 safety endpoint 기반 composite이므로, Table 4 footer에 이를 명시한다.
+  ```text
+  The intolerance-discontinuation row was derived from intolerance-related safety endpoints in the synthetic data.
+  ```
+- Table 4에서 `intolerance_stop_reduce`를 별도 행으로 추가했다면, 이후 `varlist$Safety` 반복 출력에서는 이 변수를 제외한다. (같은 row가 두 번 생기는 것 방지하기 위해)
+```r
+  for (v in setdiff(varlist$Safety, "intolerance_stop_reduce")) {
+    add_t4_event(v, safety_labels[[v]])
+  }
+ ```
+:::
+ 
+
