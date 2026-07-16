@@ -703,8 +703,6 @@ Safety endpoints were summarised among all randomised participants because alloc
 ```
 :::
 
-<br>
-
 ::: highlight-box-gray
 [**Figure 1 trial profile**]{.section-title}
 
