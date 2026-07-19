@@ -589,45 +589,70 @@
 </section>
 <section id="posit-cloud-3---api-키-설정-console" class="slide level2">
 <h2>Posit Cloud 3 - API 키 설정 (Console)</h2>
-<p>API 키는 로컬과 똑같이 <code>.Renviron</code>에 저장한다.</p>
+<p>R Console에서 순서대로 실행해 <code>.Renviron</code> 파일을 연다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>)   <span class="co"># 처음 한 번만 설치</span></span>
+<span id="cb16-2"><a href=""></a>usethis<span class="sc">::</span><span class="fu">edit_r_environ</span>()     <span class="co"># .Renviron 파일이 열린다</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<p>열린 <code>.Renviron</code> 파일에 아래 한 줄을 추가하고 저장한다.</p>
+<pre><code>LITELLM_API_KEY=전달받은 개별 API KEY</code></pre>
+<div class="highlight-box">
+<p>따옴표 없이, <code>=</code> 앞뒤 공백 없이 입력한다. 줄 끝에서 Enter를 눌러 마지막에 빈 줄을 하나 남긴다.</p>
+</div>
+</section>
+<section id="posit-cloud-4---세션-재시작" class="slide level2">
+<h2>Posit Cloud 4 - 세션 재시작</h2>
+<p><code>.Renviron</code>은 세션을 다시 시작해야 반영된다.</p>
 <div class="columns">
 <div class="column" style="width:52%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>)   <span class="co"># 처음 한 번만</span></span>
-<span id="cb16-2"><a href=""></a>usethis<span class="sc">::</span><span class="fu">edit_r_environ</span>()     <span class="co"># .Renviron 열림</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>.Renviron</code>에 아래 한 줄을 저장한다.</p>
-<pre><code>LITELLM_API_KEY=전달받은 개별 API KEY</code></pre>
-<p>저장 후 우측 상단 <strong><code>...</code> 메뉴 → Relaunch Project</strong>로 세션을 재시작한다.</p>
+<div class="large">
+<ul>
+<li>우측 상단 <strong><code>...</code> 메뉴 → Relaunch Project</strong>를 누른다.</li>
+<li>재시작 후 Console에서 확인:</li>
+</ul>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">Sys.getenv</span>(<span class="st">"LITELLM_API_KEY"</span>)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="large">
+<p>키 값이 보이면 성공이다.</p>
+</div>
 </div><div class="column" style="width:48%;">
 <p><img data-src="posit-cloud-relaunch.png" style="width:100.0%" alt="Posit Cloud 우측 상단 메뉴에서 Relaunch Project를 선택하는 화면"></p>
 </div></div>
-<div class="highlight-box-gray">
-<p>재시작 후 Console에서 <code>Sys.getenv("LITELLM_API_KEY")</code>로 키가 보이면 성공이다.</p>
-</div>
 </section>
-<section id="posit-cloud-4---config.toml-만들기" class="slide level2">
-<h2>Posit Cloud 4 - config.toml 만들기</h2>
-<p>Codex를 설치하면 <code>~/.codex</code> 폴더가 <strong>이미 만들어져 있다.</strong> 새로 만들 필요 없다.</p>
+<section id="posit-cloud-5---config.toml-만들기" class="slide level2">
+<h2>Posit Cloud 5 - config.toml 만들기</h2>
+<p>Codex를 설치하면 <code>.codex</code> 폴더가 <strong>홈 폴더</strong>(<code>/home/사용자ID</code>)에 이미 생긴다. 새로 만들 필요 없다.</p>
 <div class="columns">
 <div class="column" style="width:46%;">
 <div class="large">
 <ul>
-<li>Files 창(우하단) → <strong>More → Show Hidden Files</strong> 체크.</li>
-<li><code>.codex</code> 폴더가 보인다.</li>
-<li>Console에서 편집기로 열어 저장:</li>
+<li>Files 창에서 <strong>홈 폴더</strong>로 이동 → <strong>More → Show Hidden Files</strong> → <code>.codex</code>가 보인다. (프로젝트 폴더 <code>/cloud/project</code> 아님)</li>
+<li>R Console에서 편집기로 열어 저장:</li>
 </ul>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">file.edit</span>(<span class="st">"~/.codex/config.toml"</span>)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">file.edit</span>(<span class="st">"/home/r150450/.codex/config.toml"</span>)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:54%;">
 <p><img data-src="posit-cloud-codex-folder.png" style="width:100.0%" alt="Posit Cloud Files 창에서 Show Hidden Files로 .codex 폴더를 확인하는 화면"></p>
 </div></div>
+</section>
+<section id="posit-cloud-6---config.toml-내용" class="slide level2">
+<h2>Posit Cloud 6 - config.toml 내용</h2>
+<p><code>config.toml</code>을 열어 아래 내용을 붙여넣고 저장한다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb20-1"><a href=""></a><span class="dt">model</span> <span class="op">=</span> <span class="st">"gpt-5.5"</span></span>
+<span id="cb20-2"><a href=""></a><span class="dt">model_provider</span> <span class="op">=</span> <span class="st">"litellm"</span></span>
+<span id="cb20-3"><a href=""></a><span class="dt">model_reasoning_effort</span> <span class="op">=</span> <span class="st">"high"</span></span>
+<span id="cb20-4"><a href=""></a></span>
+<span id="cb20-5"><a href=""></a><span class="kw">[model_providers.litellm]</span></span>
+<span id="cb20-6"><a href=""></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"LiteLLM"</span></span>
+<span id="cb20-7"><a href=""></a><span class="dt">base_url</span> <span class="op">=</span> <span class="st">"https://litellm.zarathu.com/v1"</span></span>
+<span id="cb20-8"><a href=""></a><span class="dt">env_key</span> <span class="op">=</span> <span class="st">"LITELLM_API_KEY"</span></span>
+<span id="cb20-9"><a href=""></a><span class="dt">wire_api</span> <span class="op">=</span> <span class="st">"responses"</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="highlight-box">
-<p>붙여넣을 <code>config.toml</code> 내용은 <strong>Mac 6 / Windows 6 슬라이드와 동일</strong>하다.</p>
+<p><code>env_key</code>에는 API 키 값이 아니라 환경변수 이름인 <code>LITELLM_API_KEY</code>를 적는다.</p>
 </div>
 </section>
-<section id="posit-cloud-5---codex-실행" class="slide level2">
-<h2>Posit Cloud 5 - Codex 실행</h2>
+<section id="posit-cloud-7---codex-실행" class="slide level2">
+<h2>Posit Cloud 7 - Codex 실행</h2>
 <p><strong>RStudio Terminal 탭</strong>에서 실행한다.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href=""></a><span class="ex">codex</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href=""></a><span class="ex">codex</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="highlight-box">
 <p>프로젝트를 Git 저장소에서 열었으므로 이미 그 폴더에서 시작한다. <code>.Renviron</code>의 키도 Terminal 탭에 적용된다.</p>
 </div>
@@ -647,49 +672,49 @@
 <li><strong>한 번 작성하면 매번 동일한 스타일로 분석</strong></li>
 </ul>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href=""></a><span class="co"># 프로젝트 루트에 생성</span></span>
-<span id="cb20-2"><a href=""></a><span class="ex">my_research/</span></span>
-<span id="cb20-3"><a href=""></a><span class="ex">├──</span> AGENTS.md         ← 분석 스타일 지시</span>
-<span id="cb20-4"><a href=""></a><span class="ex">├──</span> data/             ← 원본 데이터</span>
-<span id="cb20-5"><a href=""></a><span class="ex">├──</span> global.R          ← 데이터 전처리</span>
-<span id="cb20-6"><a href=""></a><span class="ex">├──</span> analysis.R        ← 분석 코드</span>
-<span id="cb20-7"><a href=""></a><span class="ex">└──</span> results/          ← 결과물 <span class="er">(</span><span class="ex">pptx,</span> xlsx<span class="kw">)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href=""></a><span class="co"># 프로젝트 루트에 생성</span></span>
+<span id="cb22-2"><a href=""></a><span class="ex">my_research/</span></span>
+<span id="cb22-3"><a href=""></a><span class="ex">├──</span> AGENTS.md         ← 분석 스타일 지시</span>
+<span id="cb22-4"><a href=""></a><span class="ex">├──</span> data/             ← 원본 데이터</span>
+<span id="cb22-5"><a href=""></a><span class="ex">├──</span> global.R          ← 데이터 전처리</span>
+<span id="cb22-6"><a href=""></a><span class="ex">├──</span> analysis.R        ← 분석 코드</span>
+<span id="cb22-7"><a href=""></a><span class="ex">└──</span> results/          ← 결과물 <span class="er">(</span><span class="ex">pptx,</span> xlsx<span class="kw">)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="agents.md-예시-12" class="slide level2">
 <h2>AGENTS.md 예시 (1/2)</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href=""></a><span class="fu"># 분석 스타일</span></span>
-<span id="cb21-2"><a href=""></a></span>
-<span id="cb21-3"><a href=""></a><span class="fu">## 기본 원칙</span></span>
-<span id="cb21-4"><a href=""></a><span class="ss">- </span>data.table을 메인 패키지로 사용 (dplyr 사용 안 함)</span>
-<span id="cb21-5"><a href=""></a><span class="ss">- </span>pipe operator(%&gt;%)만 사용 (magrittr)</span>
-<span id="cb21-6"><a href=""></a><span class="ss">- </span>global.R에서 전처리, analysis.R에서 분석 (파일 분리)</span>
-<span id="cb21-7"><a href=""></a></span>
-<span id="cb21-8"><a href=""></a><span class="fu">## global.R 구조</span></span>
-<span id="cb21-9"><a href=""></a><span class="ss">1. </span>데이터 읽기</span>
-<span id="cb21-10"><a href=""></a><span class="ss">2. </span>전처리 + 파생변수 생성</span>
-<span id="cb21-11"><a href=""></a><span class="ss">3. </span>varlist에 분석 변수 저장</span>
-<span id="cb21-12"><a href=""></a><span class="ss">4. </span>out = 분석용 데이터, out.label = 라벨 정보</span>
-<span id="cb21-13"><a href=""></a><span class="ss">5. </span>**varlist와 out 나오기 전에 파생변수 모두 완료**</span>
-<span id="cb21-14"><a href=""></a></span>
-<span id="cb21-15"><a href=""></a><span class="fu">## 테이블 저장</span></span>
-<span id="cb21-16"><a href=""></a><span class="ss">- </span>flextable으로 포맷팅 (논문에 바로 쓸 수 있는 형태)</span>
-<span id="cb21-17"><a href=""></a><span class="ss">- </span>flexlsx + openxlsx2로 Excel 여러 시트에 저장</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href=""></a><span class="fu"># 분석 스타일</span></span>
+<span id="cb23-2"><a href=""></a></span>
+<span id="cb23-3"><a href=""></a><span class="fu">## 기본 원칙</span></span>
+<span id="cb23-4"><a href=""></a><span class="ss">- </span>data.table을 메인 패키지로 사용 (dplyr 사용 안 함)</span>
+<span id="cb23-5"><a href=""></a><span class="ss">- </span>pipe operator(%&gt;%)만 사용 (magrittr)</span>
+<span id="cb23-6"><a href=""></a><span class="ss">- </span>global.R에서 전처리, analysis.R에서 분석 (파일 분리)</span>
+<span id="cb23-7"><a href=""></a></span>
+<span id="cb23-8"><a href=""></a><span class="fu">## global.R 구조</span></span>
+<span id="cb23-9"><a href=""></a><span class="ss">1. </span>데이터 읽기</span>
+<span id="cb23-10"><a href=""></a><span class="ss">2. </span>전처리 + 파생변수 생성</span>
+<span id="cb23-11"><a href=""></a><span class="ss">3. </span>varlist에 분석 변수 저장</span>
+<span id="cb23-12"><a href=""></a><span class="ss">4. </span>out = 분석용 데이터, out.label = 라벨 정보</span>
+<span id="cb23-13"><a href=""></a><span class="ss">5. </span>**varlist와 out 나오기 전에 파생변수 모두 완료**</span>
+<span id="cb23-14"><a href=""></a></span>
+<span id="cb23-15"><a href=""></a><span class="fu">## 테이블 저장</span></span>
+<span id="cb23-16"><a href=""></a><span class="ss">- </span>flextable으로 포맷팅 (논문에 바로 쓸 수 있는 형태)</span>
+<span id="cb23-17"><a href=""></a><span class="ss">- </span>flexlsx + openxlsx2로 Excel 여러 시트에 저장</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="agents.md-예시-22" class="slide level2">
 <h2>AGENTS.md 예시 (2/2)</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href=""></a><span class="fu">## 그림 저장</span></span>
-<span id="cb22-2"><a href=""></a><span class="ss">- </span>기본은 ppt (rvg::dml + officer 패키지)</span>
-<span id="cb22-3"><a href=""></a><span class="ss">- </span>벡터 그래픽, fullsize</span>
-<span id="cb22-4"><a href=""></a></span>
-<span id="cb22-5"><a href=""></a><span class="fu">## 주요 패키지</span></span>
-<span id="cb22-6"><a href=""></a><span class="ss">- </span>jstable: CreateTableOneJS, cox2.display, glmshow.display</span>
-<span id="cb22-7"><a href=""></a><span class="ss">- </span>jskm: Kaplan-Meier plot (jskm, svyjskm)</span>
-<span id="cb22-8"><a href=""></a><span class="ss">- </span>라벨 적용: LabeljsCox, LabeljsTable 등</span>
-<span id="cb22-9"><a href=""></a></span>
-<span id="cb22-10"><a href=""></a><span class="fu">## 주의사항</span></span>
-<span id="cb22-11"><a href=""></a><span class="ss">- </span>survfit/coxph는 eval(substitute()) 패턴 필수</span>
-<span id="cb22-12"><a href=""></a><span class="ss">- </span>테이블 부등호: &gt;= → ≥, &lt;= → ≤ (유니코드)</span>
-<span id="cb22-13"><a href=""></a><span class="ss">- </span>Table 1 footer는 실제 사용된 검정과 일치시키기</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href=""></a><span class="fu">## 그림 저장</span></span>
+<span id="cb24-2"><a href=""></a><span class="ss">- </span>기본은 ppt (rvg::dml + officer 패키지)</span>
+<span id="cb24-3"><a href=""></a><span class="ss">- </span>벡터 그래픽, fullsize</span>
+<span id="cb24-4"><a href=""></a></span>
+<span id="cb24-5"><a href=""></a><span class="fu">## 주요 패키지</span></span>
+<span id="cb24-6"><a href=""></a><span class="ss">- </span>jstable: CreateTableOneJS, cox2.display, glmshow.display</span>
+<span id="cb24-7"><a href=""></a><span class="ss">- </span>jskm: Kaplan-Meier plot (jskm, svyjskm)</span>
+<span id="cb24-8"><a href=""></a><span class="ss">- </span>라벨 적용: LabeljsCox, LabeljsTable 등</span>
+<span id="cb24-9"><a href=""></a></span>
+<span id="cb24-10"><a href=""></a><span class="fu">## 주의사항</span></span>
+<span id="cb24-11"><a href=""></a><span class="ss">- </span>survfit/coxph는 eval(substitute()) 패턴 필수</span>
+<span id="cb24-12"><a href=""></a><span class="ss">- </span>테이블 부등호: &gt;= → ≥, &lt;= → ≤ (유니코드)</span>
+<span id="cb24-13"><a href=""></a><span class="ss">- </span>Table 1 footer는 실제 사용된 검정과 일치시키기</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="highlight-box">
 <p>이 AGENTS.md를 한 번 만들어두면, “Table 1 만들어줘”라고만 해도 <strong>항상 같은 스타일</strong>로 생성할 수 있다.</p>
 </div>
@@ -719,26 +744,26 @@
 <p>AGENTS.md에 스타일을 적어두면, 이 한 줄만으로도 아래처럼 varlist·factor·label까지 갖춘 global.R이 만들어진다.</p>
 </div>
 <p><strong>Codex가 생성하는 코드</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">library</span>(data.table);<span class="fu">library</span>(magrittr);<span class="fu">library</span>(jstable)</span>
-<span id="cb23-2"><a href=""></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jinseob2kim/R-skku-biohrs/main/data/smc_example1.csv"</span></span>
-<span id="cb23-3"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">fread</span>(url)</span>
-<span id="cb23-4"><a href=""></a></span>
-<span id="cb23-5"><a href=""></a>varlist <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb23-6"><a href=""></a>  <span class="at">Base  =</span> <span class="fu">c</span>(<span class="st">"Sex"</span>, <span class="st">"Age"</span>, <span class="st">"BMI"</span>, <span class="st">"DM"</span>, <span class="st">"HTN"</span>, <span class="st">"Smoking"</span>, <span class="st">"Number_stent"</span>),</span>
-<span id="cb23-7"><a href=""></a>  <span class="at">Event =</span> <span class="fu">c</span>(<span class="st">"MACCE"</span>, <span class="st">"Death"</span>),</span>
-<span id="cb23-8"><a href=""></a>  <span class="at">Time  =</span> <span class="fu">c</span>(<span class="st">"MACCE_date"</span>, <span class="st">"Death_date"</span>)</span>
-<span id="cb23-9"><a href=""></a>)</span>
-<span id="cb23-10"><a href=""></a></span>
-<span id="cb23-11"><a href=""></a>out <span class="ot">&lt;-</span> a[, .SD, .SDcols <span class="ot">=</span> <span class="fu">unlist</span>(varlist)]</span>
-<span id="cb23-12"><a href=""></a>factor_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Sex"</span>, <span class="st">"DM"</span>, <span class="st">"HTN"</span>, <span class="st">"Smoking"</span>, <span class="st">"MACCE"</span>, <span class="st">"Death"</span>)</span>
-<span id="cb23-13"><a href=""></a>out[, (factor_vars) <span class="sc">:</span><span class="er">=</span> <span class="fu">lapply</span>(.SD, factor), .SDcols <span class="ot">=</span> factor_vars]</span>
-<span id="cb23-14"><a href=""></a>conti_vars <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(out), factor_vars)</span>
-<span id="cb23-15"><a href=""></a>out[, (conti_vars) <span class="sc">:</span><span class="er">=</span> <span class="fu">lapply</span>(.SD, as.numeric), .SDcols <span class="ot">=</span> conti_vars]</span>
-<span id="cb23-16"><a href=""></a></span>
-<span id="cb23-17"><a href=""></a>out.label <span class="ot">&lt;-</span> jstable<span class="sc">::</span><span class="fu">mk.lev</span>(out)</span>
-<span id="cb23-18"><a href=""></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"DM"</span>, <span class="st">"HTN"</span>, <span class="st">"Smoking"</span>, <span class="st">"MACCE"</span>, <span class="st">"Death"</span>)) {</span>
-<span id="cb23-19"><a href=""></a>  out.label[variable <span class="sc">==</span> v, val_label <span class="sc">:</span><span class="er">=</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>)]</span>
-<span id="cb23-20"><a href=""></a>}</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">library</span>(data.table);<span class="fu">library</span>(magrittr);<span class="fu">library</span>(jstable)</span>
+<span id="cb25-2"><a href=""></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jinseob2kim/R-skku-biohrs/main/data/smc_example1.csv"</span></span>
+<span id="cb25-3"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">fread</span>(url)</span>
+<span id="cb25-4"><a href=""></a></span>
+<span id="cb25-5"><a href=""></a>varlist <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb25-6"><a href=""></a>  <span class="at">Base  =</span> <span class="fu">c</span>(<span class="st">"Sex"</span>, <span class="st">"Age"</span>, <span class="st">"BMI"</span>, <span class="st">"DM"</span>, <span class="st">"HTN"</span>, <span class="st">"Smoking"</span>, <span class="st">"Number_stent"</span>),</span>
+<span id="cb25-7"><a href=""></a>  <span class="at">Event =</span> <span class="fu">c</span>(<span class="st">"MACCE"</span>, <span class="st">"Death"</span>),</span>
+<span id="cb25-8"><a href=""></a>  <span class="at">Time  =</span> <span class="fu">c</span>(<span class="st">"MACCE_date"</span>, <span class="st">"Death_date"</span>)</span>
+<span id="cb25-9"><a href=""></a>)</span>
+<span id="cb25-10"><a href=""></a></span>
+<span id="cb25-11"><a href=""></a>out <span class="ot">&lt;-</span> a[, .SD, .SDcols <span class="ot">=</span> <span class="fu">unlist</span>(varlist)]</span>
+<span id="cb25-12"><a href=""></a>factor_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Sex"</span>, <span class="st">"DM"</span>, <span class="st">"HTN"</span>, <span class="st">"Smoking"</span>, <span class="st">"MACCE"</span>, <span class="st">"Death"</span>)</span>
+<span id="cb25-13"><a href=""></a>out[, (factor_vars) <span class="sc">:</span><span class="er">=</span> <span class="fu">lapply</span>(.SD, factor), .SDcols <span class="ot">=</span> factor_vars]</span>
+<span id="cb25-14"><a href=""></a>conti_vars <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(out), factor_vars)</span>
+<span id="cb25-15"><a href=""></a>out[, (conti_vars) <span class="sc">:</span><span class="er">=</span> <span class="fu">lapply</span>(.SD, as.numeric), .SDcols <span class="ot">=</span> conti_vars]</span>
+<span id="cb25-16"><a href=""></a></span>
+<span id="cb25-17"><a href=""></a>out.label <span class="ot">&lt;-</span> jstable<span class="sc">::</span><span class="fu">mk.lev</span>(out)</span>
+<span id="cb25-18"><a href=""></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"DM"</span>, <span class="st">"HTN"</span>, <span class="st">"Smoking"</span>, <span class="st">"MACCE"</span>, <span class="st">"Death"</span>)) {</span>
+<span id="cb25-19"><a href=""></a>  out.label[variable <span class="sc">==</span> v, val_label <span class="sc">:</span><span class="er">=</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>)]</span>
+<span id="cb25-20"><a href=""></a>}</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="예제-2-table-1" class="slide level2">
 <h2>예제 2: Table 1</h2>
@@ -748,23 +773,23 @@
 Age, BMI는 nonnormal로. Excel로 저장.</p>
 </div>
 <p><strong>Codex가 실행하는 코드</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">source</span>(<span class="st">"global.R"</span>)</span>
-<span id="cb24-2"><a href=""></a></span>
-<span id="cb24-3"><a href=""></a>tb1 <span class="ot">&lt;-</span> jstable<span class="sc">::</span><span class="fu">CreateTableOneJS</span>(</span>
-<span id="cb24-4"><a href=""></a>  <span class="at">vars =</span> <span class="fu">names</span>(out), <span class="at">strata =</span> <span class="st">"DM"</span>, <span class="at">data =</span> out,</span>
-<span id="cb24-5"><a href=""></a>  <span class="at">nonnormal =</span> <span class="fu">c</span>(<span class="st">"Age"</span>, <span class="st">"BMI"</span>),</span>
-<span id="cb24-6"><a href=""></a>  <span class="at">labeldata =</span> out.label, <span class="at">Labels =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb24-7"><a href=""></a>  <span class="at">testNonNormal =</span> wilcox.test</span>
-<span id="cb24-8"><a href=""></a>)</span>
-<span id="cb24-9"><a href=""></a></span>
-<span id="cb24-10"><a href=""></a>ft <span class="ot">&lt;-</span> tb1<span class="sc">$</span>table[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="sc">%&gt;%</span>              <span class="co"># test, sig 컬럼 제거</span></span>
-<span id="cb24-11"><a href=""></a>  <span class="fu">data.frame</span>(<span class="at">check.names =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb24-12"><a href=""></a>  <span class="fu">cbind</span>(<span class="at">Variable =</span> <span class="fu">rownames</span>(.), .) <span class="sc">%&gt;%</span></span>
-<span id="cb24-13"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb24-14"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">set_caption</span>(<span class="st">"Table 1. Baseline characteristics by DM"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb24-15"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">add_footer_lines</span>(</span>
-<span id="cb24-16"><a href=""></a>    <span class="st">"P by Wilcoxon rank-sum test / Chi-squared or Fisher's exact test"</span></span>
-<span id="cb24-17"><a href=""></a>  )</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">source</span>(<span class="st">"global.R"</span>)</span>
+<span id="cb26-2"><a href=""></a></span>
+<span id="cb26-3"><a href=""></a>tb1 <span class="ot">&lt;-</span> jstable<span class="sc">::</span><span class="fu">CreateTableOneJS</span>(</span>
+<span id="cb26-4"><a href=""></a>  <span class="at">vars =</span> <span class="fu">names</span>(out), <span class="at">strata =</span> <span class="st">"DM"</span>, <span class="at">data =</span> out,</span>
+<span id="cb26-5"><a href=""></a>  <span class="at">nonnormal =</span> <span class="fu">c</span>(<span class="st">"Age"</span>, <span class="st">"BMI"</span>),</span>
+<span id="cb26-6"><a href=""></a>  <span class="at">labeldata =</span> out.label, <span class="at">Labels =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb26-7"><a href=""></a>  <span class="at">testNonNormal =</span> wilcox.test</span>
+<span id="cb26-8"><a href=""></a>)</span>
+<span id="cb26-9"><a href=""></a></span>
+<span id="cb26-10"><a href=""></a>ft <span class="ot">&lt;-</span> tb1<span class="sc">$</span>table[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="sc">%&gt;%</span>              <span class="co"># test, sig 컬럼 제거</span></span>
+<span id="cb26-11"><a href=""></a>  <span class="fu">data.frame</span>(<span class="at">check.names =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-12"><a href=""></a>  <span class="fu">cbind</span>(<span class="at">Variable =</span> <span class="fu">rownames</span>(.), .) <span class="sc">%&gt;%</span></span>
+<span id="cb26-13"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb26-14"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">set_caption</span>(<span class="st">"Table 1. Baseline characteristics by DM"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-15"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">add_footer_lines</span>(</span>
+<span id="cb26-16"><a href=""></a>    <span class="st">"P by Wilcoxon rank-sum test / Chi-squared or Fisher's exact test"</span></span>
+<span id="cb26-17"><a href=""></a>  )</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="예제-3-생존분석" class="slide level2">
 <h2>예제 3: 생존분석</h2>
@@ -775,24 +800,24 @@ p-value 표시하고, JAMA 스타일로.<br>
 ppt로 저장.</p>
 </div>
 <p><strong>Codex가 실행하는 코드</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">library</span>(survival);<span class="fu">library</span>(jskm);<span class="fu">library</span>(officer);<span class="fu">library</span>(rvg)</span>
-<span id="cb25-2"><a href=""></a></span>
-<span id="cb25-3"><a href=""></a>dd <span class="ot">&lt;-</span> <span class="fu">copy</span>(out)</span>
-<span id="cb25-4"><a href=""></a>dd[, MACCE <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">as.character</span>(MACCE))]   <span class="co"># event는 0/1 정수로</span></span>
-<span id="cb25-5"><a href=""></a></span>
-<span id="cb25-6"><a href=""></a>fmla <span class="ot">&lt;-</span> <span class="fu">Surv</span>(MACCE_date, MACCE) <span class="sc">~</span> DM</span>
-<span id="cb25-7"><a href=""></a>fit <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">substitute</span>(<span class="fu">survfit</span>(f, <span class="at">data =</span> dd), <span class="fu">list</span>(<span class="at">f =</span> fmla)))</span>
-<span id="cb25-8"><a href=""></a></span>
-<span id="cb25-9"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fu">jskm</span>(fit, <span class="at">data =</span> dd, <span class="at">pval =</span> <span class="cn">TRUE</span>, <span class="at">table =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb25-10"><a href=""></a>           <span class="at">marks =</span> <span class="cn">FALSE</span>, <span class="at">theme =</span> <span class="st">"jama"</span>,</span>
-<span id="cb25-11"><a href=""></a>           <span class="at">ystratalabs =</span> <span class="fu">c</span>(<span class="st">"No DM"</span>, <span class="st">"DM"</span>),</span>
-<span id="cb25-12"><a href=""></a>           <span class="at">ystrataname =</span> <span class="st">"DM"</span>)</span>
-<span id="cb25-13"><a href=""></a></span>
-<span id="cb25-14"><a href=""></a><span class="co"># PPT 저장</span></span>
-<span id="cb25-15"><a href=""></a>doc <span class="ot">&lt;-</span> <span class="fu">read_pptx</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb25-16"><a href=""></a>  <span class="fu">add_slide</span>(<span class="at">layout =</span> <span class="st">"Blank"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-17"><a href=""></a>  <span class="fu">ph_with</span>(<span class="fu">dml</span>(<span class="at">ggobj =</span> p), <span class="at">location =</span> <span class="fu">ph_location_fullsize</span>())</span>
-<span id="cb25-18"><a href=""></a><span class="fu">print</span>(doc, <span class="at">target =</span> <span class="st">"results/km_plot.pptx"</span>)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">library</span>(survival);<span class="fu">library</span>(jskm);<span class="fu">library</span>(officer);<span class="fu">library</span>(rvg)</span>
+<span id="cb27-2"><a href=""></a></span>
+<span id="cb27-3"><a href=""></a>dd <span class="ot">&lt;-</span> <span class="fu">copy</span>(out)</span>
+<span id="cb27-4"><a href=""></a>dd[, MACCE <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">as.character</span>(MACCE))]   <span class="co"># event는 0/1 정수로</span></span>
+<span id="cb27-5"><a href=""></a></span>
+<span id="cb27-6"><a href=""></a>fmla <span class="ot">&lt;-</span> <span class="fu">Surv</span>(MACCE_date, MACCE) <span class="sc">~</span> DM</span>
+<span id="cb27-7"><a href=""></a>fit <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">substitute</span>(<span class="fu">survfit</span>(f, <span class="at">data =</span> dd), <span class="fu">list</span>(<span class="at">f =</span> fmla)))</span>
+<span id="cb27-8"><a href=""></a></span>
+<span id="cb27-9"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fu">jskm</span>(fit, <span class="at">data =</span> dd, <span class="at">pval =</span> <span class="cn">TRUE</span>, <span class="at">table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-10"><a href=""></a>           <span class="at">marks =</span> <span class="cn">FALSE</span>, <span class="at">theme =</span> <span class="st">"jama"</span>,</span>
+<span id="cb27-11"><a href=""></a>           <span class="at">ystratalabs =</span> <span class="fu">c</span>(<span class="st">"No DM"</span>, <span class="st">"DM"</span>),</span>
+<span id="cb27-12"><a href=""></a>           <span class="at">ystrataname =</span> <span class="st">"DM"</span>)</span>
+<span id="cb27-13"><a href=""></a></span>
+<span id="cb27-14"><a href=""></a><span class="co"># PPT 저장</span></span>
+<span id="cb27-15"><a href=""></a>doc <span class="ot">&lt;-</span> <span class="fu">read_pptx</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb27-16"><a href=""></a>  <span class="fu">add_slide</span>(<span class="at">layout =</span> <span class="st">"Blank"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-17"><a href=""></a>  <span class="fu">ph_with</span>(<span class="fu">dml</span>(<span class="at">ggobj =</span> p), <span class="at">location =</span> <span class="fu">ph_location_fullsize</span>())</span>
+<span id="cb27-18"><a href=""></a><span class="fu">print</span>(doc, <span class="at">target =</span> <span class="st">"results/km_plot.pptx"</span>)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="예제-4-cox-regression" class="slide level2">
 <h2>예제 4: Cox Regression</h2>
@@ -802,38 +827,38 @@ ppt로 저장.</p>
 Age, Sex, HTN 보정하고, label 적용해서 Excel로 저장.</p>
 </div>
 <p><strong>Codex가 실행하는 코드</strong> (예제 3에 이어서 실행):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>fmla <span class="ot">&lt;-</span> <span class="fu">Surv</span>(MACCE_date, MACCE) <span class="sc">~</span> DM <span class="sc">+</span> Age <span class="sc">+</span> Sex <span class="sc">+</span> HTN</span>
-<span id="cb26-2"><a href=""></a>fit <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">substitute</span>(<span class="fu">coxph</span>(f, <span class="at">data =</span> dd, <span class="at">model =</span> <span class="cn">TRUE</span>), <span class="fu">list</span>(<span class="at">f =</span> fmla)))</span>
-<span id="cb26-3"><a href=""></a></span>
-<span id="cb26-4"><a href=""></a>cox_result <span class="ot">&lt;-</span> jstable<span class="sc">::</span><span class="fu">cox2.display</span>(fit)</span>
-<span id="cb26-5"><a href=""></a>cox_labeled <span class="ot">&lt;-</span> jstable<span class="sc">::</span><span class="fu">LabeljsCox</span>(cox_result, <span class="at">ref =</span> out.label)</span>
-<span id="cb26-6"><a href=""></a></span>
-<span id="cb26-7"><a href=""></a>ft <span class="ot">&lt;-</span> cox_labeled<span class="sc">$</span>table <span class="sc">%&gt;%</span></span>
-<span id="cb26-8"><a href=""></a>  <span class="fu">data.frame</span>(<span class="at">check.names =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb26-9"><a href=""></a>  <span class="fu">cbind</span>(<span class="at">Variable =</span> <span class="fu">rownames</span>(.), .) <span class="sc">%&gt;%</span></span>
-<span id="cb26-10"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb26-11"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">set_caption</span>(<span class="st">"Table 2. Cox proportional hazards model for MACCE"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb26-12"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">add_footer_lines</span>(<span class="st">"HR, hazard ratio; CI, confidence interval"</span>)</span>
-<span id="cb26-13"><a href=""></a></span>
-<span id="cb26-14"><a href=""></a><span class="co"># Excel 저장</span></span>
-<span id="cb26-15"><a href=""></a><span class="fu">library</span>(flexlsx);<span class="fu">library</span>(openxlsx2)</span>
-<span id="cb26-16"><a href=""></a>wb <span class="ot">&lt;-</span> <span class="fu">wb_workbook</span>()</span>
-<span id="cb26-17"><a href=""></a>wb<span class="sc">$</span><span class="fu">add_worksheet</span>(<span class="st">"Cox"</span>)</span>
-<span id="cb26-18"><a href=""></a>wb <span class="ot">&lt;-</span> <span class="fu">wb_add_flextable</span>(wb, <span class="st">"Cox"</span>, ft)</span>
-<span id="cb26-19"><a href=""></a>wb<span class="sc">$</span><span class="fu">save</span>(<span class="st">"results/Tables.xlsx"</span>)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>fmla <span class="ot">&lt;-</span> <span class="fu">Surv</span>(MACCE_date, MACCE) <span class="sc">~</span> DM <span class="sc">+</span> Age <span class="sc">+</span> Sex <span class="sc">+</span> HTN</span>
+<span id="cb28-2"><a href=""></a>fit <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">substitute</span>(<span class="fu">coxph</span>(f, <span class="at">data =</span> dd, <span class="at">model =</span> <span class="cn">TRUE</span>), <span class="fu">list</span>(<span class="at">f =</span> fmla)))</span>
+<span id="cb28-3"><a href=""></a></span>
+<span id="cb28-4"><a href=""></a>cox_result <span class="ot">&lt;-</span> jstable<span class="sc">::</span><span class="fu">cox2.display</span>(fit)</span>
+<span id="cb28-5"><a href=""></a>cox_labeled <span class="ot">&lt;-</span> jstable<span class="sc">::</span><span class="fu">LabeljsCox</span>(cox_result, <span class="at">ref =</span> out.label)</span>
+<span id="cb28-6"><a href=""></a></span>
+<span id="cb28-7"><a href=""></a>ft <span class="ot">&lt;-</span> cox_labeled<span class="sc">$</span>table <span class="sc">%&gt;%</span></span>
+<span id="cb28-8"><a href=""></a>  <span class="fu">data.frame</span>(<span class="at">check.names =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-9"><a href=""></a>  <span class="fu">cbind</span>(<span class="at">Variable =</span> <span class="fu">rownames</span>(.), .) <span class="sc">%&gt;%</span></span>
+<span id="cb28-10"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">flextable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-11"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">set_caption</span>(<span class="st">"Table 2. Cox proportional hazards model for MACCE"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-12"><a href=""></a>  flextable<span class="sc">::</span><span class="fu">add_footer_lines</span>(<span class="st">"HR, hazard ratio; CI, confidence interval"</span>)</span>
+<span id="cb28-13"><a href=""></a></span>
+<span id="cb28-14"><a href=""></a><span class="co"># Excel 저장</span></span>
+<span id="cb28-15"><a href=""></a><span class="fu">library</span>(flexlsx);<span class="fu">library</span>(openxlsx2)</span>
+<span id="cb28-16"><a href=""></a>wb <span class="ot">&lt;-</span> <span class="fu">wb_workbook</span>()</span>
+<span id="cb28-17"><a href=""></a>wb<span class="sc">$</span><span class="fu">add_worksheet</span>(<span class="st">"Cox"</span>)</span>
+<span id="cb28-18"><a href=""></a>wb <span class="ot">&lt;-</span> <span class="fu">wb_add_flextable</span>(wb, <span class="st">"Cox"</span>, ft)</span>
+<span id="cb28-19"><a href=""></a>wb<span class="sc">$</span><span class="fu">save</span>(<span class="st">"results/Tables.xlsx"</span>)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="대화-이어가기" class="slide level2">
 <h2>대화 이어가기</h2>
 <p><strong>Codex의 강점: 맥락을 기억</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource prompt-box number-lines code-with-copy"><code class="sourceCode"><span id="cb27-1"><a href=""></a>&gt; 위의 Cox 모델에서 DM 유의하면,</span>
-<span id="cb27-2"><a href=""></a>  subgroup 분석도 해줘. Sex, Age 65세 기준으로.</span>
-<span id="cb27-3"><a href=""></a>  forestploter로 그려서 ppt에 추가.</span>
-<span id="cb27-4"><a href=""></a></span>
-<span id="cb27-5"><a href=""></a>&gt; Table 1이랑 Cox table을 한 엑셀 파일에</span>
-<span id="cb27-6"><a href=""></a>  각각 다른 시트로 저장해줘.</span>
-<span id="cb27-7"><a href=""></a></span>
-<span id="cb27-8"><a href=""></a>&gt; 결과 요약해서 professor_reply.md 만들어줘.</span>
-<span id="cb27-9"><a href=""></a>  Statistical Analysis는 영어로.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource prompt-box number-lines code-with-copy"><code class="sourceCode"><span id="cb29-1"><a href=""></a>&gt; 위의 Cox 모델에서 DM 유의하면,</span>
+<span id="cb29-2"><a href=""></a>  subgroup 분석도 해줘. Sex, Age 65세 기준으로.</span>
+<span id="cb29-3"><a href=""></a>  forestploter로 그려서 ppt에 추가.</span>
+<span id="cb29-4"><a href=""></a></span>
+<span id="cb29-5"><a href=""></a>&gt; Table 1이랑 Cox table을 한 엑셀 파일에</span>
+<span id="cb29-6"><a href=""></a>  각각 다른 시트로 저장해줘.</span>
+<span id="cb29-7"><a href=""></a></span>
+<span id="cb29-8"><a href=""></a>&gt; 결과 요약해서 professor_reply.md 만들어줘.</span>
+<span id="cb29-9"><a href=""></a>  Statistical Analysis는 영어로.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>이전 대화에서 만든 코드/결과를 <strong>기억하고 이어서</strong> 작업</li>
 <li>추가 지시만 하면 기존 코드를 수정하거나 확장</li>
@@ -880,18 +905,18 @@ Age, Sex, HTN 보정하고, label 적용해서 Excel로 저장.</p>
 <section id="자주-쓰는-명령어" class="slide level2">
 <h2>자주 쓰는 명령어</h2>
 <p><strong>Codex 기본 명령</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href=""></a><span class="co"># Codex 시작</span></span>
-<span id="cb28-2"><a href=""></a><span class="ex">codex</span></span>
-<span id="cb28-3"><a href=""></a></span>
-<span id="cb28-4"><a href=""></a><span class="co"># 대화 내 명령어</span></span>
-<span id="cb28-5"><a href=""></a><span class="ex">/help</span>              <span class="co"># 도움말</span></span>
-<span id="cb28-6"><a href=""></a><span class="ex">/clear</span>             <span class="co"># 대화 초기화</span></span>
-<span id="cb28-7"><a href=""></a><span class="ex">/compact</span>           <span class="co"># 대화 요약</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href=""></a><span class="co"># Codex 시작</span></span>
+<span id="cb30-2"><a href=""></a><span class="ex">codex</span></span>
+<span id="cb30-3"><a href=""></a></span>
+<span id="cb30-4"><a href=""></a><span class="co"># 대화 내 명령어</span></span>
+<span id="cb30-5"><a href=""></a><span class="ex">/help</span>              <span class="co"># 도움말</span></span>
+<span id="cb30-6"><a href=""></a><span class="ex">/clear</span>             <span class="co"># 대화 초기화</span></span>
+<span id="cb30-7"><a href=""></a><span class="ex">/compact</span>           <span class="co"># 대화 요약</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>유용한 자연어 패턴</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href=""></a><span class="op">&gt;</span> global.R <span class="ex">읽어보고</span> 어떤 변수가 있는지 알려줘</span>
-<span id="cb29-2"><a href=""></a><span class="op">&gt;</span> analysis.R의 <span class="ex">에러</span> 고쳐줘</span>
-<span id="cb29-3"><a href=""></a><span class="op">&gt;</span> 이 <span class="ex">코드</span> 리뷰해줘</span>
-<span id="cb29-4"><a href=""></a><span class="op">&gt;</span> 결과를 <span class="ex">professor_reply.md로</span> 정리해줘</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href=""></a><span class="op">&gt;</span> global.R <span class="ex">읽어보고</span> 어떤 변수가 있는지 알려줘</span>
+<span id="cb31-2"><a href=""></a><span class="op">&gt;</span> analysis.R의 <span class="ex">에러</span> 고쳐줘</span>
+<span id="cb31-3"><a href=""></a><span class="op">&gt;</span> 이 <span class="ex">코드</span> 리뷰해줘</span>
+<span id="cb31-4"><a href=""></a><span class="op">&gt;</span> 결과를 <span class="ex">professor_reply.md로</span> 정리해줘</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="비용과-구독" class="slide level2">
 <h2>비용과 구독</h2>
@@ -956,7 +981,7 @@ Age, Sex, HTN 보정하고, label 적용해서 Excel로 저장.</p>
 <section id="설치-후-확인-codex-doctor" class="slide level2">
 <h2>설치 후 확인: codex doctor</h2>
 <p><strong>설치가 잘 됐는지 한 번에 진단</strong> (RStudio Terminal 탭에서)</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href=""></a><span class="ex">codex</span> doctor</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href=""></a><span class="ex">codex</span> doctor</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>설치 방식, 버전, PATH, Git 상태 등 자동 체크</li>
 <li>문제 발견 시 해결 방법 안내</li>
@@ -992,15 +1017,15 @@ Age, Sex, HTN 보정하고, label 적용해서 Excel로 저장.</p>
 <section id="정리" class="slide level2">
 <h2>정리</h2>
 <p><strong>Codex + R 데이터분석 워크플로우</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href=""></a><span class="ex">1.</span> AGENTS.md 작성 <span class="er">(</span><span class="ex">분석</span> 스타일 고정<span class="kw">)</span></span>
-<span id="cb31-2"><a href=""></a>    <span class="ex">↓</span></span>
-<span id="cb31-3"><a href=""></a><span class="ex">2.</span> 데이터를 프로젝트 폴더에 준비</span>
-<span id="cb31-4"><a href=""></a>    <span class="ex">↓</span></span>
-<span id="cb31-5"><a href=""></a><span class="ex">3.</span> codex 실행 → 자연어로 지시</span>
-<span id="cb31-6"><a href=""></a>    <span class="ex">↓</span></span>
-<span id="cb31-7"><a href=""></a><span class="ex">4.</span> global.R → analysis.R → 결과물 자동 생성</span>
-<span id="cb31-8"><a href=""></a>    <span class="ex">↓</span></span>
-<span id="cb31-9"><a href=""></a><span class="ex">5.</span> 코드 리뷰 후 최종 확인</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href=""></a><span class="ex">1.</span> AGENTS.md 작성 <span class="er">(</span><span class="ex">분석</span> 스타일 고정<span class="kw">)</span></span>
+<span id="cb33-2"><a href=""></a>    <span class="ex">↓</span></span>
+<span id="cb33-3"><a href=""></a><span class="ex">2.</span> 데이터를 프로젝트 폴더에 준비</span>
+<span id="cb33-4"><a href=""></a>    <span class="ex">↓</span></span>
+<span id="cb33-5"><a href=""></a><span class="ex">3.</span> codex 실행 → 자연어로 지시</span>
+<span id="cb33-6"><a href=""></a>    <span class="ex">↓</span></span>
+<span id="cb33-7"><a href=""></a><span class="ex">4.</span> global.R → analysis.R → 결과물 자동 생성</span>
+<span id="cb33-8"><a href=""></a>    <span class="ex">↓</span></span>
+<span id="cb33-9"><a href=""></a><span class="ex">5.</span> 코드 리뷰 후 최종 확인</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>기대 효과</strong></p>
 <ul>
 <li>반복적인 코딩 작업 시간 <strong>대폭 단축</strong></li>

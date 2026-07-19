@@ -417,22 +417,41 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 
 ## Posit Cloud 3 - API 키 설정 (Console)
 
-API 키는 로컬과 똑같이 `.Renviron`에 저장한다.
+R Console에서 순서대로 실행해 `.Renviron` 파일을 연다.
 
-:::::: columns
-:::: {.column width="52%"}
 ``` r
-install.packages("usethis")   # 처음 한 번만
-usethis::edit_r_environ()     # .Renviron 열림
+install.packages("usethis")   # 처음 한 번만 설치
+usethis::edit_r_environ()     # .Renviron 파일이 열린다
 ```
 
-`.Renviron`에 아래 한 줄을 저장한다.
+열린 `.Renviron` 파일에 아래 한 줄을 추가하고 저장한다.
 
 ```
 LITELLM_API_KEY=전달받은 개별 API KEY
 ```
 
-저장 후 우측 상단 **`...` 메뉴 → Relaunch Project**로 세션을 재시작한다.
+::: highlight-box
+따옴표 없이, `=` 앞뒤 공백 없이 입력한다. 줄 끝에서 Enter를 눌러 마지막에 빈 줄을 하나 남긴다.
+:::
+
+## Posit Cloud 4 - 세션 재시작
+
+`.Renviron`은 세션을 다시 시작해야 반영된다.
+
+:::::: columns
+:::: {.column width="52%"}
+::: large
+- 우측 상단 **`...` 메뉴 → Relaunch Project**를 누른다.
+- 재시작 후 Console에서 확인:
+:::
+
+``` r
+Sys.getenv("LITELLM_API_KEY")
+```
+
+::: large
+키 값이 보이면 성공이다.
+:::
 ::::
 
 ::: {.column width="48%"}
@@ -440,24 +459,19 @@ LITELLM_API_KEY=전달받은 개별 API KEY
 :::
 ::::::
 
-::: highlight-box-gray
-재시작 후 Console에서 `Sys.getenv("LITELLM_API_KEY")`로 키가 보이면 성공이다.
-:::
+## Posit Cloud 5 - config.toml 만들기
 
-## Posit Cloud 4 - config.toml 만들기
-
-Codex를 설치하면 `~/.codex` 폴더가 **이미 만들어져 있다.** 새로 만들 필요 없다.
+Codex를 설치하면 `.codex` 폴더가 **홈 폴더**(`/home/사용자ID`)에 이미 생긴다. 새로 만들 필요 없다.
 
 :::::: columns
 :::: {.column width="46%"}
 ::: large
-- Files 창(우하단) → **More → Show Hidden Files** 체크.
-- `.codex` 폴더가 보인다.
-- Console에서 편집기로 열어 저장:
+- Files 창에서 **홈 폴더**로 이동 → **More → Show Hidden Files** → `.codex`가 보인다. (프로젝트 폴더 `/cloud/project` 아님)
+- R Console에서 편집기로 열어 저장:
 :::
 
 ``` r
-file.edit("~/.codex/config.toml")
+file.edit("/home/r150450/.codex/config.toml")
 ```
 ::::
 
@@ -466,11 +480,27 @@ file.edit("~/.codex/config.toml")
 :::
 ::::::
 
+## Posit Cloud 6 - config.toml 내용
+
+`config.toml`을 열어 아래 내용을 붙여넣고 저장한다.
+
+``` toml
+model = "gpt-5.5"
+model_provider = "litellm"
+model_reasoning_effort = "high"
+
+[model_providers.litellm]
+name = "LiteLLM"
+base_url = "https://litellm.zarathu.com/v1"
+env_key = "LITELLM_API_KEY"
+wire_api = "responses"
+```
+
 ::: highlight-box
-붙여넣을 `config.toml` 내용은 **Mac 6 / Windows 6 슬라이드와 동일**하다.
+`env_key`에는 API 키 값이 아니라 환경변수 이름인 `LITELLM_API_KEY`를 적는다.
 :::
 
-## Posit Cloud 5 - Codex 실행
+## Posit Cloud 7 - Codex 실행
 
 **RStudio Terminal 탭**에서 실행한다.
 
