@@ -131,7 +131,7 @@ y <- 7:12
 getwd()                                                     ## 현재 디렉토리 
 setwd("data")                                               ## 디렉토리 설정
 ## 동일
-setwd("/cloud/project/data")
+setwd("C:/Users/jinse/OneDrive/ドキュメント/yonsei-healthcare-bootcamp-2026/data")
 getwd()
 
 ex <- read.csv("example_g1e.csv")
