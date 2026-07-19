@@ -396,7 +396,7 @@ codex doctor
 
 ``` bash
 # 예: 강사가 안내한 저장소 주소
-https://github.com/jinseob2kim/R-skku-biohrs
+https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026
 ```
 
 ::: highlight-box-gray
@@ -415,27 +415,62 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 `Codex CLI installed successfully`가 보이면 설치 완료. `Start Codex now? [y/N]`가 나오면 `N`을 입력한다.
 :::
 
-## Posit Cloud 3 - API 키와 config.toml (Console)
+## Posit Cloud 3 - API 키 설정 (Console)
 
 API 키는 로컬과 똑같이 `.Renviron`에 저장한다.
 
+:::::: columns
+:::: {.column width="52%"}
 ``` r
 install.packages("usethis")   # 처음 한 번만
-usethis::edit_r_environ()     # LITELLM_API_KEY=전달받은 키 저장
+usethis::edit_r_environ()     # .Renviron 열림
 ```
 
-`config.toml`은 Console에서 폴더를 만들고 편집기로 연다.
+`.Renviron`에 아래 한 줄을 저장한다.
 
-``` r
-dir.create("~/.codex", showWarnings = FALSE)
-file.edit("~/.codex/config.toml")   # 편집기에서 열림 → 아래 내용 저장
+```
+LITELLM_API_KEY=전달받은 개별 API KEY
 ```
 
-::: highlight-box
-붙여넣을 `config.toml` 내용은 **Mac 6 / Windows 6 슬라이드와 동일**하다. 저장 후 세션을 재시작한다(우측 상단 새로고침).
+저장 후 우측 상단 **`...` 메뉴 → Relaunch Project**로 세션을 재시작한다.
+::::
+
+::: {.column width="48%"}
+![](posit-cloud-relaunch.png){fig-alt="Posit Cloud 우측 상단 메뉴에서 Relaunch Project를 선택하는 화면" width="100%"}
+:::
+::::::
+
+::: highlight-box-gray
+재시작 후 Console에서 `Sys.getenv("LITELLM_API_KEY")`로 키가 보이면 성공이다.
 :::
 
-## Posit Cloud 4 - Codex 실행
+## Posit Cloud 4 - config.toml 만들기
+
+Codex를 설치하면 `~/.codex` 폴더가 **이미 만들어져 있다.** 새로 만들 필요 없다.
+
+:::::: columns
+:::: {.column width="46%"}
+::: large
+- Files 창(우하단) → **More → Show Hidden Files** 체크.
+- `.codex` 폴더가 보인다.
+- Console에서 편집기로 열어 저장:
+:::
+
+``` r
+file.edit("~/.codex/config.toml")
+```
+::::
+
+::: {.column width="54%"}
+![](posit-cloud-codex-folder.png){fig-alt="Posit Cloud Files 창에서 Show Hidden Files로 .codex 폴더를 확인하는 화면" width="100%"}
+:::
+::::::
+
+::: highlight-box
+붙여넣을 `config.toml` 내용은 **Mac 6 / Windows 6 슬라이드와 동일**하다.
+:::
+
+## Posit Cloud 5 - Codex 실행
 
 **RStudio Terminal 탭**에서 실행한다.
 
