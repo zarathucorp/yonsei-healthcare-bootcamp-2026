@@ -16,9 +16,9 @@
 | 10:30 ~ 11:30 | 통계이론 | [가능도/정규분포](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1030-likelihood-normal/index.html), [의학연구 위한 기초통계(Table 1)](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1030-basic-statistics-table1/index.html), [code](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-20-1030-basic-statistics-regression-survival.R) | 김진섭 |
 | 11:30 ~ 12:30 | 점심시간 |  |  |
 | 12:30 ~ 13:30 | AI agent로 R분석하기 | [AI agent 설치 및 기초실습](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1230-r-ai-agent-install/index.html) | 김진섭 |
-| 13:30 ~ 14:30 | R 데이터매니지먼트 | [R 기본 스타일](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1330-r-basic-style/index.html), [code](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-20-1330-r-basic-style.R) | 김진섭 |
+| 13:30 ~ 14:30 | R 데이터매니지먼트 | [R 기본 스타일](https://blog.zarathu.com/posts/2020-02-16-rdatamanagement-basic/), [code](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-20-1330-r-basic-style.R) | 김진섭 |
 | 14:30 ~ 15:00 | R 데이터매니지먼트 | [tidyverse 스타일](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1430-tidyverse-style/index.html), [code](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-20-1430-tidyverse-style.R) | 김진섭 |
-| 15:30 ~ 16:00 | R 데이터매니지먼트 | [data.table 스타일](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-20-1530-data-table-style/index.html), [code](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-20-1530-data-table-style.R) | 김진섭 |
+| 15:30 ~ 16:00 | R 데이터매니지먼트 | [data.table 스타일](https://blog.zarathu.com/posts/2022-02-11-datatable/), [slide](https://jinseob2kim.github.io/R-skku-biohrs/data.table/) [code](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/code/2026-07-20-1530-data-table-style.R) | 김진섭 |
 
 ## 기본반 2일차: 7/21
 

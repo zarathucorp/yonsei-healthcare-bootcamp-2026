@@ -1,13 +1,97 @@
 # general_AGENTS.md
 
-이 문서는 R에서 논문 표와 그림을 만드는 기본 분석 스타일이다. 
+# 분석 스타일
 
-## global.R 작성 원칙
+## Core Rules
 
 - `data.table`을 메인 패키지로 사용한다.
-- `dplyr` 스타일은 거의 쓰지 않는다.
+- `dplyr` 스타일은 거의 사용하지 않는다.
 - pipe operator는 `%>%`만 사용한다.
+- `global.R`은 데이터 읽기, 전처리, 파생변수 생성, `varlist`, `out`, `out.label` 구성을 담당한다.
+- 실제 분석은 `analysis.R` 등 별도 R 파일로 확실히 분리한다.
+- **중요: `varlist`와 `out`이 나오기 전에 필요한 파생변수를 모두 만들어놓는다. `out` 이후에는 새 분석 변수를 만들지 않는다.**
+- `global.R`에서 만든 `out`, `out.label`은 `analysis.R`에서 그대로 사용한다.
+- 불필요한 함수 래핑을 피하고, 분석 흐름이 보이도록 스크립트로 쭉 작성한다.
 
+## Standard global.R Workflow
+
+1. 패키지를 로드하고 작업 경로 또는 데이터 소스를 설정한다.
+2. 데이터를 읽고 `data.table`로 변환한다.
+3. 변수명을 정리하고 필요한 파생변수를 모두 만든다.
+4. 사용할 변수를 `varlist`에 저장한다.
+5. 생존분석이면 `varlist$Event`, `varlist$Time`에 순서를 맞춰 저장한다.
+6. `out <- a[, .SD, .SDcols = c(unlist(varlist))]` 형태로 분석 데이터를 만든다.
+7. factor/numeric 변수를 지정한다.
+8. `out.label <- jstable::mk.lev(out)`로 label 정보를 만든다.
+9. `out.label`의 `var_label`, `val_label`을 채운다.
+10. 이후 분석하거나, `out`과 `out.label`로 Shiny 앱을 만든다.
+
+반복측정데이터일 때는 `out` 기반으로 long form `out.long`, `out.long.label`을 추가로 만들고 `out`과 동일하게 작업한다.
+
+
+## global.R Example (DM_dxa)
+
+```r
+library(data.table);library(magrittr);library(jstable);library(openxlsx)
+setwd("~/ShinyApps/kangnam_hallym/wchong23/DM_dxa")
+
+a <- readxl::read_excel("OS졸국논문kanghyuna_250818.xlsx", skip = 1)[, 1:33] %>% data.table
+
+setnames(a, "연령", "Age")
+
+a[, DM := as.integer(DM == "1")]
+
+a[, lumbar_qc_bad := as.integer(
+  (!is.na(L1-L2) & abs(L1 - L2) > 1) | (!is.na(L2-L3) & abs(L2 - L3) > 1) | (!is.na(L3-L4) & abs(L3 - L4) > 1))]
+
+a[, osteoporosis := fifelse(pmin(Femur, L1.L4, na.rm = T) <= -2.5, 1, 0)]
+
+
+varlist <- list(
+  Base = c("DM", "Femur", "L1.L4", "HbA1c", "Age", "BMI", "lumbar_qc_bad", "osteoporosis")
+)
+
+
+out <- a[, .SD, .SDcols = c(unlist(varlist))]
+
+factor_vars <- c(names(out)[sapply(out, function(x){length(table(x))}) <= 6])
+out[, (factor_vars) := lapply(.SD, factor), .SDcols = factor_vars]
+conti_vars <- setdiff(names(out), c(factor_vars))
+out[, (conti_vars) := lapply(.SD, as.numeric), .SDcols = conti_vars]
+
+out.label <- jstable::mk.lev(out)
+
+vars01 <- sapply(factor_vars, function(v) {
+  lv <- sort(unique(na.omit(as.character(out[[v]]))))
+  length(lv) > 0 && all(lv %in% c("0", "1"))
+})
+
+for (v in names(vars01)[vars01 == TRUE]) {
+  out.label[variable == v, val_label := c("No", "Yes")]
+}
+
+out.label[variable == "DM", var_label := "DM_status"]
+out.label[variable == "L1.L4", var_label := "L1_4"]
+```
+
+## 테이블 저장
+- flextable으로 포맷팅 (논문에 바로 쓸 수 있는 형태)
+- flexlsx + openxlsx2로 Excel 여러 시트에 저장
+
+
+## 그림 저장
+- 기본은 ppt (rvg::dml + officer 패키지)
+- 벡터 그래픽, fullsize
+
+## 주요 패키지
+- jstable: CreateTableOneJS, cox2.display, glmshow.display
+- jskm: Kaplan-Meier plot (jskm, svyjskm)
+- 라벨 적용: LabeljsCox, LabeljsTable 등
+
+## 주의사항
+- survfit/coxph는 eval(substitute()) 패턴 필수
+- 테이블 부등호: >= → ≥, <= → ≤ (유니코드)
+- Table 1 footer는 실제 사용된 검정과 일치시키기
 
 
 ## 논문용 테이블 필수 규칙
