@@ -110,6 +110,10 @@ Codex는 "R 코드를 알려주는 도구"가 아니라, 작업 폴더 안에서
 `install.packages(...)`를 터미널에 치거나, `codex`를 Console에 치면 에러가 난다. **명령마다 창을 확인하자.**
 :::
 
+::: highlight-box-blue
+설치가 부담되면 뒤의 **Posit Cloud(브라우저)** 방법으로 대체할 수 있다. 이 경우 OS 터미널 없이 브라우저 RStudio 하나로 끝난다.
+:::
+
 # 설치: Mac
 
 ## Mac 1 - 터미널에서 설치
@@ -364,6 +368,84 @@ API 키를 `.Renviron`에 저장했으므로, 반드시 **RStudio의 Terminal �
 ``` powershell
 codex doctor
 ```
+
+# 설치: Posit Cloud (설치 없이 브라우저에서)
+
+## Posit Cloud를 쓰면?
+
+내 컴퓨터에 아무것도 설치하지 않고, **브라우저 안의 RStudio**에서 그대로 실습한다.
+
+::: large
+- OS 터미널이 없다. **모든 작업이 브라우저 RStudio 하나**에서 이뤄진다.
+- 설치할 곳은 **RStudio Terminal 탭**, R 명령은 **Console** — 두 군데뿐.
+- 프로젝트를 Git 저장소에서 바로 불러올 수 있다.
+:::
+
+::: highlight-box-blue
+로컬 설치(앞의 Mac/Windows)가 부담되면 이 방법으로 대체할 수 있다.
+:::
+
+## Posit Cloud 1 - 프로젝트 만들기
+
+::: large
+1. <https://posit.cloud> 접속 후 로그인(회원가입 또는 구글 로그인).
+2. 우측 상단 **New Project → New Project from Git Repository**.
+3. 강사가 안내한 Git 저장소 주소를 붙여넣고 **OK**.
+4. 잠시 기다리면 브라우저 안에서 RStudio가 열린다.
+:::
+
+``` bash
+# 예: 강사가 안내한 저장소 주소
+https://github.com/jinseob2kim/R-skku-biohrs
+```
+
+::: highlight-box-gray
+저장소에서 바로 열었으므로, 작업 폴더가 이미 그 프로젝트로 잡혀 있다. (뒤에서 `cd` 필요 없음)
+:::
+
+## Posit Cloud 2 - Terminal에서 Codex 설치
+
+Posit Cloud에는 OS 터미널이 없다. **RStudio Terminal 탭**(Console 옆)에서 바로 설치한다.
+
+``` bash
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
+::: highlight-box-gray
+`Codex CLI installed successfully`가 보이면 설치 완료. `Start Codex now? [y/N]`가 나오면 `N`을 입력한다.
+:::
+
+## Posit Cloud 3 - API 키와 config.toml (Console)
+
+API 키는 로컬과 똑같이 `.Renviron`에 저장한다.
+
+``` r
+install.packages("usethis")   # 처음 한 번만
+usethis::edit_r_environ()     # LITELLM_API_KEY=전달받은 키 저장
+```
+
+`config.toml`은 Console에서 폴더를 만들고 편집기로 연다.
+
+``` r
+dir.create("~/.codex", showWarnings = FALSE)
+file.edit("~/.codex/config.toml")   # 편집기에서 열림 → 아래 내용 저장
+```
+
+::: highlight-box
+붙여넣을 `config.toml` 내용은 **Mac 6 / Windows 6 슬라이드와 동일**하다. 저장 후 세션을 재시작한다(우측 상단 새로고침).
+:::
+
+## Posit Cloud 4 - Codex 실행
+
+**RStudio Terminal 탭**에서 실행한다.
+
+``` bash
+codex
+```
+
+::: highlight-box
+프로젝트를 Git 저장소에서 열었으므로 이미 그 폴더에서 시작한다. `.Renviron`의 키도 Terminal 탭에 적용된다.
+:::
 
 # AGENTS.md: 분석 스타일 설정
 
