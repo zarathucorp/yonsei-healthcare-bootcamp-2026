@@ -33,7 +33,7 @@ editor: visual
 
 ## 오늘 할 일
 
-::: {.summary-grid-4}
+::::::: summary-grid-4
 ::: {.summary-item .si-green}
 **1. 설치**
 
@@ -57,50 +57,66 @@ Mac과 Windows에서 Codex CLI를 설치한다.
 
 R 분석 파일과 결과물을 Codex로 만든다.
 :::
-:::
+:::::::
 
 ## Codex는 터미널에서 일하는 코딩 에이전트
 
-| 구분 | 일반 챗봇 | Codex |
-|---|---|---|
-| 작업 방식 | 답변을 읽고 사람이 복사 | 파일을 읽고 수정하며 명령을 실행 |
-| 실행 위치 | 웹 브라우저 중심 | 내 컴퓨터의 터미널과 작업 폴더 |
-| 맥락 | 한 번의 질문 중심 | 프로젝트 파일과 이전 작업을 함께 반영 |
-| 결과물 | 코드 조각 | `.R`, `.qmd`, 표, 그림, 보고서 파일 |
+| 구분      | 일반 챗봇               | Codex                                 |
+|------------------|----------------------|--------------------------------|
+| 작업 방식 | 답변을 읽고 사람이 복사 | 파일을 읽고 수정하며 명령을 실행      |
+| 실행 위치 | 웹 브라우저 중심        | 내 컴퓨터의 터미널과 작업 폴더        |
+| 맥락      | 한 번의 질문 중심       | 프로젝트 파일과 이전 작업을 함께 반영 |
+| 결과물    | 코드 조각               | `.R`, `.qmd`, 표, 그림, 보고서 파일   |
 
-::: {.highlight-box}
+::: highlight-box
 Codex는 "R 코드를 알려주는 도구"가 아니라, 작업 폴더 안에서 코드를 만들고 실행하며 고치는 도구다.
 :::
 
 ## 수업에서 사용할 흐름
 
-::: columns
-::: {.column width="48%"}
-::: {.large}
+:::::: columns
+:::: {.column width="46%"}
+::: large
 - Codex CLI 설치
 - 수업용 API 키 설정
 - `config.toml` 저장
 - 작업 폴더에서 `codex` 실행
 :::
-:::
+::::
 
-::: {.column width="75%"}
-```         
+::: {.column width="54%"}
+```
 설치 -> 설정 -> 실행 -> 요청 -> 검토
                  |
                  v
         R 코드, 표, 그림, 결과 파일
 ```
 :::
+::::::
+
+## 시작 전 준비: R·RStudio와 3개의 창
+
+**먼저 R과 RStudio가 설치되어 있어야 한다.** (없으면 R → RStudio 순서로 먼저 설치)
+
+수업 내내 타이핑하는 곳이 **세 군데**다. 헷갈리면 여기로 돌아온다.
+
+| 어디에 | 무엇을 | 예 |
+|---|---|---|
+| **OS 터미널** (터미널.app / PowerShell) | Codex **설치** | `curl ... install.sh` |
+| **RStudio Console** | R 명령 (패키지 설치, API 키, 분석) | `install.packages(...)`, `usethis::edit_r_environ()` |
+| **RStudio Terminal 탭** (Console 옆) | Codex **실행** | `codex` |
+
+::: highlight-box
+`install.packages(...)`를 터미널에 치거나, `codex`를 Console에 치면 에러가 난다. **명령마다 창을 확인하자.**
 :::
 
 # 설치: Mac
 
 ## Mac 1 - 터미널에서 설치
 
-::: columns
-::: {.column width="45%"}
-::: {.large}
+::::: columns
+:::: {.column width="45%"}
+::: large
 - `Command + Space`로 Spotlight를 연다.
 - `터미널.app`을 검색해서 실행한다.
 - 설치 명령을 붙여넣고 실행한다.
@@ -109,10 +125,10 @@ Codex는 "R 코드를 알려주는 도구"가 아니라, 작업 폴더 안에서
 ``` bash
 curl -fsSL https://chatgpt.com/codex/install.sh | sh
 ```
-:::
-:::
+::::
+:::::
 
-::: {.highlight-box-blue}
+::: highlight-box-blue
 설치 마지막에 `Start Codex now? [y/N]`가 나오면 수업에서는 `N`을 입력한다. 설정 파일을 먼저 만든 뒤 실행한다.
 :::
 
@@ -120,59 +136,64 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 
 ![](codex-mac-install-result.png){fig-alt="Mac에서 Codex CLI 설치가 완료된 터미널 화면" width="82%"}
 
-::: {.highlight-box-gray}
+::: highlight-box-gray
 `Codex CLI installed successfully`가 보이면 설치가 끝난 것이다.
 :::
 
-## Mac 3 - API 키 설정
+## Mac 3 - API 키 설정 (RStudio)
 
-::: columns
-::: {.column width="45%"}
+RStudio의 Console에서 순서대로 실행한다.
 
-터미널에서 이어서 실행한다.
-
-``` bash
-export LITELLM_API_KEY="전달받은 개별 API KEY"
+``` r
+install.packages("usethis")   # 처음 한 번만 설치
+usethis::edit_r_environ()     # .Renviron 파일이 열린다
 ```
-:::
+
+열린 `.Renviron` 파일에 아래 한 줄을 추가하고 저장한다.
+
+```         
+LITELLM_API_KEY=전달받은 개별 API KEY
+```
+
+::: highlight-box
+따옴표 없이, `=` 앞뒤 공백 없이 입력한다. 줄 끝에서 Enter를 눌러 마지막에 빈 줄을 하나 남긴다.
 :::
 
-::: {.highlight-box-gray}
-이 명령은 화면에 특별한 결과가 나오지 않는 것이 정상이다. 터미널을 닫으면 다시 설정해야 하므로, 실습 중에는 같은 터미널을 유지한다.
+::: highlight-box-gray
+저장 후 RStudio를 완전히 종료했다가 다시 실행한다. Console에서 `Sys.getenv("LITELLM_API_KEY")`로 키가 보이면 성공이다. 한 번 저장하면 컴퓨터를 재시작해도 유지된다.
 :::
 
 ## Mac 4 - config.toml 저장 위치
 
 `~/.codex` 폴더를 열고 `config.toml` 파일을 만든다.
 
-::: columns
-::: {.column width="43%"}
-::: {.large}
+:::::: columns
+:::: {.column width="43%"}
+::: large
 - Finder를 연다.
 - `Command + Shift + G`를 누른다.
 - `~/.codex`를 입력한다.
 - `config.toml` 파일을 저장한다.
 :::
-:::
+::::
 
 ::: {.column width="57%"}
 ![](codex-mac-finder-go.png){fig-alt="Mac Finder에서 ~/.codex 경로로 이동하는 화면" width="100%"}
 :::
-:::
+::::::
 
 ## Mac 5 - config.toml 배치
 
 ![](codex-mac-config-location.png){fig-alt="Mac Finder의 .codex 폴더 안에 config.toml 파일이 있는 화면" width="78%"}
 
-::: {.highlight-box}
+::: highlight-box
 파일 이름은 반드시 `config.toml`이어야 한다.
 :::
 
 ## Mac 6 - config.toml 내용
 
-::: columns
+:::: columns
 ::: {.column width="46%"}
-
 ``` toml
 model = "gpt-5.5"
 model_provider = "litellm"
@@ -185,22 +206,29 @@ env_key = "LITELLM_API_KEY"
 wire_api = "responses"
 ```
 :::
-:::
+::::
 
-::: {.highlight-box}
+::: highlight-box
 `env_key`에는 API 키 값이 아니라 환경변수 이름인 `LITELLM_API_KEY`를 적는다.
 :::
 
 ## Mac 7 - Codex 실행
 
-작업할 폴더로 이동한 뒤 실행한다.
+::: large
+1. RStudio에서 `File > New Project`로 작업 폴더를 만든다.
+2. **Terminal 탭**(Console 옆)을 연다. 그 폴더에서 자동으로 시작된다.
+3. `codex`를 입력한다.
+:::
 
 ``` bash
-cd ~/Documents/my_research
 codex
 ```
 
-::: {.highlight-box-blue}
+::: highlight-box
+API 키를 `.Renviron`에 저장했으므로, 반드시 **RStudio의 Terminal 탭**에서 실행해야 키가 자동으로 적용된다. (일반 터미널.app에서는 키가 안 잡힐 수 있다.)
+:::
+
+::: highlight-box-blue
 처음 실행할 때 권한, 작업 폴더 신뢰 여부, 로그인 방식 등을 묻는 화면이 나올 수 있다. 수업에서는 강사 안내에 맞춰 진행한다.
 :::
 
@@ -208,9 +236,9 @@ codex
 
 ## Windows 1 - PowerShell에서 설치
 
-::: columns
-::: {.column width="100%"}
-::: {.large}
+::::: columns
+:::: {.column width="100%"}
+::: large
 - `Windows + R`을 누른다.
 - 실행 창에 `powershell`을 입력한다.
 - 설치 명령을 붙여넣고 실행한다.
@@ -219,32 +247,38 @@ codex
 ``` powershell
 powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
 ```
-:::
-:::
+::::
+:::::
 
 ## Windows 2 - 설치 결과 확인
 
 ![](codex-windows-install-result.png){fig-alt="Windows에서 Codex CLI 설치가 완료된 PowerShell 화면" width="82%"}
 
-::: {.highlight-box-gray}
+::: highlight-box-gray
 `Codex CLI installed successfully`가 보이면 설치가 끝난 것이다.
 :::
 
-## Windows 3 - API 키 설정
+## Windows 3 - API 키 설정 (RStudio)
 
-::: columns
-::: {.column width="45%"}
+Mac과 동일하게 RStudio의 Console에서 순서대로 실행한다.
 
-PowerShell에서 이어서 실행한다.
-
-``` powershell
-$env:LITELLM_API_KEY="전달받은 개별 API KEY"
+``` r
+install.packages("usethis")   # 처음 한 번만 설치
+usethis::edit_r_environ()     # .Renviron 파일이 열린다
 ```
-:::
+
+열린 `.Renviron` 파일에 아래 한 줄을 추가하고 저장한다.
+
+```         
+LITELLM_API_KEY=전달받은 개별 API KEY
+```
+
+::: highlight-box
+따옴표 없이, `=` 앞뒤 공백 없이 입력한다. 줄 끝에서 Enter를 눌러 마지막에 빈 줄을 하나 남긴다.
 :::
 
-::: {.highlight-box-gray}
-이 명령도 실행 결과가 없는 것이 정상이다. 실습 중에는 같은 PowerShell 창을 유지한다.
+::: highlight-box-gray
+저장 후 RStudio를 완전히 종료했다가 다시 실행한다. Console에서 `Sys.getenv("LITELLM_API_KEY")`로 키가 보이면 성공이다. 한 번 저장하면 컴퓨터를 재시작해도 유지된다.
 :::
 
 ## Windows 4 - config.toml 저장
@@ -257,19 +291,19 @@ $env:LITELLM_API_KEY="전달받은 개별 API KEY"
 
 저장할 때 확인할 것:
 
-::: {.large}
+::: large
 - 파일 이름: `config.toml`
 - 파일 형식: 모든 파일
 - 인코딩: UTF-8
 :::
 
-::: {.highlight-box-blue}
+::: highlight-box-blue
 확장자가 `config.toml.txt`가 되면 Codex가 읽지 못한다. 파일 이름을 다시 확인한다.
 :::
 
 ## Windows 5 - 저장 화면 확인
 
-::: columns
+::::: columns
 ::: {.column width="70%"}
 ![](codex-windows-save-config.png){fig-alt="Windows에서 config.toml을 .codex 폴더에 저장하는 화면" width="100%"}
 :::
@@ -277,17 +311,16 @@ $env:LITELLM_API_KEY="전달받은 개별 API KEY"
 ::: {.column width="30%"}
 ![](codex-windows-overwrite-confirm.png){fig-alt="Windows에서 config.toml 덮어쓰기를 확인하는 대화상자" width="100%"}
 :::
-:::
+:::::
 
-::: {.highlight-box-gray}
+::: highlight-box-gray
 이미 `config.toml`이 있으면 덮어쓸지 묻는 창이 나올 수 있다.
 :::
 
 ## Windows 6 - config.toml 내용
 
-::: columns
+::::: columns
 ::: {.column width="46%"}
-
 ``` toml
 model = "gpt-5.5"
 model_provider = "litellm"
@@ -304,20 +337,27 @@ wire_api = "responses"
 ::: {.column width="54%"}
 ![](codex-config-toml.png){fig-alt="Codex config.toml에 LiteLLM 설정을 입력한 화면" width="88%"}
 :::
-:::
+:::::
 
-::: {.highlight-box-gray}
+::: highlight-box-gray
 수업용 LiteLLM 주소와 API 키는 강의 운영 환경에 맞춘 설정이다. 개인 환경에서는 ChatGPT 로그인이나 OpenAI API key 로그인 방식도 사용할 수 있다.
 :::
 
 ## Windows 7 - Codex 실행
 
-작업할 폴더로 이동한 뒤 실행한다.
+::: large
+1. RStudio에서 `File > New Project`로 작업 폴더를 만든다.
+2. **Terminal 탭**(Console 옆)을 연다. 그 폴더에서 자동으로 시작된다.
+3. `codex`를 입력한다.
+:::
 
 ``` powershell
-Set-Location "$env:USERPROFILE\Documents\my_research"
 codex
 ```
+
+::: highlight-box
+API 키를 `.Renviron`에 저장했으므로, 반드시 **RStudio의 Terminal 탭**에서 실행해야 키가 자동으로 적용된다.
+:::
 
 문제가 있으면 먼저 진단한다.
 
@@ -331,7 +371,7 @@ codex doctor
 
 **프로젝트 루트에 두는 AI 지시 파일**
 
-::: {.large}
+::: large
 - Codex가 작업 시작 때 자동으로 읽는 규칙 파일
 - 코딩 스타일, 사용 패키지, 분석 컨벤션 등을 고정
 - **한 번 작성하면 매번 동일한 스타일로 분석**
@@ -387,51 +427,65 @@ my_research/
 - Table 1 footer는 실제 사용된 검정과 일치시키기
 ```
 
-::: {.highlight-box}
+::: highlight-box
 이 AGENTS.md를 한 번 만들어두면, "Table 1 만들어줘"라고만 해도 **항상 같은 스타일**로 생성할 수 있다.
 :::
 
 # 실전: R 데이터분석
 
+## 예제 데이터: smc_example1.csv
+
+PCI(스텐트 시술) 코호트 1,000명. 심혈관 사건(MACCE)과 사망을 추적한 예시 자료다.
+
+::: large
+- **기본 변수**: Sex, Age, Height, Weight, BMI, DM, HTN, Smoking, Number_stent
+- **생존 결과**: MACCE / MACCE_date, Death / Death_date (date = 추적 일수)
+:::
+
 ## 예제 1: 데이터 전처리 (global.R)
 
 **자연어로 지시**:
 
-::: {.prompt-box}
-data 폴더의 엑셀 파일 읽어서 global.R 만들어줘.  
-성별은 factor, 나이/BMI는 numeric으로.  
-DM은 0/1 코딩이고 label은 No/Yes로.
+::: prompt-box
+"<https://raw.githubusercontent.com/jinseob2kim/R-skku-biohrs/main/data/smc_example1.csv>" 읽어서 global.R 만들어줘.
+:::
+
+::: highlight-box-gray
+AGENTS.md에 스타일을 적어두면, 이 한 줄만으로도 아래처럼 varlist·factor·label까지 갖춘 global.R이 만들어진다.
 :::
 
 **Codex가 생성하는 코드**:
 
 ``` r
 library(data.table);library(magrittr);library(jstable)
-a <- readxl::read_excel("data/patient_data.xlsx") %>% data.table
-
-a[, DM := factor(DM, levels = c(0, 1), labels = c("No", "Yes"))]
+url <- "https://raw.githubusercontent.com/jinseob2kim/R-skku-biohrs/main/data/smc_example1.csv"
+a <- fread(url)
 
 varlist <- list(
-  Base = c("Sex", "Age", "BMI", "DM", "HbA1c")
+  Base  = c("Sex", "Age", "BMI", "DM", "HTN", "Smoking", "Number_stent"),
+  Event = c("MACCE", "Death"),
+  Time  = c("MACCE_date", "Death_date")
 )
 
-out <- a[, .SD, .SDcols = c(unlist(varlist))]
-factor_vars <- c("Sex", "DM")
+out <- a[, .SD, .SDcols = unlist(varlist)]
+factor_vars <- c("Sex", "DM", "HTN", "Smoking", "MACCE", "Death")
 out[, (factor_vars) := lapply(.SD, factor), .SDcols = factor_vars]
 conti_vars <- setdiff(names(out), factor_vars)
 out[, (conti_vars) := lapply(.SD, as.numeric), .SDcols = conti_vars]
 
 out.label <- jstable::mk.lev(out)
+for (v in c("DM", "HTN", "Smoking", "MACCE", "Death")) {
+  out.label[variable == v, val_label := c("No", "Yes")]
+}
 ```
 
 ## 예제 2: Table 1
 
 **자연어로 지시**:
 
-::: {.prompt-box}
-DM 기준으로 Table 1 만들어줘.  
-nonnormal 변수는 Age, BMI로.  
-Excel로 저장.
+::: prompt-box
+DM 기준으로 Table 1 만들어줘.\
+Age, BMI는 nonnormal로. Excel로 저장.
 :::
 
 **Codex가 실행하는 코드**:
@@ -446,10 +500,11 @@ tb1 <- jstable::CreateTableOneJS(
   testNonNormal = wilcox.test
 )
 
-ft <- tb1$table %>%
+ft <- tb1$table[, 1:4] %>%              # test, sig 컬럼 제거
+  data.frame(check.names = FALSE) %>%
   cbind(Variable = rownames(.), .) %>%
   flextable::flextable() %>%
-  flextable::set_caption("Table 1. Baseline characteristics") %>%
+  flextable::set_caption("Table 1. Baseline characteristics by DM") %>%
   flextable::add_footer_lines(
     "P by Wilcoxon rank-sum test / Chi-squared or Fisher's exact test"
   )
@@ -459,9 +514,9 @@ ft <- tb1$table %>%
 
 **자연어로 지시**:
 
-::: {.prompt-box}
-DM 여부에 따른 Kaplan-Meier plot 그려줘.  
-p-value 표시하고, JAMA 스타일로.  
+::: prompt-box
+DM 여부에 따른 MACCE Kaplan-Meier plot 그려줘.\
+p-value 표시하고, JAMA 스타일로.\
 ppt로 저장.
 :::
 
@@ -470,14 +525,16 @@ ppt로 저장.
 ``` r
 library(survival);library(jskm);library(officer);library(rvg)
 
-dd <- out  # 분석 데이터
-fmla <- Surv(time, event) ~ DM
+dd <- copy(out)
+dd[, MACCE := as.integer(as.character(MACCE))]   # event는 0/1 정수로
+
+fmla <- Surv(MACCE_date, MACCE) ~ DM
 fit <- eval(substitute(survfit(f, data = dd), list(f = fmla)))
 
 p <- jskm(fit, data = dd, pval = TRUE, table = TRUE,
            marks = FALSE, theme = "jama",
            ystratalabs = c("No DM", "DM"),
-           ystrataname = "DM status")
+           ystrataname = "DM")
 
 # PPT 저장
 doc <- read_pptx() %>%
@@ -490,23 +547,25 @@ print(doc, target = "results/km_plot.pptx")
 
 **자연어로 지시**:
 
-::: {.prompt-box}
-DM의 사망 위험을 Cox regression으로 분석해줘.  
-Age, Sex, BMI 보정하고, label 적용해서 Excel로 저장.
+::: prompt-box
+DM의 MACCE 위험을 Cox regression으로 분석해줘.\
+Age, Sex, HTN 보정하고, label 적용해서 Excel로 저장.
 :::
 
-**Codex가 실행하는 코드**:
+**Codex가 실행하는 코드** (예제 3에 이어서 실행):
 
 ``` r
-fmla <- Surv(time, event) ~ DM + Age + Sex + BMI
-fit <- eval(substitute(coxph(f, data = dd), list(f = fmla)))
+fmla <- Surv(MACCE_date, MACCE) ~ DM + Age + Sex + HTN
+fit <- eval(substitute(coxph(f, data = dd, model = TRUE), list(f = fmla)))
 
 cox_result <- jstable::cox2.display(fit)
 cox_labeled <- jstable::LabeljsCox(cox_result, ref = out.label)
 
 ft <- cox_labeled$table %>%
+  data.frame(check.names = FALSE) %>%
+  cbind(Variable = rownames(.), .) %>%
   flextable::flextable() %>%
-  flextable::set_caption("Table 2. Cox proportional hazards model") %>%
+  flextable::set_caption("Table 2. Cox proportional hazards model for MACCE") %>%
   flextable::add_footer_lines("HR, hazard ratio; CI, confidence interval")
 
 # Excel 저장
@@ -521,7 +580,7 @@ wb$save("results/Tables.xlsx")
 
 **Codex의 강점: 맥락을 기억**
 
-``` {.prompt-box}
+``` prompt-box
 > 위의 Cox 모델에서 DM 유의하면,
   subgroup 분석도 해줘. Sex, Age 65세 기준으로.
   forestploter로 그려서 ppt에 추가.
@@ -542,18 +601,18 @@ wb$save("results/Tables.xlsx")
 
 **구체적일수록 좋다**
 
-| 나쁜 예 | 좋은 예 |
-|---|---|
-| "분석해줘" | "DM 기준 Table 1 만들어줘, nonnormal은 Age" |
+| 나쁜 예       | 좋은 예                                     |
+|---------------|---------------------------------------------|
+| "분석해줘"    | "DM 기준 Table 1 만들어줘, nonnormal은 Age" |
 | "그래프 그려" | "KM plot 그려줘, JAMA 스타일, p-value 표시" |
-| "저장해" | "ppt로 저장, fullsize, 벡터그래픽" |
+| "저장해"      | "ppt로 저장, fullsize, 벡터그래픽"          |
 
 **단계별 지시가 안전**
 
-1. 먼저: "data 폴더의 엑셀 읽어서 구조 보여줘"
-2. 다음: "global.R 만들어줘"
-3. 그 다음: "Table 1 만들어줘"
-4. 마지막: "결과 Excel로 저장"
+1.  먼저: "smc_example1.csv 읽어서 구조 보여줘"
+2.  다음: "global.R 만들어줘"
+3.  그 다음: "DM 기준 Table 1 만들어줘"
+4.  마지막: "결과 Excel로 저장"
 
 ## 자주 쓰는 명령어
 
@@ -571,7 +630,7 @@ codex
 
 **유용한 자연어 패턴**
 
-``` bash  
+``` bash
 > global.R 읽어보고 어떤 변수가 있는지 알려줘
 > analysis.R의 에러 고쳐줘
 > 이 코드 리뷰해줘
@@ -582,13 +641,13 @@ codex
 
 **Codex 사용 방식**
 
-| 방식 | 비용 | 특징 |
-|---|---|---|
-| **수업용 LiteLLM** | 강의 안내 기준 | 수업 중 동일한 설정으로 사용 |
+| 방식                    | 비용             | 특징                         |
+|-------------------------|------------------|------------------------------|
+| **수업용 LiteLLM**      | 강의 안내 기준   | 수업 중 동일한 설정으로 사용 |
 | **ChatGPT 계정 로그인** | 플랜에 따라 다름 | 개인 실습과 일반 사용에 적합 |
-| **OpenAI API key** | 사용량 기반 | 호출량에 따라 과금 |
+| **OpenAI API key**      | 사용량 기반      | 호출량에 따라 과금           |
 
-::: {.highlight-box-blue}
+::: highlight-box-blue
 수업에서는 안내받은 LiteLLM 설정을 사용한다. 개인 계정이나 API key를 쓸 때는 각 서비스의 과금 기준을 확인한다.
 :::
 
@@ -596,28 +655,28 @@ codex
 
 **반드시 확인할 것**
 
-1. **코드 리뷰**: AI가 만든 코드를 반드시 확인
+1.  **코드 리뷰**: AI가 만든 코드를 반드시 확인
 
     - 특히 통계 방법이 맞는지, 변수 코딩이 맞는지
 
-2. **환자 데이터 보안**: Codex는 **로컬에서 실행**
+2.  **환자 데이터 보안**: Codex는 **로컬에서 실행**
 
     - 분석 파일과 명령을 읽고 처리할 수 있으므로 민감정보를 넣지 않는다.
     - 프롬프트에 환자 정보를 직접 입력하지 않는다.
 
-3. **재현성**: global.R + analysis.R + AGENTS.md를 함께 보관
+3.  **재현성**: global.R + analysis.R + AGENTS.md를 함께 보관
 
     - 동일한 지시로 동일한 결과를 다시 확인할 수 있다.
 
-::: {.highlight-box-gray}
+::: highlight-box-gray
 AI는 도구일 뿐이다. 통계적 판단과 결과 해석은 **연구자의 몫**이다.
 :::
 
 ## 설치 후 확인: codex doctor
 
-**설치가 잘 됐는지 한 번에 진단**
+**설치가 잘 됐는지 한 번에 진단** (RStudio Terminal 탭에서)
 
-``` powershell
+``` bash
 codex doctor
 ```
 
@@ -626,12 +685,12 @@ codex doctor
 
 **그래도 안 되면?**
 
-| 상황 | 해결 |
-|---|---|
-| codex 명령어 안 됨 | PATH에 `~/.local/bin` 추가 |
-| R 못 찾음 | Rscript PATH 확인 |
-| 한글 깨짐 | Windows 설정에서 UTF-8 활성화 |
-| 패키지 설치 에러 | Rtools 설치 |
+| 상황               | 해결                          |
+|--------------------|-------------------------------|
+| codex 명령어 안 됨 | PATH에 `~/.local/bin` 추가    |
+| R 못 찾음          | Rscript PATH 확인             |
+| 한글 깨짐          | Windows 설정에서 UTF-8 활성화 |
+| 패키지 설치 에러   | Rtools 설치                   |
 
 ## 정리
 
