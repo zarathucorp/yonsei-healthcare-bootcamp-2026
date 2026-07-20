@@ -1,4 +1,4 @@
-# general_AGENTS.md
+# AGENTS.md
 
 # 분석 스타일
 

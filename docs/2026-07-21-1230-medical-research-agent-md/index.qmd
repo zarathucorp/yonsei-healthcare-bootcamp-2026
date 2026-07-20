@@ -19,7 +19,7 @@ format:
     include-after-body: ../slides_assets/header-inject-fullbg.html
     chalkboard:
       buttons: false
-    preview-links: true
+    preview-links: false
     show-notes: false
     slide-number: c/t
     width: 1600
@@ -66,7 +66,7 @@ AI agent가 분석을 시작하기 전에 읽는 **공통 작업 문서**
 :::
 
 ::: highlight-box-blue
-[AGENTS.md 바로가기](https://zarathucorp.github.io/yonsei-healthcare-bootcamp-2026/2026-07-21-1230-medical-research-agent-md/RACING/general_AGENTS.md)
+[AGENTS.md 바로가기](https://github.com/zarathucorp/yonsei-healthcare-bootcamp-2026/blob/main/AGENTS.md){target="_blank"}
 :::
 
 :::: large
