@@ -1,0 +1,68 @@
+---
+title: "RCT 예시데이터 분석 결과 전<br> 데이터 지우기"
+subtitle: "기본반 2일차"
+author: "김진섭"
+date: "2026.07.21"
+format:
+  revealjs:
+    theme: ../slides_assets/zarathu_theme.scss
+    css:
+      - ../slides_assets/custom-style.css
+      - ../slides_assets/custom-style-fullbg.css
+      - ../slides_assets/custom-xaringan-compat.css
+    title-slide-attributes:
+      data-background-image: ../slides_assets/bg.png
+      data-background-size: cover
+      data-background-opacity: "0.3"
+    footer: "Zarathu Co., Ltd."
+    self-contained: false
+    include-after-body: ../slides_assets/header-inject-fullbg.html
+    chalkboard:
+      buttons: false
+    preview-links: false
+    show-notes: false
+    slide-number: c/t
+    width: 1600
+    height: 900
+execute:
+  echo: false
+  warning: false
+  message: false
+  eval: false
+editor: visual
+---
+
+## 데이터 지우기
+::: space-xs
+:::
+
+::::: columns
+::: {.column width="50%"}
+![](PIC2.png){width="80%"}
+:::
+
+::: {.column width="50%"}
+
+:::highlight-box
+Files 아래 <br>
+Cloud > Project > docs > 2026-07-21-1330-rct-reproduction-project에서 <br>
+**global.R**과 **analysis.R**을 찾는다. 
+:::
+
+:::
+:::::
+
+::::: columns
+::: {.column width="50%"}
+![](PIC4.png){width="80%"}
+:::
+
+::: {.column width="50%"}
+
+:::highlight-box
+global.R과 analysis.R을 선택하여 **Delete**를 누른다. <br>
+Are you sure you want to permanently delete the selected files? This cannot be undone. > **Yes**를 누른다. 
+:::
+
+:::
+:::::
